@@ -1,8 +1,9 @@
 # PortMatrix
 
-This web application is a tool for managing network switching.
+This web application is a tool for managing network switching. It got created as 'Project 2' within the HSR CASFEE
+course by Marco Endres and Peter Fuerholz.
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
+The original setup was generated using IntelliJ's AngularJS-CLI template. See more under [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
