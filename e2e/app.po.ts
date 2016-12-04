@@ -8,4 +8,9 @@ export class PortMatrixPage {
   getParagraphText() {
     return element(by.css('app-root h1')).getText();
   }
+
+  getTitle() {
+    // return element(by.css('app-root h1')).getText();
+    return browser.getTitle();
+  }
 }

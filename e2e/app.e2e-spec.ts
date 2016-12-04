@@ -9,6 +9,11 @@ describe('port-matrix App', function() {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('PortMatrix app works! test');
+  });
+
+  it('should display correct browser title', () => {
+    page.navigateTo();
+    expect(page.getTitle()).toEqual('PortMatrix');
   });
 });

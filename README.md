@@ -4,8 +4,8 @@ This web application is a tool for managing network switching. It got created as
 course by Marco Endres and Peter Fuerholz.
 
 ## Table Of Contents
-[Specification](Specification.MD)
-[Usage](Usage.MD)
+* [Specification](Specification.MD)
+* [Usage](Usage.MD)
 
 
 ## Technical Decisions
@@ -23,3 +23,11 @@ Backend:
 * NodeJS: YES (?)
 * NeDB: ?
 * MongoDB and Mongoose: ? 
+
+## Additional packages
+<dl>
+  <dt>npm install --save-dev @types/core-js</dt>
+  <dd>Needed for 'Promise'</dd>
+  <dt>npm install --save angular-in-memory-web-api</dt>
+  <dd>Needed for development without server backend.</dd>
+</dl>

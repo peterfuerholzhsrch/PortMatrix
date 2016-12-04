@@ -1,0 +1,37 @@
+<h2>Network Switchings</h2>
+<ul class="networkswitchings">
+  <li *ngFor="let nwsw of networkswitchings">
+    <!--        (click)="onSelect(nwsw)"
+            [class.selected]="nwsw === selectedHero"> -->
+    <span>{{nwsw.id}}</span>
+    <span>{{nwsw.state}}</span>
+    <span>{{nwsw.source.group}}</span>
+    <span>{{nwsw.source.host}}</span>
+    <span>{{nwsw.source.ipAddr}}</span>
+    <span>{{nwsw.source.zone}}</span>
+    <span>{{nwsw.destination.group}}</span>
+    <span>{{nwsw.destination.host}}</span>
+    <span>{{nwsw.destination.ipAddr}}</span>
+    <span>{{nwsw.destination.zone}}</span>
+    <span>{{nwsw.destination.port}}</span>
+    <span>{{nwsw.lastTeststate}}</span>
+    <!--        <button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button> -->
+  </li>
+
+</ul>
+
+<!--
+<div>
+  <label>Hero name:</label> <input #heroName/>
+  <button (click)="add(heroName.value); heroName.value=''">
+    Add
+  </button>
+</div>
+
+<div *ngIf="selectedHero">
+  <h2>
+    {{selectedHero.name | uppercase}} is my hero
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>
+-->
