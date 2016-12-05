@@ -24,10 +24,10 @@ Backend:
 * NeDB: ?
 * MongoDB and Mongoose: ? 
 
-## Additional packages
+## Additional Packages
 <dl>
-  <dt>npm install --save-dev @types/core-js</dt>
-  <dd>Needed for 'Promise'</dd>
   <dt>npm install --save angular-in-memory-web-api</dt>
   <dd>Needed for development without server backend.</dd>
 </dl>
+
+## WebStorm Settings
