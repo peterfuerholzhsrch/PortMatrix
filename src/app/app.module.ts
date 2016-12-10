@@ -14,13 +14,15 @@ import { NetworkswitchingsComponent } from "./networkswitchings.component";
 
 import './rxjs-extensions';
 import {NetworkswitchingService} from "./networkswitching.service";
+import { EditNetworkSwitchingComponent } from './edit-network-switching/edit-network-switching.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NetworkswitchingsComponent
+    NetworkswitchingsComponent,
+    EditNetworkSwitchingComponent
   ],
   imports: [
     BrowserModule,

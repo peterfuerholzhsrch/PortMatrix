@@ -1,0 +1,11 @@
+<div *ngIf="nwsw">
+  <h2>{{nwsw.source.host}} zu {{nwsw.destination.host}}  details!</h2>
+  <div>
+    <label>id: </label>{{nwsw.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="nwsw.state" placeholder="name" />
+  </div>
+ <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+</div>
