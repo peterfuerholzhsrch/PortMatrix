@@ -18,10 +18,21 @@ export class NetworkswitchingService {
 
     constructor(private http: Http) { }
 
-  getNetworkswitchings(): Promise<Networkswitching[]> {
-        return this.http.get(this.networkswitchingUrl)
+  /**
+   *
+   * @param offset where to start, 0 = from start
+   * @param limit max number of records to return (via Promise)
+   * @returns {any}
+   */
+    getNetworkswitchings(offset: number, limit: number): Promise<Networkswitching[]> {
+        return this.http.get(this.networkswitchingUrl) // TODO FOR REAL: + `/offset=${offset}&limit=${limit}`)
             .toPromise()
-            .then(response => response.json().data as Networkswitching[])
+            .then(response => {
+                    let nwsws: Networkswitching[] = response.json().data as Networkswitching[];
+                    // TODO FOR TEST: Do paging here:
+                    nwsws = nwsws.length > offset ? nwsws.slice(offset, Math.min(offset + limit, nwsws.length)) : [];
+                    return nwsws;
+                  })
             .catch(this.handleError);
     }
 
@@ -37,18 +48,18 @@ export class NetworkswitchingService {
     // }
 
     getNetworkswitching(id: number): Promise<Networkswitching> {
-        return this.getNetworkswitchings()
+        return this.getNetworkswitchings(0, 1000) // TODO FOR TEST ONLY
             .then(networkswitchings => networkswitchings.find(networkswitching => networkswitching.id === id));
     }
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    update(hero: Networkswitching): Promise<Networkswitching> {
-        const url = `${this.networkswitchingUrl}/${hero.id}`;
+    update(networkswitching: Networkswitching): Promise<Networkswitching> {
+        const url = `${this.networkswitchingUrl}/${networkswitching.id}`;
         return this.http
-            .put(url, JSON.stringify(hero), {headers: this.headers})
+            .put(url, JSON.stringify(networkswitching), {headers: this.headers})
             .toPromise()
-            .then(() => hero)
+            .then(() => networkswitching)
             .catch(this.handleError);
     }
 

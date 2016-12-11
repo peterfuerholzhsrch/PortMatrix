@@ -15,6 +15,7 @@ import { NetworkswitchingsComponent } from "./networkswitchings.component";
 import './rxjs-extensions';
 import {NetworkswitchingService} from "./networkswitching.service";
 
+import {InfiniteScrollModule} from "angular2-infinite-scroll";
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {NetworkswitchingService} from "./networkswitching.service";
     BrowserModule,
     FormsModule,
     HttpModule,
+    InfiniteScrollModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
     AlertModule
