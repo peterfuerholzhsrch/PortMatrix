@@ -1,5 +1,10 @@
 <h2>Network Switchings</h2>
-<div class="networkswitchings">
+<div class="networkswitchings"
+     infinite-scroll
+     [infiniteScrollDistance]="1.5"
+     [infiniteScrollThrottle]="500"
+     (scrolled)="onScrollDown()"
+     (scrolledUp)="onScrollUp()">
   <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', nwsw.id]">
     <!--        (click)="onSelect(nwsw)"
             [class.selected]="nwsw === selectedHero"> -->
