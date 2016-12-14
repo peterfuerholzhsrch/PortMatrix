@@ -1,11 +1,84 @@
 <div *ngIf="nwsw">
-  <h2>{{nwsw.source.host}} zu {{nwsw.destination.host}}  details!</h2>
-  <div>
-    <label>id: </label>{{nwsw.id}}</div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="nwsw.state" placeholder="name" />
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            {{nwsw.source.host}}</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <div>
+            <label>Host</label>
+            <input [(ngModel)]="nwsw.source.host" placeholder="name" />
+          </div>
+          <div>
+            <label>Gruppe</label>
+            <input [(ngModel)]="nwsw.source.group" placeholder="name" />
+          </div>
+          <div>
+            <label>Ip Adresse</label>
+            <input [(ngModel)]="nwsw.source.ipAddr" placeholder="name" />
+          </div>
+          <div>
+            <label>Port</label>
+            <input [(ngModel)]="nwsw.source.port" placeholder="name" />
+          </div>
+          <div>
+            <label>Zone</label>
+            <input [(ngModel)]="nwsw.source.zone" placeholder="name" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+            {{nwsw.destination.host}}</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div>
+            <label>Host</label>
+            <input [(ngModel)]="nwsw.destination.host" placeholder="name" />
+          </div>
+          <div>
+            <label>Gruppe</label>
+            <input [(ngModel)]="nwsw.destination.group" placeholder="name" />
+          </div>
+          <div>
+            <label>Ip Adresse</label>
+            <input [(ngModel)]="nwsw.destination.ipAddr" placeholder="name" />
+          </div>
+          <div>
+            <label>Port</label>
+            <input [(ngModel)]="nwsw.destination.port" placeholder="name" />
+          </div>
+          <div>
+            <label>Zone</label>
+            <input [(ngModel)]="nwsw.destination.zone" placeholder="name" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+            Collapsible Group 3</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat.</div>
+      </div>
+    </div>
   </div>
- <button (click)="goBack()">Back</button>
-  <button (click)="save()">Save</button>
+    <button (click)="goBack()">Back</button>
+    <button (click)="save()">Save</button>
 </div>
