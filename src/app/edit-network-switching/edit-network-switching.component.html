@@ -1,5 +1,9 @@
 <div *ngIf="nwsw">
   <div class="panel-group" id="accordion">
+    <div>
+      <label>ID</label>
+      <span>{{nwsw.id}}</span>
+    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -79,6 +83,7 @@
       </div>
     </div>
   </div>
-    <button (click)="goBack()">Back</button>
-    <button (click)="save()">Save</button>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+  <button (click)="delete()">Delete</button>
 </div>

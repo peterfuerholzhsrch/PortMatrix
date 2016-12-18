@@ -6,6 +6,7 @@ import {Testresult} from "./testresult";
  * Created by pfu on 15/11/16.
  */
 export class Networkswitching {
+  _id: string;
   id: number;
   source: Endpoint;
   destination: Endpoint;

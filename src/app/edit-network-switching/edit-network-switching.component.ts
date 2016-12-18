@@ -20,12 +20,17 @@ export class EditNetworkSwitchingComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.networkswitchingService.getNetworkswitching(+params['id']))
+      .switchMap((params: Params) => this.networkswitchingService.getNetworkswitching(params['id']))
       .subscribe(nwsw => this.nwsw = nwsw);
   }
 
   save(): void {
     this.networkswitchingService.update(this.nwsw)
+      .then(() => this.goBack());
+  }
+
+  delete(): void {
+    this.networkswitchingService.delete(this.nwsw)
       .then(() => this.goBack());
   }
 

@@ -5,7 +5,26 @@
      [infiniteScrollThrottle]="500"
      (scrolled)="onScrollDown()"
      (scrolledUp)="onScrollUp()">
-  <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', nwsw.id]">
+
+  <div>
+    <label for="sort1">Sort Primary By:</label>
+    <select id="sort1" [(ngModel)]="sortingColumn1" (ngModelChange)="sortOrderChanged(sortingColumn1)">
+      <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
+        {{sortingColumn.text}}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="sort2">Sort Secondary By:</label>
+    <select id="sort2" [(ngModel)]="sortingColumn2" (ngModelChange)="sortOrderChanged(sortingColumn1)">
+      <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
+        {{sortingColumn.text}}
+      </option>
+    </select>
+  </div>
+
+
+  <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', nwsw._id]">
     <!--        (click)="onSelect(nwsw)"
             [class.selected]="nwsw === selectedHero"> -->
     <div class="network-row">
