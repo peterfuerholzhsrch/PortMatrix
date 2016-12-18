@@ -30,7 +30,7 @@ import {InfiniteScrollModule} from "angular2-infinite-scroll";
     FormsModule,
     HttpModule,
     InfiniteScrollModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+//    InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule,
     AlertModule
   ],

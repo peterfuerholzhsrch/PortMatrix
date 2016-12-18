@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Networkswitching } from './model/networkswitching';
 import { NetworkswitchingService } from './networkswitching.service';
 
-import { InfiniteScroll } from 'angular2-infinite-scroll';
+
 
 @Component({
     selector: 'nwsw',
@@ -17,6 +17,8 @@ export class NetworkswitchingsComponent implements OnInit {
     private static LIMIT: number = 10;
 
     offset: number = 0;
+    private lastRequestedOffset = null;
+
     networkswitchings: Networkswitching[] = [];
 
     //selectedHero: Hero;
@@ -26,25 +28,40 @@ export class NetworkswitchingsComponent implements OnInit {
     }
 
     getNetworkswitchings(): void {
-        this.networkswitchingService.getNetworkswitchings(this.offset, NetworkswitchingsComponent.LIMIT).
-            then(nwsws => this.networkswitchings.push(...nwsws));
+        this.loadNwsw();
     }
     onScrollDown() {
-      console.log("scrolled down");
-      this.offset = this.networkswitchings.length;
-      this.networkswitchingService.getNetworkswitchings(this.offset, NetworkswitchingsComponent.LIMIT).
-          then(nwsws => {
-              console.log("nwsws=" + nwsws);
-              this.networkswitchings.push(...nwsws)
-              console.log("this.networkswitchings.length=" + this.networkswitchings.length);
-            });
+        console.log("scrolled down");
+        this.loadNwsw();
     }
 
     onScrollUp() {
       console.log("scrolled up");
     }
 
-    // onSelect(hero: Hero): void {
+
+    private reloadNwsw() {
+      this.networkswitchings.splice(0, this.networkswitchings.length); // clear array
+      this.lastRequestedOffset = null;
+      this.loadNwsw();
+    }
+
+
+    private loadNwsw() {
+        this.offset = this.networkswitchings.length;
+        if (this.offset === this.lastRequestedOffset) {
+            return; // already loaded, don't load again...
+        }
+        this.lastRequestedOffset = this.offset;
+        this.networkswitchingService.getNetworkswitchings(this.offset, NetworkswitchingsComponent.LIMIT).
+          then(nwsws => {
+              console.log(`offset=${this.offset}, nwsws=${JSON.stringify(nwsws)}`);
+              this.networkswitchings.push(...nwsws)
+          });
+    }
+
+
+  // onSelect(hero: Hero): void {
     //     this.selectedHero = hero;
     // }
     //

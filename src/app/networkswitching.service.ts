@@ -8,13 +8,12 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Networkswitching } from './model/networkswitching';
-// delete: import { HEROES } from './mock-heroes-delete';
 
 
 @Injectable()
 export class NetworkswitchingService {
 
-    private networkswitchingUrl = 'app/nwsw';  // URL to web api
+    private networkswitchingUrl = 'api/nwsw';  // URL to web api
 
     constructor(private http: Http) { }
 
@@ -25,12 +24,13 @@ export class NetworkswitchingService {
    * @returns {any}
    */
     getNetworkswitchings(offset: number, limit: number): Promise<Networkswitching[]> {
-        return this.http.get(this.networkswitchingUrl) // TODO FOR REAL: + `/offset=${offset}&limit=${limit}`)
+//        return this.http.get(this.networkswitchingUrl)
+        return this.http.get(this.networkswitchingUrl + `?offset=${offset}&limit=${limit}`)
             .toPromise()
             .then(response => {
                     let nwsws: Networkswitching[] = response.json().data as Networkswitching[];
-                    // TODO FOR TEST: Do paging here:
-                    nwsws = nwsws.length > offset ? nwsws.slice(offset, Math.min(offset + limit, nwsws.length)) : [];
+//                    // TODO FOR TEST: Do paging here:
+//                    nwsws = nwsws.length > offset ? nwsws.slice(offset, Math.min(offset + limit, nwsws.length)) : [];
                     return nwsws;
                   })
             .catch(this.handleError);
