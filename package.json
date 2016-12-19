@@ -4,7 +4,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy-conf.json",
     "start2": "$(npm bin)/ng serve",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -24,7 +24,7 @@
     "angular2-infinite-scroll": "^0.2.7",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
-    "jQuery": "^1.7.4",
+    "jquery": "^3.1.1",
     "ng2-bootstrap": "^1.1.16",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
