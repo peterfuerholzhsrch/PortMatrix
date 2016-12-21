@@ -26,8 +26,10 @@ Backend:
 
 ## Additional Packages
 <dl>
-  <dt>npm install --save angular-in-memory-web-api</dt>
-  <dd>Needed for development without server backend.</dd>
+  <dt>npm install --save ng2-bootstrap</dt>
+  <dd>For collapsible pane, modal dialogs etc.</dd>
+  <dt>npm install --save jquery</dt>
+  <dd>Used for Bootstrap.</dd>
 </dl>
 
 ## WebStorm Settings

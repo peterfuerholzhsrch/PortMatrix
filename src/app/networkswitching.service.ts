@@ -62,9 +62,9 @@ export class NetworkswitchingService {
       .catch(this.handleError);
   }
 
-  create(name: string): Promise<Networkswitching> {
+  insert(networkswitching: Networkswitching): Promise<Networkswitching> {
     return this.http
-      .post(this.networkswitchingUrl, JSON.stringify({name: name}), {headers: this.headers})
+      .post(this.networkswitchingUrl, JSON.stringify(networkswitching), {headers: this.headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
