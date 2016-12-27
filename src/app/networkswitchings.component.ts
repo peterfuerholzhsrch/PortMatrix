@@ -18,17 +18,25 @@ export class NetworkswitchingsComponent implements OnInit {
   offset: number = 0;
   private lastRequestedOffset = null;
 
+  // AngularJS2's HTML templates can access component class instance only. So we have to provide the Sorting's constants
+  // as instance members (see http://stackoverflow.com/questions/39193538/how-to-bind-static-variable-of-component-in-html-in-angular-2):
+  public SortingID = Sorting.ID;
+  public SortingSTATE = Sorting.STATE;
+  public SortingUSER = Sorting.USER;
+  public SortingTEST_STATE = Sorting.TEST_STATE;
+  public SortingSOURCE_ZONE = Sorting.SOURCE_ZONE;
+  public SortingSOURCE_GROUP = Sorting.SOURCE_GROUP;
+  public SortingSOURCE_HOST = Sorting.SOURCE_HOST;
+  public SortingSOURCE_IP = Sorting.SOURCE_IP;
+  public SortingDESTINATION_ZONE = Sorting.DESTINATION_ZONE;
+  public SortingDESTINATION_GROUP = Sorting.DESTINATION_GROUP;
+  public SortingDESTINATION_HOST = Sorting.DESTINATION_HOST;
+  public SortingDESTINATION_IP = Sorting.DESTINATION_IP;
+  public SortingDESTINATION_PORT = Sorting.DESTINATION_PORT;
 
   networkswitchings: Networkswitching[] = [];
-  private availableSortingColumns: Array<Sorting> = [
-    new Sorting("ID", "id", true),
-    new Sorting("State", "state", true),
-    new Sorting("Source Group", "source.group", true),
-    new Sorting("Destination Group", "destination.group", true)
-  ];
 
-  sortingColumn1: Sorting = this.availableSortingColumns[1];
-  sortingColumn2: Sorting = this.availableSortingColumns[3];
+  private sortingList: Array<Sorting> = [];
 
 
   /**
@@ -36,6 +44,56 @@ export class NetworkswitchingsComponent implements OnInit {
    * @param router
    */
   constructor(private networkswitchingService: NetworkswitchingService, private router: Router) {
+  }
+
+
+  /**
+   * Resets current sort settings
+   */
+  public resetSorting() {
+    this.sortingList = [];
+    this.reloadNwsw();
+  }
+
+  /**
+   * To be called by a sorting button
+   * @param sortButton
+   */
+  public sortingButtonClicked(sortButton : string) {
+    const sorting = this.getSorting(sortButton);
+    if (sorting) {
+      sorting.ascending = !sorting.ascending;
+    }
+    else {
+      const addSorting = Sorting.getSortingByDbColumn(sortButton);
+      this.sortingList.push(addSorting);
+    }
+    this.reloadNwsw();
+  }
+
+  public isAscending(sortButton: string): Boolean {
+    const sorting = this.getSorting(sortButton);
+    return sorting ? sorting.ascending : null;
+  }
+
+  public getOrder(sortButton: string): Number {
+    const sorting = Sorting.getSortingByDbColumn(sortButton);
+    const sortIndex = this.sortingList.indexOf(sorting);
+    return sortIndex >= 0 ? sortIndex : null;
+  }
+
+  private getSorting(sortButton: string): Sorting {
+    const sorting = Sorting.getSortingByDbColumn(sortButton);
+    const sortIndex = this.sortingList.indexOf(sorting);
+    if (sortIndex >= 0) {
+      return sorting;
+    }
+    return null;
+  }
+
+
+  public sortingChanged() {
+    this.reloadNwsw();
   }
 
 
@@ -70,47 +128,14 @@ export class NetworkswitchingsComponent implements OnInit {
 
 
   private loadNwsw() {
-    // build up sort order string:
-    let sortings = [];
-    sortings.push(this.sortingColumn1);
-    sortings.push(this.sortingColumn2);
-
     this.offset = this.networkswitchings.length;
     if (this.offset === this.lastRequestedOffset) {
       return; // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
-    this.networkswitchingService.getNetworkswitchings(sortings, this.offset, NetworkswitchingsComponent.LIMIT).then(nwsws => {
-      console.log(`offset=${this.offset}, nwsws=${JSON.stringify(nwsws)}`);
+    this.networkswitchingService.getNetworkswitchings(this.sortingList, this.offset, NetworkswitchingsComponent.LIMIT).then(nwsws => {
+      console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`); //, nwsws=${JSON.stringify(nwsws)}`);
       this.networkswitchings.push(...nwsws)
     });
   }
-
-
-  // onSelect(hero: Hero): void {
-  //     this.selectedHero = hero;
-  // }
-  //
-  // add(name: string): void {
-  //     name = name.trim();
-  //     if (!name) { return; }
-  //     this.heroService.create(name)
-  //         .then(hero => {
-  //             this.heroes.push(hero);
-  //             this.selectedHero = null;
-  //         });
-  // }
-  //
-  // gotoDetail(): void {
-  //     this.router.navigate(['/detail', this.selectedHero.id]);
-  // }
-  //
-  // delete(hero: Hero): void {
-  //     this.heroService
-  //         .delete(hero.id)
-  //         .then(() => {
-  //             this.heroes = this.heroes.filter(h => h !== hero);
-  //             if (this.selectedHero === hero) { this.selectedHero = null; }
-  //         });
-  // }
 }

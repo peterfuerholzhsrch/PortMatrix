@@ -6,6 +6,7 @@
      (scrolled)="onScrollDown()"
      (scrolledUp)="onScrollUp()">
 
+<!--
   <div>
     <label for="sort1">Sort Primary By:</label>
     <select id="sort1" [(ngModel)]="sortingColumn1" (ngModelChange)="sortOrderChanged(sortingColumn1)">
@@ -22,7 +23,37 @@
       </option>
     </select>
   </div>
+-->
 
+  <div>
+    <button (click)="resetSorting()">Reset Sorting</button>
+  </div>
+  <div class="networkswitch-header">
+    <div class="network-header-row">
+<!--
+      <button class="sort-btn" (click)="sortingButtonClicked('id')">ID
+        <sort-indicator ascending="{{isAscending('id')}}" order="{{getOrder('id')}}"></sort-indicator>
+      </button>
+    -->
+      <sort-button [sorting]="SortingID" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingSTATE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingUSER" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingTEST_STATE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+    </div>
+    <div class="network-header-row">
+      <sort-button [sorting]="SortingSOURCE_ZONE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingSOURCE_GROUP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingSOURCE_HOST" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingSOURCE_IP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+    </div>
+    <div class="network-header-row">
+      <sort-button [sorting]="SortingDESTINATION_ZONE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingDESTINATION_GROUP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingDESTINATION_HOST" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingDESTINATION_IP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+      <sort-button [sorting]="SortingDESTINATION_PORT" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+    </div>
+  </div>
 
   <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', nwsw._id]">
     <!--        (click)="onSelect(nwsw)"
@@ -30,38 +61,24 @@
     <div class="network-row">
       <div>{{nwsw.id}}</div>
       <div>{{nwsw.state}}</div>
+      <div>{{nwsw.user}}</div>
+      <div>{{nwsw.getLastTeststate()}}</div>
+    </div>
+    <div class="network-row">
+      <div>{{nwsw.source.zone}}</div>
       <div>{{nwsw.source.group}}</div>
       <div>{{nwsw.source.host}}</div>
+      <div>{{nwsw.source.ipAddr}}</div>
     </div>
     <div class="network-row">
-      <div>{{nwsw.source.ipAddr}}</div>
-      <div>{{nwsw.source.zone}}</div>
+      <div>{{nwsw.destination.zone}}</div>
       <div>{{nwsw.destination.group}}</div>
       <div>{{nwsw.destination.host}}</div>
-    </div>
-    <div class="network-row">
       <div>{{nwsw.destination.ipAddr}}</div>
-      <div>{{nwsw.destination.zone}}</div>
       <div>{{nwsw.destination.port}}</div>
-      <div>{{nwsw.lastTeststate}}</div>
     </div>
     <!--        <button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button> -->
   </div>
 
 </div>
 
-<!--
-<div>
-  <label>Hero name:</label> <input #heroName/>
-  <button (click)="add(heroName.value); heroName.value=''">
-    Add
-  </button>
-</div>
-
-<div *ngIf="selectedHero">
-  <h2>
-    {{selectedHero.name | uppercase}} is my hero
-  </h2>
-  <button (click)="gotoDetail()">View Details</button>
-</div>
--->

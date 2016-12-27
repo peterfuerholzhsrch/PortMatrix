@@ -99,6 +99,7 @@ Same as Source but additionally:
 
 And on opening 'Additional' we have:
 
+* ID: User can use this field for unique identification. If filled out, it must be unique.
 * Status: Combobox with defined values, default value is first element
 * Protocol: String
 * Comment: Multi-Line-String
@@ -107,7 +108,7 @@ And on opening 'Additional' we have:
 ![alt text](SpecificationMobileUpdateNws1.png "Update Network Switching on Mobile")
 When clicking 'Show History' a new page is presented with:
 
-* source, destination and protocol
+* ID, source, destination and protocol
 * a table showing:
   * 3 columns: Date (e.g. '23.11.2016 21:45:30' (or similar)), User, Event
   * following events shall be contained:

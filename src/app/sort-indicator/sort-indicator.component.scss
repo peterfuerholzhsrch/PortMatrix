@@ -1,0 +1,29 @@
+// from https://css-tricks.com/snippets/css/css-triangle/
+.arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid red;
+  //vertical-align: baseline;
+  display: inline-block;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid red;
+  //vertical-align: baseline;
+  display: inline-block;
+}
+
+// produces .sort1 until .sort15 with content "1" 'til "15":
+@for $i from 1 through 15 { /*at least the amount of columns to sort on*/
+  .sort#{$i}::after {
+    content: "#{$i}";
+    font-size: 70%;
+    color: red;
+  }
+}

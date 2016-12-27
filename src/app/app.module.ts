@@ -15,13 +15,17 @@ import {NetworkswitchingService} from "./networkswitching.service";
 import { EditNetworkSwitchingComponent } from './edit-network-switching/edit-network-switching.component';
 
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import { SortIndicator } from './sort-indicator/sort-indicator.component';
+import { SortButtonComponent } from './sort-button/sort-button.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NetworkswitchingsComponent,
-    EditNetworkSwitchingComponent
+    EditNetworkSwitchingComponent,
+    SortIndicator,
+    SortButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ export class NetworkswitchingService {
     return this.http.get(this.networkswitchingUrl + `?sort=${sortingQuery}&offset=${offset}&limit=${limit}`)
       .toPromise()
       .then(response => {
-        let nwsws: Networkswitching[] = response.json().data as Networkswitching[];
+        let nwsws: Networkswitching[] = Networkswitching.jsonArrToObjArr(response.json().data);
         return nwsws;
       })
       .catch(this.handleError);
@@ -46,7 +46,7 @@ export class NetworkswitchingService {
     return this.http.get(this.networkswitchingUrl + "/" + id)
       .toPromise()
       .then(response => {
-        let nwsw: Networkswitching = response.json() as Networkswitching;
+        let nwsw: Networkswitching = Networkswitching.jsonToObj(response.json());
         return nwsw;
       })
       .catch(this.handleError);
@@ -71,7 +71,7 @@ export class NetworkswitchingService {
   }
 
   delete(networkswitching: Networkswitching): Promise<void> {
-    const url = `${this.networkswitchingUrl}/${networkswitching._id}`;
+    const url = `${this.networkswitchingUrl}/${networkswitching.getId()}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)

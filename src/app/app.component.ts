@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation} from '@angular/core';
 import { NetworkswitchingService } from './networkswitching.service';
 import { Networkswitching } from './model/networkswitching';
+import {Response} from "@angular/http";
 
 
 @Component({
@@ -12,10 +13,15 @@ import { Networkswitching } from './model/networkswitching';
 export class AppComponent {
   title = 'PortMatrix app works!';
 
+  errorMessage = '';
+
   constructor(private networkswitchingService: NetworkswitchingService) {
   }
 
 
+  /**
+   * JUST FOR TESTING
+   */
   insert(): void {
 
     this.networkswitchingService.insert({
@@ -37,7 +43,10 @@ export class AppComponent {
       },
       "protocol": "tcp",
       "remark": null
-    } as Networkswitching);
+    } as Networkswitching).catch((error: Response) => {
+        this.errorMessage = error.text();
+      }
+    );
   }
 
 }

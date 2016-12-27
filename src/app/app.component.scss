@@ -9,12 +9,17 @@ h1 {
   background-color: red;
 }
 
-.network-row {
+.network-row,
+.network-header-row {
   display: flex;
   justify-content: space-between;
 
   > div {
     width: 20%;
     padding: 0 10px;
+  }
+
+  > sort-button {
+    width: 25%;
   }
 }
