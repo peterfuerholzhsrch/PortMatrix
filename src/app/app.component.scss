@@ -1,12 +1,29 @@
 @import "../variables";
+@import "../_mixinsAndFunctions";
+
+
+.networkswitchings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .networkswitch {
   border: 1px solid $border-color;
+  margin-top: prem(20);
+  margin-bottom: prem(20);
+  border-radius: $border-radius;
+
+   &:hover {
+     background-color: lighten(#193e84, 65%);
+     cursor: pointer;
+   }
 }
 
 
-h1 {
-  background-color: red;
+.logo {
+  max-height: prem(150);
+  width: auto;
 }
 
 .network-row {
