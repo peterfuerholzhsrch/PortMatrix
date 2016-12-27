@@ -7,23 +7,26 @@
      (scrolledUp)="onScrollUp()">
 
 <!--
-  <div>
-    <label for="sort1">Sort Primary By:</label>
-    <select id="sort1" [(ngModel)]="sortingColumn1" (ngModelChange)="sortOrderChanged(sortingColumn1)">
-      <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
-        {{sortingColumn.text}}
-      </option>
-    </select>
-  </div>
-  <div>
-    <label for="sort2">Sort Secondary By:</label>
-    <select id="sort2" [(ngModel)]="sortingColumn2" (ngModelChange)="sortOrderChanged(sortingColumn1)">
-      <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
-        {{sortingColumn.text}}
-      </option>
-    </select>
-  </div>
+    <div>
+      <label for="sort1">Sort Primary By:</label>
+      <select id="sort1" [(ngModel)]="sortingColumn1" (ngModelChange)="sortOrderChanged(sortingColumn1)">
+        <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
+          {{sortingColumn.text}}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="sort2">Sort Secondary By:</label>
+      <select id="sort2" [(ngModel)]="sortingColumn2" (ngModelChange)="sortOrderChanged(sortingColumn1)">
+        <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
+          {{sortingColumn.text}}
+        </option>
+      </select>
+    </div>
 -->
+  <div class="networkswitchings-header">
+    <button class="btn btn-default add-networkswitch" (click)="insert()">Create New Network Switching</button>
+  </div>
 
   <div>
     <button (click)="resetSorting()">Reset Sorting</button>
