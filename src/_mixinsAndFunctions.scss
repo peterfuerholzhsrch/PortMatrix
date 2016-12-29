@@ -1,6 +1,5 @@
-@import "variables";
 
-@function prem($px, $base: $base-font-size) {
+@function prem($px, $base: 16) {
   @return #{$px / $base}rem;
 }
 

@@ -1,5 +1,12 @@
+@import "mixinsAndFunctions";
+
 $border-color: #eee;
-$base-font-size: 16;
+$gray: #eee;
 $primary-color: #193e84;
 $primary-color-dark: #051861;
-$border-radius: 4px;
+$border-radius: prem(4);
+$default-transition: 0.3s;
+
+$default-space: prem(15);
+
+$base-font-size: 16px;

@@ -1,23 +1,4 @@
-// from https://css-tricks.com/snippets/css/css-triangle/
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid red;
-  //vertical-align: baseline;
-  display: inline-block;
-}
-
-.arrow-down {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid red;
-  //vertical-align: baseline;
-  display: inline-block;
-}
+@import "../../variables";
 
 // produces .sort1 until .sort15 with content "1" 'til "15":
 @for $i from 1 through 15 { /*at least the amount of columns to sort on*/
@@ -27,3 +8,24 @@
     color: red;
   }
 }
+
+.sort-indicator {
+  float: right;
+  background-color: $gray;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-bottom-right-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  width: prem(50);
+  align-items: center;
+  border-left: 1px solid #ccc;
+
+  > .number {
+    margin-left: prem(3);
+  }
+}
+
