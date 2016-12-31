@@ -1,21 +1,19 @@
 /**
  * Created by pfu on 17/11/16.
  */
-import { NgModule }             from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { NetworkswitchingsComponent }   from './networkswitchings.component';
-import {AppComponent} from "./app.component";
+import {NgModule}             from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {NetworkswitchingsBrowserComponent}   from './network-switchings-browser/network-switchings-browser.component';
 import {EditNetworkSwitchingComponent} from "./edit-network-switching/edit-network-switching.component";
 
 const routes: Routes = [
-    { path: '', redirectTo: '/nwsw', pathMatch: 'full' },
-//    { path: 'dashboard',  component: AppComponent },
-    { path: 'nwsw',  component: NetworkswitchingsComponent },
-    { path: 'detail/:id', component: EditNetworkSwitchingComponent },
-//    { path: 'heroes',     component: HeroesComponent }
+  {path: '', redirectTo: '/nwsw', pathMatch: 'full'},
+  {path: 'nwsw', component: NetworkswitchingsBrowserComponent},
+  {path: 'detail/:id', component: EditNetworkSwitchingComponent}
 ];
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
-    exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

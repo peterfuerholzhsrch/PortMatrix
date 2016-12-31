@@ -23,16 +23,21 @@ export class NetworkswitchingService {
   }
 
   /**
+   * @parama filter
    * @param sorting
    * @param offset where to start, 0 = from start
    * @param limit max number of records to return (via Promise)
    * @returns {any}
    */
-  getNetworkswitchings(sorting: Sorting[], offset: number, limit: number): Promise<Networkswitching[]> {
+  getNetworkswitchings(filter: string, sorting: Sorting[], offset: number, limit: number): Promise<Networkswitching[]> {
 
-    let sortingQuery = encodeURIComponent(sorting.map(sort => sort.toRestQuery()).join(','));
+    filter = encodeURIComponent(filter);
+    const filterQuery = filter ? `&q=${filter}` : '';
 
-    return this.http.get(this.networkswitchingUrl + `?sort=${sortingQuery}&offset=${offset}&limit=${limit}`)
+    const sortingQueryPart = encodeURIComponent(sorting.map(sort => sort.toRestQuery()).join(','));
+    const sortingQuery = `?sort=${sortingQueryPart}&offset=${offset}&limit=${limit}`;
+
+    return this.http.get(this.networkswitchingUrl + sortingQuery + filterQuery)
       .toPromise()
       .then(response => {
         let nwsws: Networkswitching[] = Networkswitching.jsonArrToObjArr(response.json().data);

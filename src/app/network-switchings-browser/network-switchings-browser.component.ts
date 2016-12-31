@@ -2,16 +2,20 @@ import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Networkswitching} from './model/networkswitching';
-import {NetworkswitchingService} from './networkswitching.service';
-import {Sorting} from './model/Sorting';
+import {Networkswitching} from '../model/networkswitching';
+import {NetworkswitchingService} from '../networkswitching.service';
+import {Sorting} from '../model/Sorting';
+import {Observable, Subject} from "rxjs";
 
 
 @Component({
-  selector: 'nwsw',
-  templateUrl: "networkswitchings.component.html",
+  selector: 'network-switchings-browser',
+  templateUrl: "network-switchings-browser.component.html",
 })
-export class NetworkswitchingsComponent implements OnInit {
+export class NetworkswitchingsBrowserComponent implements OnInit {
+
+  private searchTermObservable = new Subject<string>();
+  private searchTerm: string = "";
 
   private static LIMIT: number = 10;
 
@@ -44,6 +48,17 @@ export class NetworkswitchingsComponent implements OnInit {
    * @param router
    */
   constructor(private networkswitchingService: NetworkswitchingService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+
+    // execute search when user entered a new value and after last keyup of 500ms:
+    this.searchTermObservable
+      .debounceTime(500)
+      .distinctUntilChanged()
+      .subscribe((searchTerm) => { this.reloadNwsw() });
+
+    this.getNetworkswitchings();
   }
 
 
@@ -91,15 +106,10 @@ export class NetworkswitchingsComponent implements OnInit {
     return null;
   }
 
-
   public sortingChanged() {
     this.reloadNwsw();
   }
 
-
-  ngOnInit(): void {
-    this.getNetworkswitchings();
-  }
 
   getNetworkswitchings(): void {
     this.loadNwsw();
@@ -120,6 +130,12 @@ export class NetworkswitchingsComponent implements OnInit {
   }
 
 
+  public search(searchTerm: string): void {
+    this.searchTerm = "'" + searchTerm + "'"; // "'" -> use 'string' search);
+    this.searchTermObservable.next(this.searchTerm);
+  }
+
+
   private reloadNwsw() {
     this.networkswitchings.splice(0, this.networkswitchings.length); // clear array
     this.lastRequestedOffset = null;
@@ -133,9 +149,13 @@ export class NetworkswitchingsComponent implements OnInit {
       return; // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
-    this.networkswitchingService.getNetworkswitchings(this.sortingList, this.offset, NetworkswitchingsComponent.LIMIT).then(nwsws => {
-      console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`); //, nwsws=${JSON.stringify(nwsws)}`);
-      this.networkswitchings.push(...nwsws)
-    });
+    this.networkswitchingService.getNetworkswitchings(this.searchTerm,
+                                                      this.sortingList,
+                                                      this.offset,
+                                                      NetworkswitchingsBrowserComponent.LIMIT).
+      then(nwsws => {
+        console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`);
+        this.networkswitchings.push(...nwsws)
+      });
   }
 }

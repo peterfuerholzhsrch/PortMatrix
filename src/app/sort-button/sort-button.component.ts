@@ -14,7 +14,7 @@ import { Sorting } from '../model/Sorting';
 export class SortButtonComponent {
   public sorting: Sorting;
   public sortingList: Array<Sorting>;
-  public sortingChanged: EventEmitter<Array<Sorting>> = new EventEmitter();
+  public sortingChanged: EventEmitter<Array<Sorting>> = new EventEmitter<Array<Sorting>>();
 
   constructor() { }
 

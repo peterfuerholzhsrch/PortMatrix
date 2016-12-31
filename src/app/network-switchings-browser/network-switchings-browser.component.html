@@ -25,6 +25,20 @@
     </div>
 -->
 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+          Filtering
+        </a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <label for="searchInput">Search for</label>
+      <input #searchInp id="searchInput" (keyup)="search(searchInp.value)"/>
+    </div>
+  </div>
+
   <div class="networkswitch-header">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="pill" href="#sorting-general">Sorting general</a></li>
