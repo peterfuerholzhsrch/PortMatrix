@@ -24,30 +24,21 @@
       </select>
     </div>
 -->
-
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-          Filtering
-        </a>
-      </h4>
-    </div>
-    <div id="collapse1" class="panel-collapse collapse">
-      <label for="searchInput">Search for</label>
-      <input #searchInp id="searchInput" (keyup)="search(searchInp.value)"/>
-    </div>
+  <div>
+    <h2>Filtering</h2>
+    <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
   </div>
 
   <div class="networkswitch-header">
+    <h2>Sorting</h2>
     <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="pill" href="#sorting-general">Sorting general</a></li>
-      <li><a data-toggle="pill" href="#sorting-source">Sorting source</a></li>
-      <li><a data-toggle="pill" href="#sorting-destination">Sorting destination</a></li>
-      <button class="btn btn-default pull-right" (click)="resetSorting()">Reset Sorting</button>
+      <li class="active"><a data-toggle="pill" href="#sorting-general">General</a></li>
+      <li><a data-toggle="pill" href="#sorting-source">Source</a></li>
+      <li><a data-toggle="pill" href="#sorting-destination">Destination</a></li>
+      <button class="btn btn-default pull-right reset" (click)="resetSorting()">Reset Sorting</button>
     </ul>
 
-    <div class="tab-content">
+    <div class="tab-content well">
       <div id="sorting-general" class="network-header-row tab-pane in active">
   <!--
         <button class="sort-btn" (click)="sortingButtonClicked('id')">ID

@@ -4,19 +4,27 @@
 
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: $base-font-size;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: $default-space;
 }
 
 
 header {
-  background: linear-gradient(top,$primary-color, $primary-color-dark);
+  background: linear-gradient(to top ,$primary-color, $primary-color-dark);
   color: #fff;
 }
 
 .header-container {
   display: flex;
   justify-content: center;
+  height: prem(100);
+  align-items: center;
 }
 
 .body-container {

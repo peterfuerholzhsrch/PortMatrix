@@ -11,6 +11,7 @@ import {Observable, Subject} from "rxjs";
 @Component({
   selector: 'network-switchings-browser',
   templateUrl: "network-switchings-browser.component.html",
+  styleUrls: ['./network-switchings-browser.component.scss'],
 })
 export class NetworkswitchingsBrowserComponent implements OnInit {
 

@@ -4,9 +4,9 @@ import { Sorting } from '../model/Sorting';
 @Component({
   selector: 'sort-button',
   template: `<button class="sort-btn btn btn-default" (click)="sortingButtonClicked(sorting.dbColumn)">{{sorting.text}}
+              </button>
                 <sort-indicator ascending="{{isAscending(sorting.dbColumn)}}" order="{{getOrder(sorting.dbColumn)}}">
-                </sort-indicator>
-              </button>`,
+                </sort-indicator>`,
   styleUrls: ['./sort-button.component.scss'],
   inputs: ['sorting', 'sortingList' ],
   outputs: ['sortingChanged']
