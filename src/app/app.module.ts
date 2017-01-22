@@ -16,6 +16,7 @@ import {EditNetworkSwitchingComponent} from './edit-network-switching/edit-netwo
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {SortIndicator} from './sort-indicator/sort-indicator.component';
 import {SortButtonComponent} from './sort-button/sort-button.component';
+import { CreateNetworkSwitchingComponent } from './create-network-switching/create-network-switching.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {SortButtonComponent} from './sort-button/sort-button.component';
     NetworkswitchingsBrowserComponent,
     EditNetworkSwitchingComponent,
     SortIndicator,
-    SortButtonComponent
+    SortButtonComponent,
+    CreateNetworkSwitchingComponent
   ],
   imports: [
     BrowserModule,

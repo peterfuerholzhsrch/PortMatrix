@@ -125,6 +125,10 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     console.log("scrolled up");
   }
 
+  insert() {
+    this.router.navigate(['./create']);
+  }
+
   public sortOrderChanged(sortingColumn) {
     console.log("new sorting: " + sortingColumn.dbColumn);
     this.reloadNwsw();

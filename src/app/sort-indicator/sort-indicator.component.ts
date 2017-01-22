@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'sort-indicator',
-  template: '<span class="sort-indicator"><span class="glyphicon {{getArrowClass()}}"></span><span class="number">{{getSortOrder()}}</span></span>',
+  template: '<span class="sort-indicator"><span class="glyphicon {{getArrowClass()}}" aria-hidden="true"></span><span class="number">{{getSortOrder()}}</span></span>',
   styleUrls: ['./sort-indicator.component.scss'],
   inputs: ['ascending', 'order' ]
 })
