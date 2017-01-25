@@ -1,0 +1,129 @@
+<div *ngIf="nwsw">
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            General
+          </a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <div class="networkswitch-part">
+            <div>
+              <label class="networkswitch-label">_id</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw._id" placeholder="_id" />
+            </div>
+            <div>
+              <label class="networkswitch-label">id</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.id" placeholder="id" />
+            </div>
+            <div>
+              <label class="networkswitch-label">protocol</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.protocol" placeholder="protocol" />
+            </div>
+            <div>
+              <label class="networkswitch-label">state</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.state" placeholder="state" />
+            </div>
+            <div>
+              <label class="networkswitch-label">remark</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.remark" placeholder="remark" />
+            </div>
+          </div>
+          <div class="networkswitch-part">
+            <div>
+              <label class="networkswitch-label">user</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.user" placeholder="user" />
+            </div>
+            <div>
+              <label class="networkswitch-label">testresultList</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.testresultList" placeholder="testresultList" />
+            </div>
+            <div>
+              <label class="networkswitch-label">creationDate</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.creationDate" placeholder="creationDate" />
+            </div>
+            <div>
+              <label class="networkswitch-label">lastchangeDate</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.lastchangeDate" placeholder="lastchangeDate" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+            Host: {{nwsw.source.host}}
+          </a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="networkswitch-part">
+            <div>
+              <label class="networkswitch-label">Host</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.source.host" placeholder="Host" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Gruppe</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.source.group" placeholder="Gruppe" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Ip Adresse</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" placeholder="Ip Adresse" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Port</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.source.port" placeholder="Port" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Zone</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.source.zone" placeholder="Zone" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+            Destination: {{nwsw.destination.host}}
+          </a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div class="networkswitch-part">
+            <div>
+              <label class="networkswitch-label">Host</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.destination.host" placeholder="Host" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Gruppe</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.destination.group" placeholder="Gruppe" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Ip Adresse</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.destination.ipAddr" placeholder="Ip Adresse" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Port</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.destination.port" placeholder="Port" />
+            </div>
+            <div>
+              <label class="networkswitch-label">Zone</label>
+              <input class="networkswitch-value" [(ngModel)]="nwsw.destination.zone" placeholder="Zone" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+</div>
