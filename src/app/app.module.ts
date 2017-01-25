@@ -30,7 +30,7 @@ import {CreateNetworkSwitchingComponent} from './create-network-switching/create
     EditNetworkSwitchingComponent,
     SortIndicator,
     SortButtonComponent,
-    CreateNetworkSwitchingComponent
+    CreateNetworkSwitchingComponent,
     SortButtonComponent,
     UserManagementComponent
   ],

@@ -1,6 +1,7 @@
 import {Http} from '@angular/http';
 
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {UserAndProject} from './model/userAndProject';
 import {User} from './model/user';
 import {CommonRestService} from "./common-rest.service";
 
@@ -16,12 +17,12 @@ export class UserManagementService extends CommonRestService {
   }
 
 
-  public addUser(email: string, password: string): Promise<User> {
+  public addUser(email: string, password: string): Promise<UserAndProject> {
     return this.addUserToProject(email, password, null);
   }
 
 
-  addUserToProject(email: string, password: string, projectId: string): Promise<User> {
+  addUserToProject(email: string, password: string, projectId: string): Promise<UserAndProject> {
     const params = { email: email, password: password };
     if (projectId) {
       params['referencedProject'] = projectId;
@@ -35,7 +36,7 @@ export class UserManagementService extends CommonRestService {
     return this.post(UserManagementService.USERS_URL, params)
       .toPromise()
       .then(response => {
-        return User.jsonToObj(response.json());
+        return UserAndProject.jsonToObj(response.json());
       })
       .catch(UserManagementService.handleError);
   }

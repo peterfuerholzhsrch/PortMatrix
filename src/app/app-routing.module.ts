@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/nwsw', pathMatch: 'full'},
   {path: 'nwsw', component: NetworkswitchingsBrowserComponent},
   {path: 'detail/:id', component: EditNetworkSwitchingComponent},
-  {path: 'user', component: UserManagementComponent}
+  {path: 'user', component: UserManagementComponent},
   {path: 'detail/:id', component: EditNetworkSwitchingComponent},
   {path: 'create', component: CreateNetworkSwitchingComponent}
 ];

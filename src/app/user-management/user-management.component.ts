@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../model/user";
+import {Project} from "../model/project";
 import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
 
@@ -44,14 +45,14 @@ export class UserManagementComponent implements OnInit {
   registerUser(): void {
     if (this.assignedProjectId) {
       this.userManagementService.addUserToProject(this.user.email, this.user.password, this.assignedProjectId)
-        .then((jsonUser) => {
-          this.user.updateUser(jsonUser); // save _id
-          this.openProject(this.assignedProjectId)
+        .then((userAndProject) => {
+          this.user.updateUser(userAndProject.user); // save _id
+          this.openProject(userAndProject.project)
         }, this.handleError);
     }
     else {
       this.userManagementService.addUser(this.user.email, this.user.password)
-        .then((response) => this.openProject(response.project), this.handleError);
+        .then((userAndProject) => this.openProject(userAndProject.project), this.handleError);
     }
   }
 
