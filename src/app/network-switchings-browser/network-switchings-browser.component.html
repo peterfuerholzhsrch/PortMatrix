@@ -1,4 +1,7 @@
-<h2>Network Switchings</h2>
+<div class="networkswitchings-header">
+  <h2>Network Switchings</h2>
+  <button class="btn btn-default add-networkswitch" (click)="insert()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create New Network Switching</button>
+</div>
 <div class="networkswitchings"
      infinite-scroll
      [infiniteScrollDistance]="1.5"
@@ -24,18 +27,16 @@
       </select>
     </div>
 -->
-  <div>
-    <h2>Filtering</h2>
+  <div class="networkswitchings-filter">
     <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
   </div>
 
-  <div class="networkswitch-header">
-    <h2>Sorting</h2>
+  <div class="networkswitch-sorting">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="pill" href="#sorting-general">General</a></li>
       <li><a data-toggle="pill" href="#sorting-source">Source</a></li>
       <li><a data-toggle="pill" href="#sorting-destination">Destination</a></li>
-      <button class="btn btn-default pull-right reset" (click)="resetSorting()">Reset Sorting</button>
+      <button class="btn btn-default pull-right reset" (click)="resetSorting()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>Reset Sorting</button>
     </ul>
 
     <div class="tab-content well">

@@ -20,6 +20,7 @@ import {UserManagementComponent} from './user-management/user-management.compone
 import {UserManagementService} from "./user-management.service";
 import {ProjectService} from "./project.service";
 import {CommonRestService} from "./common-rest.service";
+import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
 
 
 @NgModule({
@@ -28,6 +29,8 @@ import {CommonRestService} from "./common-rest.service";
     NetworkswitchingsBrowserComponent,
     EditNetworkSwitchingComponent,
     SortIndicator,
+    SortButtonComponent,
+    CreateNetworkSwitchingComponent
     SortButtonComponent,
     UserManagementComponent
   ],
