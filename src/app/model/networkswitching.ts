@@ -3,10 +3,11 @@ import {Testresult} from "./testresult";
 
 
 /**
+ * Model class for Network Switchings.
  * Created by pfu on 15/11/16.
  */
 export class Networkswitching {
-  _id: string = null;
+  private _id: string = null;
   id: number;
   source: Endpoint;
   destination: Endpoint;

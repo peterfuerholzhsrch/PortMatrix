@@ -25,6 +25,7 @@ A user can take part in one project only.
 The user interface shall be implemented in English only.
 
 A network switching shall be defined only once. A network switching is defined by:
+
 * source (defined by hostname or IP address)
 * destination (defined by hostname or IP address)
 * a protocol (typically TCP or UDP)
@@ -36,8 +37,7 @@ _Prio 2:_ Unregistered users are able to immediately see the project (read-only)
 
 A user is represented by an email and his password.
 
-Currently it is foreseen to have one type of user only. This means invited (and registered) users have the same rights
-as the project creator.
+Currently it is foreseen to have one type of user only. This means invited (and registered) users have the same rights as the project creator.
 
 ## Use Cases
 

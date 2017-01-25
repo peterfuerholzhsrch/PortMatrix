@@ -16,6 +16,10 @@ import {EditNetworkSwitchingComponent} from './edit-network-switching/edit-netwo
 import {InfiniteScrollModule} from "angular2-infinite-scroll";
 import {SortIndicator} from './sort-indicator/sort-indicator.component';
 import {SortButtonComponent} from './sort-button/sort-button.component';
+import {UserManagementComponent} from './user-management/user-management.component';
+import {UserManagementService} from "./user-management.service";
+import {ProjectService} from "./project.service";
+import {CommonRestService} from "./common-rest.service";
 
 
 @NgModule({
@@ -24,7 +28,8 @@ import {SortButtonComponent} from './sort-button/sort-button.component';
     NetworkswitchingsBrowserComponent,
     EditNetworkSwitchingComponent,
     SortIndicator,
-    SortButtonComponent
+    SortButtonComponent,
+    UserManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,7 @@ import {SortButtonComponent} from './sort-button/sort-button.component';
     AppRoutingModule,
     AlertModule
   ],
-  providers: [NetworkswitchingService],
+  providers: [CommonRestService, NetworkswitchingService, UserManagementService, ProjectService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

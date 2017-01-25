@@ -1,0 +1,87 @@
+
+<!-- implemented according https://angular.io/docs/ts/latest/guide/forms.html -->
+<h1>PortMatrix User Management</h1>
+<form #loginForm="ngForm">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email"
+           class="form-control"
+           type="text"
+           placeholder="email"
+           required
+           [(ngModel)]="user.email"
+           name="email"
+           #email="ngModel"/>
+    <div [hidden]="email.valid || email.pristine"
+         class="alert alert-danger">
+      Email is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password"
+           class="form-control"
+           type="password"
+           placeholder="password"
+           required
+           [(ngModel)]="user.password"
+           name="password"
+           #password="ngModel"/>
+    <div [hidden]="password.valid || password.pristine"
+         class="alert alert-danger">
+      Password is required
+    </div>
+  </div>
+
+  <!-- -->
+  <div [hidden]="!errormessage"
+       class="alert alert-danger">
+    {{errormessage}}
+  </div>
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="login()"
+          [disabled]="!loginForm.form.valid">
+    Login
+  </button>
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="initUser(); loginForm.reset()">
+    Reset
+  </button>
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="logout()"
+          [disabled]="!isLoggedIn()">
+    Logout (TODO move to Menue)
+  </button> <!-- TODO Move somewhere else -->
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="registerUser()"
+          [disabled]="isLoggedIn()">
+    Sign Up
+  </button>
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="updateUser()">
+    Password forgotten (TODO Delete?)
+  </button> <!-- TODO Move somewhere else -->
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="updateUser()">
+    Change Password (TODO Delete?)
+  </button>
+
+  <button type="button"
+          class="btn btn-default"
+          (click)="deleteUser()"
+          [disabled]="!isLoggedIn()">
+    Delete User (TODO show 'are you sure?' before executing)
+  </button>
+</form>

@@ -1,29 +1,29 @@
 /**
  * Created by pfu on 15/11/16.
  */
+import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
-
-import {Headers, Http} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
 import {Networkswitching} from './model/networkswitching';
 import {Sorting} from './model/Sorting';
+import {CommonRestService} from "./common-rest.service";
+
 
 
 @Injectable()
-export class NetworkswitchingService {
+export class NetworkswitchingService extends CommonRestService {
 
-  private networkswitchingUrl = 'api/nwsw';  // URL to web api
+  private static NETWORKSWITCHING_URL = 'api/nwsw';  // URL to web api
 
-  private headers = new Headers({'Content-Type': 'application/json'});
-
-
-  constructor(private http: Http) {
+  constructor(http: Http) {
+    super(http);
   }
 
+
   /**
-   * @parama filter
+   * @param filter text to filter on
    * @param sorting
    * @param offset where to start, 0 = from start
    * @param limit max number of records to return (via Promise)
@@ -37,55 +37,55 @@ export class NetworkswitchingService {
     const sortingQueryPart = encodeURIComponent(sorting.map(sort => sort.toRestQuery()).join(','));
     const sortingQuery = `?sort=${sortingQueryPart}&offset=${offset}&limit=${limit}`;
 
-    return this.http.get(this.networkswitchingUrl + sortingQuery + filterQuery)
+    return this
+      .get(NetworkswitchingService.NETWORKSWITCHING_URL + sortingQuery + filterQuery)
       .toPromise()
       .then(response => {
-        let nwsws: Networkswitching[] = Networkswitching.jsonArrToObjArr(response.json().data);
-        return nwsws;
+        return Networkswitching.jsonArrToObjArr(response.json().data);
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
   getNetworkswitching(id: string): Promise<Networkswitching> {
-    return this.http.get(this.networkswitchingUrl + "/" + id)
+    return this
+      .get(NetworkswitchingService.NETWORKSWITCHING_URL + "/" + id)
       .toPromise()
       .then(response => {
-        let nwsw: Networkswitching = Networkswitching.jsonToObj(response.json());
-        return nwsw;
+        return Networkswitching.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
-  update(networkswitching: Networkswitching): Promise<Networkswitching> {
-    const url = `${this.networkswitchingUrl}/${networkswitching.id}`;
-    return this.http
-      .put(url, JSON.stringify(networkswitching), {headers: this.headers})
+  updateNetworkswitching(networkswitching: Networkswitching): Promise<Networkswitching> {
+    const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${networkswitching.id}`;
+    return this
+      .put(url, networkswitching)
       .toPromise()
-      .then(() => networkswitching)
-      .catch(this.handleError);
+      .then(response => {
+        return Networkswitching.jsonToObj(response.json());
+      })
+//      .then(() => networkswitching)
+      .catch(CommonRestService.handleError);
   }
 
-  insert(networkswitching: Networkswitching): Promise<Networkswitching> {
-    return this.http
-      .post(this.networkswitchingUrl, JSON.stringify(networkswitching), {headers: this.headers})
+  insertNetworkswitching(networkswitching: Networkswitching): Promise<Networkswitching> {
+    return this
+      .post(NetworkswitchingService.NETWORKSWITCHING_URL, networkswitching)
       .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
+      .then(response => {
+        return Networkswitching.jsonToObj(response.json());
+      })
+//      .then(res => res.json())
+      .catch(CommonRestService.handleError);
   }
 
-  delete(networkswitching: Networkswitching): Promise<void> {
-    const url = `${this.networkswitchingUrl}/${networkswitching.getId()}`;
-    return this.http.delete(url, {headers: this.headers})
+  deleteNetworkswitching(networkswitching: Networkswitching): Promise<void> {
+    return this
+      .delete(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${networkswitching.getId()}`)
       .toPromise()
       .then(() => null)
-      .catch(this.handleError);
-  }
-
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+      .catch(CommonRestService.handleError);
   }
 }

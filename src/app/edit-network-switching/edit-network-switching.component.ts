@@ -10,7 +10,7 @@ import { NetworkswitchingService } from '../networkswitching.service';
   styleUrls: ['edit-network-switching.component.scss']
 })
 export class EditNetworkSwitchingComponent implements OnInit {
-  nwsw: Networkswitching;
+  private nwsw: Networkswitching;
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -25,12 +25,12 @@ export class EditNetworkSwitchingComponent implements OnInit {
   }
 
   save(): void {
-    this.networkswitchingService.update(this.nwsw)
+    this.networkswitchingService.updateNetworkswitching(this.nwsw)
       .then(() => this.goBack());
   }
 
   delete(): void {
-    this.networkswitchingService.delete(this.nwsw)
+    this.networkswitchingService.deleteNetworkswitching(this.nwsw)
       .then(() => this.goBack());
   }
 

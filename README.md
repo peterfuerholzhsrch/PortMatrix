@@ -8,31 +8,47 @@ course by Marco Endres and Peter Fuerholz.
 * [Usage](Usage.MD)
 
 
+## Notable *Cool* Features
+
+* Responsive network switching overview
+* Infinite scrolling of the network switchings / lazy loading
+* Sorting (by multiple columns) and searching network switchings
+
+
 ## Technical Decisions
 
 Here we write up our technical decisions (used frameworks, libraries, language levels, tools, etc.):
 
-Frontend:
+_Frontend:_
 
 * TypeScript: YES 
 * AngularJS 2: YES, (including CLI)
 * Bootstrap: Where needed.
 
-Backend:
+_Backend:_
 
 * NodeJS / Express: YES
 * NeDB: YES
 * MongoDB and Mongoose: NO
 
+_Common:_
+
+* Security: JWT
+
+
 ## Testing
-Supported Testing
+Supported Testing:
 
-** Client
+_Frontend:_
 
-** Server
-Check REST-services:
-`$(npm bin)/jasmine-node .`
-To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.js
+* e2e  
+
+_Backend:_
+
+* Check REST-services:
+  `$(npm bin)/jasmine-node .`
+   To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.js
+   For these tests the server must be started before.
 
 
 
@@ -42,6 +58,9 @@ To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.j
   <dd>For collapsible pane, modal dialogs etc.</dd>
   <dt>npm install --save jquery</dt>
   <dd>Used for Bootstrap.</dd>
+  <dt>npm install --save angular2-infinite-scroll</dt>
+  <dd>Infinite scrolling of the network switchings.</dd>
+  
 </dl>
 
 ### At the server side:
@@ -54,6 +73,12 @@ To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.j
   <dd>Needed by Frisby to easily run one HTTP-command after the other. (See 
   <a href="http://caolan.github.io/async/">Async</a> and
   <a href="https://github.com/vlucas/frisby/issues/64">see comment by codeHatcher</a>)</dd>
+  <dt>npm install --save jsonwebtoken</dt>
+  <dd>Needed for authenticate (session-less) REST-calls.</dd>   
+  
+  <dt>npm install --save promise</dt>
+  <dd>Needed????</dd>   
+  
 </dl>
 
 
