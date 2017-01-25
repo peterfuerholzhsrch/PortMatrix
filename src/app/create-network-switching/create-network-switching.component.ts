@@ -26,7 +26,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   }
 
   save(): void {
-    this.networkswitchingService.insert(this.nwsw)
+    this.networkswitchingService.insertNetworkswitching(this.nwsw)
       .then(() => this.goBack());
   }
 

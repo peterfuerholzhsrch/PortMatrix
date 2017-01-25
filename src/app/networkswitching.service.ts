@@ -66,7 +66,6 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
       })
-//      .then(() => networkswitching)
       .catch(CommonRestService.handleError);
   }
 
@@ -77,7 +76,6 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
       })
-//      .then(res => res.json())
       .catch(CommonRestService.handleError);
   }
 
