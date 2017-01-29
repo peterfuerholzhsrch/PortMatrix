@@ -26,6 +26,9 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   }
 
   save(): void {
+    this.nwsw.creationDate = new Date();
+    this.nwsw.lastchangeDate = new Date();
+    // TODO: set User mail
     this.networkswitchingService.insertNetworkswitching(this.nwsw)
       .then(() => this.goBack());
   }
