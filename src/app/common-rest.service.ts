@@ -9,10 +9,22 @@ export class CommonRestService {
   private static LOGIN_URL = '/api/login';
   protected static JSON_HEADERS = new Headers({'Content-Type': 'application/json'});
 
-  private token = undefined;
+  // static: token must be shared between UserManagemntService, ProjectService etc.!
+  private static token = undefined;
+
+  private redirectUrl: string;
 
   constructor(private http: Http) {
   }
+
+  public setRedirectUrl(url: string) {
+    this.redirectUrl = url;
+  }
+
+  public getRedirectUrl() {
+    return this.redirectUrl;
+  }
+
 
   protected get(url: string) {
     return this.http.get(url, this.getHeaders());
@@ -37,30 +49,31 @@ export class CommonRestService {
    * @param password
    * @returns {any}
    */
-  public validateUser(email: string, password: string): Promise<User> {  // TODO validate PW!!!
+  public validateUser(email: string, password: string): Promise<User> {
     return this
       .post(CommonRestService.LOGIN_URL, {email: email, password: password})
       .toPromise()
       .then(response => {
         const jsonBody = response.json();
-        this.token = jsonBody['token'];
+        CommonRestService.token = jsonBody['token'];
         return jsonBody['user'];
       })
       .catch(CommonRestService.handleError);
   }
 
+
   public logout(): Promise<any> {
-    this.token = undefined;
+    CommonRestService.token = undefined;
     return Promise.resolve();
   }
 
 
   public isLoggedIn(): boolean {
-    return !!this.token;
+    return !!CommonRestService.token;
   }
 
 
-  protected static handleError(error: any): Promise<any> {
+  public static handleError(error: any): Promise<any> {
     console.log('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
@@ -68,19 +81,15 @@ export class CommonRestService {
 
   protected getHeaders(headers = new Headers()): Object {
     let headerObj = {headers: headers};
-      if (this.token) {
-        headerObj['authorization'] = "Bearer " + this.token;
+    if (CommonRestService.token) {
+      headers.append('authorization', "Bearer " + CommonRestService.token);
     }
     return headerObj;
   }
 
+
   protected getJsonHeaders(): Object {
     return this.getHeaders(CommonRestService.JSON_HEADERS);
-    // let headers = CommonRestService.JSON_HEADERS;
-    // if (token) {
-    //   headers['authorization'] = "Bearer " + token;
-    // }
-    // return headers;
   }
 
 

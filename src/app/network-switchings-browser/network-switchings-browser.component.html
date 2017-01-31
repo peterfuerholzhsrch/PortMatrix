@@ -67,7 +67,7 @@
     </div>
   </div>
   <div class="networkswitch-container">
-    <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', nwsw._id]">
+    <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', getProjectId(), nwsw._id]">
       <!--        (click)="onSelect(nwsw)"
               [class.selected]="nwsw === selectedHero"> -->
       <div class="network-part-title">General</div>

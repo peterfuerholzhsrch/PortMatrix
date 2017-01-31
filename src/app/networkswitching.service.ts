@@ -15,7 +15,7 @@ import {CommonRestService} from "./common-rest.service";
 @Injectable()
 export class NetworkswitchingService extends CommonRestService {
 
-  private static NETWORKSWITCHING_URL = 'api/nwsw';  // URL to web api
+  private static NETWORKSWITCHING_URL = 'api/nwsws';  // URL to web api
 
   constructor(http: Http) {
     super(http);
@@ -23,13 +23,14 @@ export class NetworkswitchingService extends CommonRestService {
 
 
   /**
+   * @param projectId
    * @param filter text to filter on
    * @param sorting
    * @param offset where to start, 0 = from start
    * @param limit max number of records to return (via Promise)
    * @returns {any}
    */
-  getNetworkswitchings(filter: string, sorting: Sorting[], offset: number, limit: number): Promise<Networkswitching[]> {
+  getNetworkswitchings(projectId: string, filter: string, sorting: Sorting[], offset: number, limit: number): Promise<Networkswitching[]> {
 
     filter = encodeURIComponent(filter);
     const filterQuery = filter ? `&q=${filter}` : '';
@@ -38,7 +39,7 @@ export class NetworkswitchingService extends CommonRestService {
     const sortingQuery = `?sort=${sortingQueryPart}&offset=${offset}&limit=${limit}`;
 
     return this
-      .get(NetworkswitchingService.NETWORKSWITCHING_URL + sortingQuery + filterQuery)
+      .get(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${sortingQuery}${filterQuery}`)
       .toPromise()
       .then(response => {
         return Networkswitching.jsonArrToObjArr(response.json().data);
@@ -47,9 +48,9 @@ export class NetworkswitchingService extends CommonRestService {
   }
 
 
-  getNetworkswitching(id: string): Promise<Networkswitching> {
+  getNetworkswitching(projectId: string, id: string): Promise<Networkswitching> {
     return this
-      .get(NetworkswitchingService.NETWORKSWITCHING_URL + "/" + id)
+      .get(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${id}`)
       .toPromise()
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
@@ -58,8 +59,8 @@ export class NetworkswitchingService extends CommonRestService {
   }
 
 
-  updateNetworkswitching(networkswitching: Networkswitching): Promise<Networkswitching> {
-    const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${networkswitching.id}`;
+  updateNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
+    const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.id}`;
     return this
       .put(url, networkswitching)
       .toPromise()
@@ -69,9 +70,9 @@ export class NetworkswitchingService extends CommonRestService {
       .catch(CommonRestService.handleError);
   }
 
-  insertNetworkswitching(networkswitching: Networkswitching): Promise<Networkswitching> {
+  insertNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
     return this
-      .post(NetworkswitchingService.NETWORKSWITCHING_URL, networkswitching)
+      .post(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}`, networkswitching)
       .toPromise()
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
@@ -79,9 +80,9 @@ export class NetworkswitchingService extends CommonRestService {
       .catch(CommonRestService.handleError);
   }
 
-  deleteNetworkswitching(networkswitching: Networkswitching): Promise<void> {
+  deleteNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<void> {
     return this
-      .delete(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${networkswitching.getId()}`)
+      .delete(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.getId()}`)
       .toPromise()
       .then(() => null)
       .catch(CommonRestService.handleError);

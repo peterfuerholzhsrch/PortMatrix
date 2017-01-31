@@ -21,6 +21,7 @@ import {UserManagementService} from "./user-management.service";
 import {ProjectService} from "./project.service";
 import {CommonRestService} from "./common-rest.service";
 import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
+import {AuthGuardService} from "./auth-guard.service";
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import {CreateNetworkSwitchingComponent} from './create-network-switching/create
     AppRoutingModule,
     AlertModule
   ],
-  providers: [CommonRestService, NetworkswitchingService, UserManagementService, ProjectService],
+  providers: [CommonRestService, NetworkswitchingService, UserManagementService, ProjectService, AuthGuardService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, Params, ActivatedRoute} from "@angular/router";
 
 import {Networkswitching} from '../model/networkswitching';
 import {NetworkswitchingService} from '../networkswitching.service';
 import {Sorting} from '../model/Sorting';
 import {Observable, Subject} from "rxjs";
+import {CommonRestService} from "../common-rest.service";
 
 
 @Component({
@@ -41,25 +42,39 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   networkswitchings: Networkswitching[] = [];
 
+  private projectId: string;
   private sortingList: Array<Sorting> = [];
 
 
   /**
    * @param networkswitchingService
+   * @param route
    * @param router
    */
-  constructor(private networkswitchingService: NetworkswitchingService, private router: Router) {
+  constructor(private networkswitchingService: NetworkswitchingService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
+
+    this.route.params
+      .switchMap((params: Params) => {
+        this.projectId = params['projectId'];
+        console.log("nwsw-browser project-id=" + this.projectId); // tODO del!!
+        return this.loadNwsw()
+      })
+      .subscribe(nwsws => this.networkswitchings = nwsws);
 
     // execute search when user entered a new value and after last keyup of 500ms:
     this.searchTermObservable
       .debounceTime(500)
       .distinctUntilChanged()
       .subscribe((searchTerm) => { this.reloadNwsw() });
+  }
 
-    this.getNetworkswitchings();
+  public getProjectId() {
+    return this.projectId;
   }
 
 
@@ -112,10 +127,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   }
 
 
-  getNetworkswitchings(): void {
-    this.loadNwsw();
-  }
-
   onScrollDown() {
     console.log("scrolled down");
     this.loadNwsw();
@@ -126,7 +137,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   }
 
   insert() {
-    this.router.navigate(['./create']);
+    this.router.navigate(['./create', this.projectId]);
   }
 
   public sortOrderChanged(sortingColumn) {
@@ -147,20 +158,23 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.loadNwsw();
   }
 
-
-  private loadNwsw() {
+  // TODO move to Service class ???
+  private loadNwsw(): Promise<Array<Networkswitching>> {
     this.offset = this.networkswitchings.length;
     if (this.offset === this.lastRequestedOffset) {
-      return; // already loaded, don't load again...
+      return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
-    this.networkswitchingService.getNetworkswitchings(this.searchTerm,
-                                                      this.sortingList,
-                                                      this.offset,
-                                                      NetworkswitchingsBrowserComponent.LIMIT).
-      then(nwsws => {
-        console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`);
-        this.networkswitchings.push(...nwsws)
-      });
+    return this.networkswitchingService.getNetworkswitchings(this.projectId,
+                                                             this.searchTerm,
+                                                             this.sortingList,
+                                                             this.offset,
+                                                             NetworkswitchingsBrowserComponent.LIMIT)
+      .then(nwsws => {
+        console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`); // TODO del
+        this.networkswitchings.push(...nwsws);
+        return this.networkswitchings;
+      })
+      .catch(CommonRestService.handleError);
   }
 }

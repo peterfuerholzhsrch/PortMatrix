@@ -4,6 +4,7 @@ import {User} from "../model/user";
 import {Project} from "../model/project";
 import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
+import {CommonRestService} from "../common-rest.service";
 
 @Component({
   selector: 'user-management',
@@ -20,6 +21,7 @@ export class UserManagementComponent implements OnInit {
 
   constructor(
     private userManagementService: UserManagementService,
+    private authService: CommonRestService,
     private projectService: ProjectService,
     private router: Router,
     private route: ActivatedRoute
@@ -41,6 +43,7 @@ export class UserManagementComponent implements OnInit {
   isLoggedIn(): boolean {
     return this.userManagementService.isLoggedIn();
   }
+
 
   registerUser(): void {
     if (this.assignedProjectId) {
@@ -67,7 +70,15 @@ export class UserManagementComponent implements OnInit {
       .then(() => {
           return this.projectService.getProjectsByUserId(this.user.getId(), true/*assignedToo*/);
         })
-      .then((projects) => this.openProjects(projects))
+      .then((projects) => {
+        if (this.authService.getRedirectUrl()) {
+          this.router.navigate([this.authService.getRedirectUrl()]);
+          this.authService.setRedirectUrl(undefined);
+        }
+        else {
+          this.openProjects(projects)
+        }
+      })
       .catch(this.handleError);
   }
 
@@ -93,7 +104,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProject(project: Project): void {
-    console.log("openProject project=" + project);
+    console.log("openProject project=" + project);  // TODO del
     if (project) {
       this.router.navigate(['/nwsw', project.getId()]);
     }

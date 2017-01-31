@@ -15,13 +15,8 @@ export class ProjectService extends CommonRestService {
 
 
   getProjectsByUserId(userId: string, assignedToo: boolean): Promise<Array<Project>> {
-    const params = {
-      userId: userId,
-      assignedToo: assignedToo
-    };
-
     return this
-      .post(ProjectService.PROJECTS_URL, params)
+      .get(`${ProjectService.PROJECTS_URL}?userId=${userId}&assignedToo=${assignedToo}`)
       .toPromise()
       .then(response => {
         let projects: Project[] = Project.jsonArrToObjArr(response.json().data);

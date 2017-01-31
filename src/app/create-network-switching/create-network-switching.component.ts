@@ -12,6 +12,7 @@ import {Endpoint} from "../model/endpoint";
 })
 export class CreateNetworkSwitchingComponent implements OnInit {
   nwsw: Networkswitching;
+  private projectId: string;
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -23,10 +24,17 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     this.nwsw = new Networkswitching();
     this.nwsw.source = new Endpoint();
     this.nwsw.destination = new Endpoint();
+    this.route.params
+      .switchMap((params: Params) => {
+        console.log("create-nwsw project-id=" + params['projectId']); // tODO del!!
+        this.projectId = params['projectId'];
+        return this.projectId;
+      })
+      .subscribe();
   }
 
   save(): void {
-    this.networkswitchingService.insertNetworkswitching(this.nwsw)
+    this.networkswitchingService.insertNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }
 

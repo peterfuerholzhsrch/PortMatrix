@@ -42,7 +42,7 @@
   <button type="button"
           class="btn btn-default"
           (click)="login()"
-          [disabled]="!loginForm.form.valid">
+          [disabled]="isLoggedIn() || !loginForm.form.valid">
     Login
   </button>
 
@@ -62,7 +62,7 @@
   <button type="button"
           class="btn btn-default"
           (click)="registerUser()"
-          [disabled]="isLoggedIn()">
+          [disabled]="isLoggedIn() || !loginForm.form.valid">
     Sign Up
   </button>
 

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
-import { NetworkswitchingService } from '../networkswitching.service';
+import {NetworkswitchingService} from '../networkswitching.service';
 
 @Component({
   selector: 'edit-network-switching',
@@ -11,6 +11,7 @@ import { NetworkswitchingService } from '../networkswitching.service';
 })
 export class EditNetworkSwitchingComponent implements OnInit {
   private nwsw: Networkswitching;
+  private projectId: string;
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -20,17 +21,21 @@ export class EditNetworkSwitchingComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.networkswitchingService.getNetworkswitching(params['id']))
+      .switchMap((params: Params) => {
+        this.projectId = params['projectId'];
+        console.log("edit-nwsw project-id=" + this.projectId); // tODO del!!
+        return this.networkswitchingService.getNetworkswitching(this.projectId, params['id'])
+      })
       .subscribe(nwsw => this.nwsw = nwsw);
   }
 
   save(): void {
-    this.networkswitchingService.updateNetworkswitching(this.nwsw)
+    this.networkswitchingService.updateNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }
 
   delete(): void {
-    this.networkswitchingService.deleteNetworkswitching(this.nwsw)
+    this.networkswitchingService.deleteNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }
 
