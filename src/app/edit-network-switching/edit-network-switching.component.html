@@ -12,10 +12,6 @@
         <div class="panel-body">
           <div class="networkswitch-part">
             <div>
-              <label class="networkswitch-label">_id</label>
-              <input class="networkswitch-value" [(ngModel)]="nwsw._id" placeholder="_id" />
-            </div>
-            <div>
               <label class="networkswitch-label">id</label>
               <input class="networkswitch-value" [(ngModel)]="nwsw.id" placeholder="id" />
             </div>
@@ -29,25 +25,13 @@
             </div>
             <div>
               <label class="networkswitch-label">remark</label>
-              <input class="networkswitch-value" [(ngModel)]="nwsw.remark" placeholder="remark" />
+              <textarea class="networkswitch-value" [(ngModel)]="nwsw.remark" placeholder="remark"></textarea>
             </div>
           </div>
           <div class="networkswitch-part">
             <div>
-              <label class="networkswitch-label">user</label>
-              <input class="networkswitch-value" [(ngModel)]="nwsw.user" placeholder="user" />
-            </div>
-            <div>
               <label class="networkswitch-label">testresultList</label>
               <input class="networkswitch-value" [(ngModel)]="nwsw.testresultList" placeholder="testresultList" />
-            </div>
-            <div>
-              <label class="networkswitch-label">creationDate</label>
-              <input class="networkswitch-value" [(ngModel)]="nwsw.creationDate" placeholder="creationDate" />
-            </div>
-            <div>
-              <label class="networkswitch-label">lastchangeDate</label>
-              <input class="networkswitch-value" [(ngModel)]="nwsw.lastchangeDate" placeholder="lastchangeDate" />
             </div>
           </div>
         </div>
