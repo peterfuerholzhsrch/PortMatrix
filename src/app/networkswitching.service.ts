@@ -60,7 +60,7 @@ export class NetworkswitchingService extends CommonRestService {
 
 
   updateNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
-    const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.id}`;
+    const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.getId()}`;
     return this
       .put(url, networkswitching)
       .toPromise()
