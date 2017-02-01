@@ -4,6 +4,7 @@ import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import {UserManagementService} from "../user-management.service";
 import {NetworkswitchingService} from '../networkswitching.service';
+import {FormGroup, Validators, FormControl, FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'edit-network-switching',
@@ -21,6 +22,7 @@ export class EditNetworkSwitchingComponent implements OnInit {
     private location: Location
   ) {}
 
+
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => {
@@ -30,6 +32,14 @@ export class EditNetworkSwitchingComponent implements OnInit {
       })
       .subscribe(nwsw => this.nwsw = nwsw);
 
+  }
+
+
+  onSubmit(): void {
+    this.nwsw.lastchangeDate = new Date();
+    // TODO: set User mail
+    this.networkswitchingService.updateNetworkswitching(this.projectId, this.nwsw)
+      .then(() => this.goBack());
   }
 
   save(): void {
