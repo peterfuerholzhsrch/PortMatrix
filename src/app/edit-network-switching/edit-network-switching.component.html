@@ -1,5 +1,5 @@
 <div *ngIf="nwsw">
-  <form >
+  <form #f="ngForm">
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -51,7 +51,7 @@
             <div class="networkswitch-part">
               <div>
                 <label class="networkswitch-label">Host</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" name="source-host" placeholder="Host" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" required="{{!sourceIpAddr.valid}}" placeholder="Host" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
               </div>
               <div>
                 <label class="networkswitch-label">Gruppe</label>
@@ -59,7 +59,7 @@
               </div>
               <div>
                 <label class="networkswitch-label">Ip Adresse</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" name="source-ipAddr" placeholder="Ip Adresse" pattern="^[0-9.-]+$" />
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" #sourceIpAddr="ngModel" name="source-ipAddr" required="{{!sourceHost.valid}}" placeholder="Ip Adresse" pattern="^[0-9.-]+$" />
               </div>
               <div>
                 <label class="networkswitch-label">Port</label>
