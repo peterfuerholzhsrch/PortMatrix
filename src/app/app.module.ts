@@ -22,6 +22,7 @@ import {ProjectService} from "./project.service";
 import {CommonRestService} from "./common-rest.service";
 import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
 import {AuthGuardService} from "./auth-guard.service";
+import {SessionStorageService} from "./session-storage.service";
 
 
 @NgModule({
@@ -43,7 +44,13 @@ import {AuthGuardService} from "./auth-guard.service";
     AppRoutingModule,
     AlertModule
   ],
-  providers: [CommonRestService, NetworkswitchingService, UserManagementService, ProjectService, AuthGuardService],
+  providers: [CommonRestService,
+    NetworkswitchingService,
+    UserManagementService,
+    ProjectService,
+    AuthGuardService,
+    SessionStorageService
+  ],
   bootstrap: [MainComponent]
 })
 export class AppModule {

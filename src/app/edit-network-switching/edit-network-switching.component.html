@@ -14,7 +14,7 @@
             <div class="networkswitch-part">
               <div>
                 <label class="networkswitch-label">id</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.id" placeholder="id" name="id" type="number" />
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.id" placeholder="id" name="id" type="text" />
               </div>
               <div>
                 <label class="networkswitch-label">protocol</label>
@@ -109,8 +109,8 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-default" (click)="goBack()">Back</button>
+    <button class="btn" type="button" (click)="goBack()">Back</button>
     <button class="btn btn-default" type="submit" (click)="save()">Save</button>
-    <button class="btn btn-default" (click)="delete()">Delete</button>
+    <button class="btn" type="button" (click)="delete()">Delete</button>
   </form>
 </div>

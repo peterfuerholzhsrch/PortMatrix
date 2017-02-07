@@ -13,7 +13,7 @@ export class Sorting {
 
   public static ID = new Sorting("ID", "id", true);
   public static STATE = new Sorting("State", "state", true);
-  public static USER = new Sorting("User", "user", true);
+  public static CREATION_BY = new Sorting("Creator", "creationBy", true);
   public static TEST_STATE = new Sorting("Test State", "testState", true); // TODO does not yet exist in the DB
   public static SOURCE_GROUP = new Sorting("Source Group", "source.group", true);
   public static SOURCE_HOST = new Sorting("Source Host", "source.host", true);
@@ -31,7 +31,7 @@ export class Sorting {
   static init() {
     this.ALL_SORTINGS.push(this.ID);
     this.ALL_SORTINGS.push(this.STATE);
-    this.ALL_SORTINGS.push(this.USER);
+    this.ALL_SORTINGS.push(this.CREATION_BY);
     this.ALL_SORTINGS.push(this.TEST_STATE);
     this.ALL_SORTINGS.push(this.SOURCE_GROUP);
     this.ALL_SORTINGS.push(this.SOURCE_HOST);

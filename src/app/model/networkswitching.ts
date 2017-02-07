@@ -14,10 +14,11 @@ export class Networkswitching {
   protocol: string;
   state: string;
   remark: string;
-  user: string;
   testresultList: Array<Testresult>;
   creationDate: Date;
+  creationBy: string;
   lastchangeDate: Date;
+  lastchangeBy: string;
 
   /**
    * Helper method for packing JSON object.

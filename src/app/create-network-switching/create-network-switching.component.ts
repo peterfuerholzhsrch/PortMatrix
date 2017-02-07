@@ -4,6 +4,7 @@ import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import { NetworkswitchingService } from '../networkswitching.service';
 import {Endpoint} from "../model/endpoint";
+import {SessionStorageService} from "../session-storage.service";
 
 @Component({
   selector: 'create-network-switching',
@@ -16,6 +17,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
+    private sessionStorageService: SessionStorageService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
@@ -35,8 +37,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
 
   save(): void {
     this.nwsw.creationDate = new Date();
-    this.nwsw.lastchangeDate = new Date();
-    // TODO: set User mail
+    this.nwsw.creationBy = this.sessionStorageService.getUser().email;
     this.networkswitchingService.insertNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }

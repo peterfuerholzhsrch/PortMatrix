@@ -5,6 +5,7 @@ import {Project} from "../model/project";
 import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
 import {CommonRestService} from "../common-rest.service";
+import {SessionStorageService} from "../session-storage.service";
 
 @Component({
   selector: 'user-management',
@@ -23,9 +24,21 @@ export class UserManagementComponent implements OnInit {
     private userManagementService: UserManagementService,
     private authService: CommonRestService,
     private projectService: ProjectService,
+    private sessionStorageService: SessionStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+  private setUser(user: User) {
+    this.user = user;
+    this.sessionStorageService.setUser(this.user);
+  }
+
+  private updateUserInternal(user: User) {
+    this.user.updateUser(user); // save _id
+    this.sessionStorageService.setUser(this.user);
+  }
+
 
 
   ngOnInit() {
@@ -49,7 +62,7 @@ export class UserManagementComponent implements OnInit {
     if (this.assignedProjectId) {
       this.userManagementService.addUserToProject(this.user.email, this.user.password, this.assignedProjectId)
         .then((userAndProject) => {
-          this.user.updateUser(userAndProject.user); // save _id
+          this.updateUserInternal(userAndProject.user); // save _id
           this.openProject(userAndProject.project)
         }, this.handleError);
     }
@@ -65,7 +78,7 @@ export class UserManagementComponent implements OnInit {
       .then((jsonUser) => {
           console.log("Login OK=" + jsonUser);
           this.errormessage = null;
-          this.user.updateUser(jsonUser); // save _id
+          this.updateUserInternal(jsonUser); // save _id
         })
       .then(() => {
           return this.projectService.getProjectsByUserId(this.user.getId(), true/*assignedToo*/);
@@ -85,7 +98,10 @@ export class UserManagementComponent implements OnInit {
 
   deleteUser(): void {
     this.userManagementService.removeUser(this.user.getId())
-      .then(() => this.logout(),
+      .then(() => {
+          this.setUser(undefined);
+          this.logout()
+        },
         this.handleError);
   }
 
@@ -93,13 +109,18 @@ export class UserManagementComponent implements OnInit {
   updateUser(): void {
     this.userManagementService.updateUser(this.user)
       .then((user) => {
-        this.user = user;
-      }, this.handleError);
+          this.setUser(undefined);
+        },
+        this.handleError);
   }
 
 
   logout(): void {
-    this.userManagementService.logout().then(() => this.router.navigate(['/']), this.handleError);
+    this.userManagementService.logout().then(() => {
+        this.setUser(undefined);
+        return this.router.navigate(['/'])
+      },
+      this.handleError);
   }
 
 

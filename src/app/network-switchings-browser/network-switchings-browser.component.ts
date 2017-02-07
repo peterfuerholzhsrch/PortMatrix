@@ -28,7 +28,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   // as instance members (see http://stackoverflow.com/questions/39193538/how-to-bind-static-variable-of-component-in-html-in-angular-2):
   public SortingID = Sorting.ID;
   public SortingSTATE = Sorting.STATE;
-  public SortingUSER = Sorting.USER;
+  public SortingUSER = Sorting.CREATION_BY;
   public SortingTEST_STATE = Sorting.TEST_STATE;
   public SortingSOURCE_ZONE = Sorting.SOURCE_ZONE;
   public SortingSOURCE_GROUP = Sorting.SOURCE_GROUP;
