@@ -50,4 +50,6 @@ export class EditNetworkSwitchingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  zones: Array<string> = ['yellow', 'orange', 'red'];
 }

@@ -38,6 +38,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   save(): void {
     this.nwsw.creationDate = new Date();
     this.nwsw.creationBy = this.sessionStorageService.getUser().email;
+    this.nwsw.lastchangeBy = this.sessionStorageService.getUser().email;
     this.networkswitchingService.insertNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }
@@ -45,4 +46,6 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  zones: Array<string> = ['yellow', 'orange', 'red'];
 }
