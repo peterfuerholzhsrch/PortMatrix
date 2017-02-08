@@ -82,7 +82,7 @@ export class CommonRestService {
   protected getHeaders(headers = new Headers()): Object {
     let headerObj = {headers: headers};
     if (CommonRestService.token) {
-      headers.append('authorization', "Bearer " + CommonRestService.token);
+      headers.set('authorization', "Bearer " + CommonRestService.token);
     }
     return headerObj;
   }
