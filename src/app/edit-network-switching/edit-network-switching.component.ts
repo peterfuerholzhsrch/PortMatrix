@@ -3,8 +3,8 @@ import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import {NetworkswitchingService} from '../networkswitching.service';
-import {FormGroup, Validators, FormControl, FormBuilder} from "@angular/forms";
-import {SessionStorageService} from "../session-storage.service";
+import {UserManagementService} from "../user-management.service";
+
 
 @Component({
   selector: 'edit-network-switching',
@@ -17,7 +17,7 @@ export class EditNetworkSwitchingComponent implements OnInit {
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
-    private sessionStorageService: SessionStorageService,
+    private userManagementService: UserManagementService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
@@ -31,13 +31,12 @@ export class EditNetworkSwitchingComponent implements OnInit {
         return this.networkswitchingService.getNetworkswitching(this.projectId, params['id'])
       })
       .subscribe(nwsw => this.nwsw = nwsw);
-
   }
 
 
   save(): void {
     this.nwsw.lastchangeDate = new Date();
-    this.nwsw.lastchangeBy = this.sessionStorageService.getUser().email;
+    this.nwsw.lastchangeBy = this.userManagementService.getUser().email;
     this.networkswitchingService.updateNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
   }

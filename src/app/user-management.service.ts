@@ -1,9 +1,11 @@
 import {Http} from '@angular/http';
 
-import {Injectable} from '@angular/core';
+import {Injectable, AfterViewInit} from '@angular/core';
 import {UserAndProject} from './model/userAndProject';
 import {User} from './model/user';
+import {Project} from "./model/project";
 import {CommonRestService} from "./common-rest.service";
+import {SessionStorageService} from "./session-storage.service";
 
 
 @Injectable()
@@ -11,11 +13,14 @@ export class UserManagementService extends CommonRestService {
 
   private static USERS_URL = '/api/users';
 
+  private project: Project;
+  private user: User;
 
-  constructor(http: Http) {
+
+  constructor(private sessionStorageService: SessionStorageService,
+              http: Http) {
     super(http);
   }
-
 
   public addUser(email: string, password: string): Promise<UserAndProject> {
     return this.addUserToProject(email, password, null);
@@ -58,5 +63,41 @@ export class UserManagementService extends CommonRestService {
         return User.jsonToObj(response.json());
       })
       .catch(UserManagementService.handleError);
+  }
+
+
+  public setUser(user: User) {
+    this.user = user;
+// TODO if saved persistently then JWT token must be saved as well:
+//    this.sessionStorageService.setUser(user);
+  }
+
+  public getUser(): User {
+    return this.user;
+// TODO if saved persistently then JWT token must be saved as well:
+//   return this.sessionStorageService.getUser();
+  }
+
+  public setProject(project: Project) {
+    this.project = project;
+  }
+
+  public getProject(): Project {
+    return this.project;
+  }
+
+  /**
+   * @returns {boolean} true if user logged in and the user is set project's admin (= (normally) its creator)
+   */
+  public isProjectAdmin() {
+    const user = this.getUser();
+    if (this.project && user) {
+      return this.project.adminId == user.getId()
+    }
+    return false;
+  }
+
+  public inviteColleagues() {
+    // TODO send emails!!!
   }
 }

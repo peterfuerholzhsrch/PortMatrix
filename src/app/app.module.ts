@@ -23,6 +23,8 @@ import {CommonRestService} from "./common-rest.service";
 import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
 import {AuthGuardService} from "./auth-guard.service";
 import {SessionStorageService} from "./session-storage.service";
+import { MultiEmailDirective } from './multi-email.directive';
+import { MultiEmailFormComponent } from './multi-email-form/multi-email-form.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import {SessionStorageService} from "./session-storage.service";
     SortButtonComponent,
     CreateNetworkSwitchingComponent,
     SortButtonComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    MultiEmailDirective,
+    MultiEmailFormComponent
   ],
   imports: [
     BrowserModule,

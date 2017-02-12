@@ -1,0 +1,20 @@
+<form #multiEmailForm="ngForm">
+  <textarea type="text"
+            class="form-control networkswitch-value"
+            name="emails"
+            multiEmail
+            autofocus
+            required
+            [ngModel]="emails"
+            #emailsField="ngModel">
+  </textarea>
+
+  <div [hidden]="emailsField.pristine || !emailsField.errors || !emailsField.errors.multiEmail"
+       class="alert alert-danger">
+    Email addresses are not valid!
+  </div>
+  <div [hidden]="emailsField.pristine || !emailsField.errors || !emailsField.errors.required"
+       class="alert alert-danger">
+    At least one email address is required!
+  </div>
+</form>

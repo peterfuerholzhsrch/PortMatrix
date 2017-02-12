@@ -5,8 +5,6 @@ import { User } from './model/user';
 export class SessionStorageService {
   private static  USER = "CREATION_BY";
 
-  private user: User;
-
   constructor() { }
 
 
@@ -26,7 +24,11 @@ export class SessionStorageService {
       userClone.email = user.email;
       userClone._id = user.getId();
     }
-    const userStr = userClone ? JSON.stringify(userClone) : undefined;
-    sessionStorage.setItem(SessionStorageService.USER, userStr);
+    if (userClone) {
+      sessionStorage.setItem(SessionStorageService.USER, JSON.stringify(userClone));
+    }
+    else {
+      sessionStorage.removeItem(SessionStorageService.USER);
+    }
   }
 }

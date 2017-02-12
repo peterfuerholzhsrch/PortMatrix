@@ -5,8 +5,13 @@ import {Project} from "../model/project";
 import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
 import {CommonRestService} from "../common-rest.service";
-import {SessionStorageService} from "../session-storage.service";
 
+
+/**
+ * Component for:
+ * - register new user
+ * - login
+ */
 @Component({
   selector: 'user-management',
   templateUrl: './user-management.component.html',
@@ -14,7 +19,7 @@ import {SessionStorageService} from "../session-storage.service";
   exportAs: 'ngModel'
 })
 export class UserManagementComponent implements OnInit {
-  private user: User;
+  private user: User; // used for form only
   private assignedProjectId: string;
 
   private errormessage: string;
@@ -24,19 +29,18 @@ export class UserManagementComponent implements OnInit {
     private userManagementService: UserManagementService,
     private authService: CommonRestService,
     private projectService: ProjectService,
-    private sessionStorageService: SessionStorageService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   private setUser(user: User) {
     this.user = user;
-    this.sessionStorageService.setUser(this.user);
+    this.userManagementService.setUser(user);
   }
 
   private updateUserInternal(user: User) {
     this.user.updateUser(user); // save _id
-    this.sessionStorageService.setUser(this.user);
+    this.userManagementService.setUser(this.user);
   }
 
 
@@ -96,16 +100,6 @@ export class UserManagementComponent implements OnInit {
   }
 
 
-  deleteUser(): void {
-    this.userManagementService.removeUser(this.user.getId())
-      .then(() => {
-          this.setUser(undefined);
-          this.logout()
-        },
-        this.handleError);
-  }
-
-
   updateUser(): void {
     this.userManagementService.updateUser(this.user)
       .then((user) => {
@@ -115,18 +109,10 @@ export class UserManagementComponent implements OnInit {
   }
 
 
-  logout(): void {
-    this.userManagementService.logout().then(() => {
-        this.setUser(undefined);
-        return this.router.navigate(['/'])
-      },
-      this.handleError);
-  }
-
-
   private openProject(project: Project): void {
     console.log("openProject project=" + project);  // TODO del
     if (project) {
+      this.userManagementService.setProject(project); // TODO HERE
       this.router.navigate(['/nwsw', project.getId()]);
     }
   }
