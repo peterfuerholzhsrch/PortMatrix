@@ -6,8 +6,9 @@
     <label for="email">Email</label>
     <input id="email"
            class="form-control"
-           type="text"
+           type="email"
            placeholder="email"
+           autofocus
            required
            [(ngModel)]="user.email"
            name="email"
@@ -53,13 +54,6 @@
 
   <button type="button"
           class="btn"
-          (click)="logout()"
-          [disabled]="!isLoggedIn()">
-    Logout (TODO move to Menue)
-  </button> <!-- TODO Move somewhere else -->
-
-  <button type="button"
-          class="btn"
           (click)="registerUser()"
           [disabled]="isLoggedIn() || !loginForm.form.valid">
     Sign Up
@@ -75,12 +69,5 @@
           class="btn"
           (click)="updateUser()">
     Change Password (TODO Delete?)
-  </button>
-
-  <button type="button"
-          class="btn"
-          (click)="deleteUser()"
-          [disabled]="!isLoggedIn()">
-    Delete User (TODO show 'are you sure?' before executing)
   </button>
 </form>
