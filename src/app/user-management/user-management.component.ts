@@ -112,7 +112,7 @@ export class UserManagementComponent implements OnInit {
   private openProject(project: Project): void {
     console.log("openProject project=" + project);  // TODO del
     if (project) {
-      this.userManagementService.setProject(project); // TODO HERE
+      this.userManagementService.setProject(project);
       this.router.navigate(['/nwsw', project.getId()]);
     }
   }

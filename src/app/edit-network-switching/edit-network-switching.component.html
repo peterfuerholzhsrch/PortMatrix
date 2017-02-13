@@ -31,8 +31,14 @@
             </div>
             <div class="networkswitch-part">
               <div>
-                <label class="networkswitch-label" for="testresultList">testresultList</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.testresultList" name="testresultList" id="testresultList" placeholder="testresultList" />
+                <label class="networkswitch-label" for="addTestresultBtn">Enter Testresult:</label>
+                <button type="button"
+                        class="btn"
+                        id="addTestresultBtn"
+                        data-toggle="modal"
+                        data-target="#addTestresultModal">
+                  Add latest test result...
+                </button>
               </div>
             </div>
           </div>
@@ -122,3 +128,42 @@
     <button class="btn" type="button" (click)="delete()">Delete</button>
   </form>
 </div>
+
+
+<!-- Modal dialogs -->
+<div class="modal fade" tabindex="-1" role="dialog" id="addTestresultModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">New Test Result</h4>
+      </div>
+      <div class="modal-body">
+
+        <p>Click according button to save your latest test result!</p>
+<!-- TODO Seek proper datepicker where date / time can be properly filled in:
+        <div class="form-group">
+          <label for="timestamp">Timestamp</label>
+          <input id="timestamp"
+                 type="datetime-local"
+                 class="form-control"
+                 [(ngModel)]="testresultTimestamp"/>
+        </div>
+-->
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-success"
+                data-dismiss="modal"
+                (click)="addTestresult(true)">Success</button>
+        <button type="button"
+                class="btn btn-danger"
+                data-dismiss="modal"
+                (click)="addTestresult(false)">Failed</button>
+      </div>
+    </div>
+  </div>
+</div>
+

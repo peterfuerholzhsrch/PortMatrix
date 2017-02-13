@@ -87,14 +87,15 @@ export class UserManagementService extends CommonRestService {
   }
 
   /**
-   * @returns {boolean} true if user logged in and the user is set project's admin (= (normally) its creator)
+   * @returns {Boolean} true if user logged in and the user is set project's admin (= (normally) its creator); null
+   * if information is missing
    */
-  public isProjectAdmin() {
+  public isProjectAdmin(): Boolean {
     const user = this.getUser();
-    if (this.project && user) {
-      return this.project.adminId == user.getId()
+    if (!this.project || !user) {
+      return null;
     }
-    return false;
+    return this.project.adminId == user.getId()
   }
 
   public inviteColleagues() {

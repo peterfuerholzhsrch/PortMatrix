@@ -56,6 +56,11 @@ export class Networkswitching {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].result : null;
   }
 
+
+  public addTestresult(success: boolean, timestamp: Date) {
+    this.testresultList.push(new Testresult(success, timestamp));
+  }
+
   public getId(): string {
     return this._id;
   }

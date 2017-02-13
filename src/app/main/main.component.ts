@@ -43,8 +43,9 @@ export class MainComponent implements OnInit {
 
 
   getRoleString(): String {
-    if (this.isLoggedIn()) {
-      return 'Role: ' + (this.userManagementService.isProjectAdmin() ? 'Admin' : 'User');
+    const projectAdmin: Boolean = this.userManagementService.isProjectAdmin();
+    if (this.isLoggedIn() && projectAdmin) {
+      return 'Role: ' + (projectAdmin.valueOf() ? 'Admin' : 'User');
     }
     return '';
   }
@@ -75,7 +76,7 @@ export class MainComponent implements OnInit {
 
   inviteColleagues(emailAddresses: Array<String>) {
     // TODO
-    console.log("main.component.inviteColleagues" + emailAddresses);
+    console.log("main.component.inviteColleagues: " + emailAddresses);
   }
 
   /**

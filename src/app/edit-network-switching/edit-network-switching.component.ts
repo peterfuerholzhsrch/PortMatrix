@@ -14,6 +14,7 @@ import {UserManagementService} from "../user-management.service";
 export class EditNetworkSwitchingComponent implements OnInit {
   private nwsw: Networkswitching;
   private projectId: string;
+  private testresultTimestamp: Date = new Date();
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -44,6 +45,13 @@ export class EditNetworkSwitchingComponent implements OnInit {
   delete(): void {
     this.networkswitchingService.deleteNetworkswitching(this.projectId, this.nwsw)
       .then(() => this.goBack());
+  }
+
+
+  addTestresult(success: boolean) {
+    console.log("addTestresult succss=" + success + " timestamp=" + this.testresultTimestamp);
+    this.nwsw.addTestresult(success, this.testresultTimestamp);
+    this.save();
   }
 
   goBack(): void {

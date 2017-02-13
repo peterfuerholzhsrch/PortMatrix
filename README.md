@@ -59,8 +59,7 @@ _Backend:_
   <dt>npm install --save jquery</dt>
   <dd>Used for Bootstrap.</dd>
   <dt>npm install --save angular2-infinite-scroll</dt>
-  <dd>Infinite scrolling of the network switchings.</dd>
-  
+  <dd>Infinite scrolling of the network switchings.</dd>  
 </dl>
 
 ### At the server side:

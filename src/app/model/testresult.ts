@@ -3,9 +3,9 @@
  */
 
 export class Testresult {
-  result: boolean;
-  timestamp: Date;
 
+  constructor(public result?: boolean, public timestamp?: Date) {
+  }
 
   /**
    * Helper method for packing JSON object.
