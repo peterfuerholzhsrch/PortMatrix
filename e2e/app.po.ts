@@ -13,4 +13,24 @@ export class PortMatrixPage {
     // return element(by.css('app-root h1')).getText();
     return browser.getTitle();
   }
+
+  getFilter() {
+    return element(by.css('.networkswitchings-filter'));
+  }
+
+  getEmailField() {
+    return element(by.css('.email'));
+  }
+
+  getPasswordField() {
+    return element(by.css('.password'));
+  }
+
+  pressSubmitButton() {
+    return element(by.css('button[type="submit"]')).click();
+  }
+
+  getUserEmail() {
+    return element(by.css('.user-email'));
+  }
 }
