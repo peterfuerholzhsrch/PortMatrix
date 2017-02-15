@@ -59,4 +59,6 @@ export class EditNetworkSwitchingComponent implements OnInit {
   }
 
   zones: Array<string> = ['yellow', 'orange', 'red'];
+  states: Array<string> = ['Implemented', 'Deleted', 'Delete'];
+
 }

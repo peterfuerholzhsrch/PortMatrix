@@ -6,6 +6,7 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: $base-font-size;
+  overflow-x: hidden;
 }
 
 .title {
@@ -16,18 +17,6 @@ body {
 
 .glyphicon {
   margin-right: 0.5em;
-}
-
-header {
-  background: linear-gradient(to top ,$primary-color, $primary-color-dark);
-  color: #fff;
-}
-
-.header-container {
-  display: flex;
-  justify-content: center;
-  height: prem(100);
-  align-items: center;
 }
 
 
