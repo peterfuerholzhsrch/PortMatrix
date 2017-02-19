@@ -12,19 +12,24 @@
         <div id="collapse1" class="panel-collapse collapse in">
           <div class="panel-body">
             <div class="networkswitch-part">
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="id">id</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.id" placeholder="id" name="id" id="id" type="text" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="protocol" >protocol</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.protocol" name="protocol" id="protocol" placeholder="protocol" />
               </div>
-              <div>
-                <label class="networkswitch-label" for="state">state</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.state" name="state" id="state" placeholder="state" />
+              <div class="form-group">
+                <label class="networkswitch-label" for="destination-zone">state</label>
+                <select class="form-control" [(ngModel)]="nwsw.state"  id="state" name="state">
+                  <option *ngFor="let state of states">
+                    {{state}}
+                  </option>
+                </select>
               </div>
-              <div>
+
+              <div class="form-group">
                 <label class="networkswitch-label" for="remark">remark</label>
                 <textarea class="form-control networkswitch-value" [(ngModel)]="nwsw.remark" name="remark" id="remark" placeholder="remark"></textarea>
               </div>
@@ -55,23 +60,23 @@
         <div id="collapse2" class="panel-collapse collapse">
           <div class="panel-body">
             <div class="networkswitch-part">
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="source-host">Host</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" id="source-host" required="{{!sourceIpAddr.valid}}" placeholder="Host" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="source-group">Gruppe</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.group" name="source-group" id="source-group" placeholder="Gruppe" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="source-ipAddr">Ip Adresse</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" #sourceIpAddr="ngModel" name="source-ipAddr" id="source-ipAddr" required="{{!sourceHost.valid}}" placeholder="Ip Adresse" pattern="^[0-9.-]+$" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="source-port">Port</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.port" name="source-port" id="source-port" placeholder="Port" type="number" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="source-zone">Zone</label>
                 <select class="form-control" [(ngModel)]="nwsw.destination.zone"  id="source-zone" name="source-zone">
                   <option *ngFor="let zone of zones">
@@ -94,23 +99,23 @@
         <div id="collapse3" class="panel-collapse collapse">
           <div class="panel-body">
             <div class="networkswitch-part">
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-host">Host</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.host" #destinationHost="ngModel" name="destination-host" id="destination-host" placeholder="Host" required="{{!destinationIpAddr.valid}}" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-group">Gruppe</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.group" name="destination-group" id="destination-group" placeholder="Gruppe" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-ipAddr">Ip Adresse</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.ipAddr" #destinationIpAddr="ngModel" required="{{!destinationHost.valid}}"  name="destination-ipAddr" id="destination-ipAddr" placeholder="Ip Adresse" pattern="^[0-9.-]+$" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-port">Port</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.port" name="destination-port" id="destination-port" placeholder="Port" />
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">Zone</label>
                 <select class="form-control" [(ngModel)]="nwsw.destination.zone"  id="destination-zone" name="destination-zone">
                   <option *ngFor="let zone of zones">

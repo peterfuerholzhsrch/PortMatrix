@@ -15,6 +15,19 @@
   padding: 2px 6px;
 }
 
+.navbar {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  //background: linear-gradient(to top ,$primary-color, $primary-color-dark);
+  border-radius: 0px;
+
+  li + li {
+    margin-left: prem(15);
+  }
+}
+
 .icon {
   max-height: prem(50);
   width: auto;

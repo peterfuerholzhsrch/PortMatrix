@@ -5,7 +5,7 @@
   <div class="form-group">
     <label for="email">Email</label>
     <input id="email"
-           class="form-control"
+           class="form-control email"
            type="email"
            placeholder="email"
            autofocus
@@ -21,7 +21,7 @@
   <div class="form-group">
     <label for="password">Password</label>
     <input id="password"
-           class="form-control"
+           class="form-control password"
            type="password"
            placeholder="password"
            required
@@ -40,7 +40,7 @@
   </div>
 
   <button type="submit"
-          class="btn btn-default"
+          class="btn btn-default submit"
           (click)="login()"
           [disabled]="isLoggedIn() || !loginForm.form.valid">
     Login
