@@ -11,12 +11,8 @@ import {User} from '../model/user';
 })
 export class MainComponent implements OnInit {
 
-  title = 'PortMatrix app works!';
-
   private errormessage: String = '';
-
   private multiEmailFormValid: boolean;
-
 
 
   constructor(
@@ -56,6 +52,11 @@ export class MainComponent implements OnInit {
   }
 
 
+  isProjectAdmin(): Boolean {
+    return this.userManagementService.isProjectAdmin();
+  }
+
+
   logout(): void {
     this.userManagementService.logout().then(() => {
         this.userManagementService.setUser(undefined);
@@ -74,9 +75,10 @@ export class MainComponent implements OnInit {
         this.handleError);
   }
 
-  inviteColleagues(emailAddresses: Array<String>) {
+  inviteColleagues(emailAddresses: Array<string>) {
     // TODO
     console.log("main.component.inviteColleagues: " + emailAddresses);
+    this.userManagementService.inviteColleagues(emailAddresses)
   }
 
   /**

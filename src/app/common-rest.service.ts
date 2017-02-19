@@ -55,10 +55,17 @@ export class CommonRestService {
       .toPromise()
       .then(response => {
         const jsonBody = response.json();
-        CommonRestService.token = jsonBody['token'];
+        this.setJwtToken(jsonBody);
         return jsonBody['user'];
       })
       .catch(CommonRestService.handleError);
+  }
+
+
+  protected setJwtToken(jsonBody) {
+    if (jsonBody) {
+      CommonRestService.token = jsonBody['token'];
+    }
   }
 
 

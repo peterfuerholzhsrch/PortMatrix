@@ -141,17 +141,16 @@
         <h4 class="modal-title">New Test Result</h4>
       </div>
       <div class="modal-body">
-
-        <p>Click according button to save your latest test result!</p>
-<!-- TODO Seek proper datepicker where date / time can be properly filled in:
         <div class="form-group">
-          <label for="timestamp">Timestamp</label>
-          <input id="timestamp"
+          <label for="dateInput">Timestamp:</label>
+          <input id="dateInput"
                  type="datetime-local"
                  class="form-control"
-                 [(ngModel)]="testresultTimestamp"/>
+                 required
+                 [(ngModel)]="testresultTimestampStr"
+                 class="form-control" />
         </div>
--->
+        <p>Click according button to save your latest test result:</p>
       </div>
       <div class="modal-footer">
         <button type="button"

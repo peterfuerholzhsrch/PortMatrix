@@ -15,7 +15,6 @@ import {UserManagementService} from "../user-management.service";
 })
 export class CreateNetworkSwitchingComponent implements OnInit {
   nwsw: Networkswitching;
-  private projectId: string;
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -30,9 +29,10 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     this.nwsw.destination = new Endpoint();
     this.route.params
       .switchMap((params: Params) => {
-        console.log("create-nwsw project-id=" + params['projectId']); // tODO del!!
-        this.projectId = params['projectId'];
-        return this.projectId;
+        const projectId = params['projectId'];
+        this.userManagementService.setProjectId(projectId);
+        console.log("create-nwsw project-id=" + projectId); // tODO del!!
+        return projectId;
       })
       .subscribe();
   }
@@ -42,7 +42,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     const user: User = this.userManagementService.getUser();
     this.nwsw.creationBy = user.email;
     this.nwsw.lastchangeBy = user.email;
-    this.networkswitchingService.insertNetworkswitching(this.projectId, this.nwsw)
+    this.networkswitchingService.insertNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
       .then(() => this.goBack());
   }
 

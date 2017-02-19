@@ -7,6 +7,7 @@ import {NetworkswitchingService} from '../networkswitching.service';
 import {Sorting} from '../model/Sorting';
 import {Observable, Subject} from "rxjs";
 import {CommonRestService} from "../common-rest.service";
+import {UserManagementService} from "../user-management.service";
 
 
 @Component({
@@ -42,7 +43,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   networkswitchings: Networkswitching[] = [];
 
-  private projectId: string;
   private sortingList: Array<Sorting> = [];
 
 
@@ -52,6 +52,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
    * @param router
    */
   constructor(private networkswitchingService: NetworkswitchingService,
+              private userManagementService: UserManagementService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -60,8 +61,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
     this.route.params
       .switchMap((params: Params) => {
-        this.projectId = params['projectId'];
-        console.log("nwsw-browser project-id=" + this.projectId); // tODO del!!
+        const projectId = params['projectId'];
+        this.userManagementService.setProjectId(projectId);
+        console.log("nwsw-browser project-id=" + projectId); // tODO del!!
         return this.loadNwsw()
       })
       .subscribe(nwsws => this.networkswitchings = nwsws);
@@ -73,8 +75,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       .subscribe((searchTerm) => { this.reloadNwsw() });
   }
 
+
   public getProjectId() {
-    return this.projectId;
+    return this.userManagementService.getProjectId();
   }
 
 
@@ -137,7 +140,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   }
 
   insert() {
-    this.router.navigate(['./create', this.projectId]);
+    this.router.navigate(['./create', this.userManagementService.getProjectId()]);
   }
 
   public sortOrderChanged(sortingColumn) {
@@ -165,7 +168,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
-    return this.networkswitchingService.getNetworkswitchings(this.projectId,
+    return this.networkswitchingService.getNetworkswitchings(this.userManagementService.getProjectId(),
                                                              this.searchTerm,
                                                              this.sortingList,
                                                              this.offset,

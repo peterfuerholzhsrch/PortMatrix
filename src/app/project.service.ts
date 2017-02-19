@@ -19,22 +19,32 @@ export class ProjectService extends CommonRestService {
       .get(`${ProjectService.PROJECTS_URL}?userId=${userId}&assignedToo=${assignedToo}`)
       .toPromise()
       .then(response => {
-        let projects: Project[] = Project.jsonArrToObjArr(response.json().data);
-        return projects;
+        return Project.jsonArrToObjArr(response.json().data);
       })
       .catch(ProjectService.handleError);
   }
 
 
-  updateProject(project: Project): Promise<Project> {
-    const url = `${ProjectService.PROJECTS_URL}/${project.getId()}`;
+  getProject(projectId: string): Promise<Project> {
     return this
-      .put(url, project)
+      .get(`${ProjectService.PROJECTS_URL}/${projectId}`)
       .toPromise()
       .then(response => {
-        let project: Project = Project.jsonToObj(response.json());
-        return project;
+        return Project.jsonToObj(response.json());
       })
       .catch(ProjectService.handleError);
   }
+
+  // currently unused:
+  //
+  // updateProject(project: Project): Promise<Project> {
+  //   const url = `${ProjectService.PROJECTS_URL}/${project.getId()}`;
+  //   return this
+  //     .put(url, project)
+  //     .toPromise()
+  //     .then(response => {
+  //       return Project.jsonToObj(response.json());
+  //     })
+  //     .catch(ProjectService.handleError);
+  // }
 }

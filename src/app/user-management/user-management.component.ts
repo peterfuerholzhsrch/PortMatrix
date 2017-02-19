@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, Params} from "@angular/router";
 import {User} from "../model/user";
 import {Project} from "../model/project";
 import {UserManagementService} from "../user-management.service";
@@ -46,7 +46,14 @@ export class UserManagementComponent implements OnInit {
 
 
   ngOnInit() {
-    this.assignedProjectId = this.route.params['assignedProject'];
+    // from https://angular.io/docs/ts/latest/guide/router.html#!#query-parameters:
+    this.route.queryParams
+      .switchMap((params: Params) => {
+          this.assignedProjectId = params['assignedProject'];
+          return this.assignedProjectId || "assignedProjectId_not_set";  // don't return null / undefined!
+        })
+      .subscribe();
+
     this.initUser();
   }
 
@@ -66,6 +73,7 @@ export class UserManagementComponent implements OnInit {
     if (this.assignedProjectId) {
       this.userManagementService.addUserToProject(this.user.email, this.user.password, this.assignedProjectId)
         .then((userAndProject) => {
+          this.errormessage = null;
           this.updateUserInternal(userAndProject.user); // save _id
           this.openProject(userAndProject.project)
         }, this.handleError);
@@ -110,7 +118,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProject(project: Project): void {
-    console.log("openProject project=" + project);  // TODO del
+    console.log("openProject project=" + JSON.stringify(project));  // TODO del
     if (project) {
       this.userManagementService.setProject(project);
       this.router.navigate(['/nwsw', project.getId()]);

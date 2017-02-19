@@ -8,6 +8,8 @@ import './rxjs-extensions';
 // Imports for loading & configuring the in-memory web api
 import {AlertModule} from 'ng2-bootstrap/ng2-bootstrap';
 
+//import { DatePickerModule } from 'ng2-datepicker';
+
 import {MainComponent} from './main/main.component';
 import {NetworkswitchingsBrowserComponent} from "./network-switchings-browser/network-switchings-browser.component";
 import {NetworkswitchingService} from "./networkswitching.service";
@@ -47,6 +49,7 @@ import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.compo
     InfiniteScrollModule,
     AppRoutingModule,
     AlertModule
+//    DatePickerModule
   ],
   providers: [CommonRestService,
     NetworkswitchingService,
