@@ -45,6 +45,18 @@
                   Add latest test result...
                 </button>
               </div>
+
+              <div>
+                <label class="networkswitch-label" for="addTestresultBtn">Historic Data:</label>
+                <button type="button"
+                        class="btn"
+                        id="showhistoricDataBtn"
+                        data-toggle="modal"
+                        data-target="#showHistoricData">
+                  Show Historic Data
+                </button>
+              </div>
+
             </div>
           </div>
         </div>
@@ -129,7 +141,7 @@
       </div>
     </div>
     <button class="btn" type="button" (click)="goBack()">Back</button>
-    <button class="btn btn-default" type="submit" [disabled]="!f.valid" (click)="save()">Save</button>
+    <button class="btn btn-default" type="submit" [disabled]="!f.valid" (click)="save(true)">Save</button>
     <button class="btn" type="button" (click)="delete()">Delete</button>
   </form>
 </div>
@@ -152,8 +164,7 @@
                  type="datetime-local"
                  class="form-control"
                  required
-                 [(ngModel)]="testresultTimestampStr"
-                 class="form-control" />
+                 [(ngModel)]="testresultTimestampStr"/>
         </div>
         <p>Click according button to save your latest test result:</p>
       </div>
@@ -171,3 +182,58 @@
   </div>
 </div>
 
+
+<div class="modal fade" tabindex="-1" role="dialog" id="showHistoricData" *ngIf="nwsw">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Historic Data</h4>
+      </div>
+      <div class="modal-body">
+        <h5 class="modal-title">General:</h5>
+        <table class="table table-striped">
+          <tr>
+            <td>Creation date:</td>   <td>{{nwsw.creationDate | date:DATE_FORMAT}}</td>
+          </tr>
+          <tr>
+            <td>Created by:</td>      <td>{{nwsw.creationBy}}</td>
+          </tr>
+          <tr>
+            <td>Last update date:</td><td>{{nwsw.lastchangeDate | date:DATE_FORMAT}}</td>
+          </tr>
+          <tr>
+            <td>Last updated by:</td> <td>{{nwsw.lastchangeBy}}</td>
+          </tr>
+        </table>
+
+        <h5 class="modal-title">Test Results:</h5>
+        <table class="table table-striped">
+          <tr *ngFor="let testresult of nwsw.testresultList">
+            <td>
+              <span class="glyphicon glyphicon-ok"
+                    aria-hidden="true"
+                    title="OK"
+                    *ngIf="testresult.result"></span>
+              <span class="glyphicon glyphicon-flash"
+                    aria-hidden="true"
+                    title="OK"
+                    *ngIf="!testresult.result"></span>
+            </td>
+            <td>{{testresult.timestamp | date:DATE_FORMAT}}</td>
+          </tr>
+          <tr *ngIf="nwsw.testresultList.length == 0">
+            <td>None available yet!</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-default"
+                data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

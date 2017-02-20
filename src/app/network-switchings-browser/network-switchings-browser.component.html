@@ -68,8 +68,6 @@
   </div>
   <div class="networkswitch-container">
     <div class="networkswitch" *ngFor="let nwsw of networkswitchings"  [routerLink]="['/detail', getProjectId(), nwsw._id]">
-      <!--        (click)="onSelect(nwsw)"
-              [class.selected]="nwsw === selectedHero"> -->
       <div class="network-part-title">General</div>
       <div class="network-part">
         <div class="networkswitch-label">ID:</div><div class="networkswitch-value">{{nwsw.id}}</div>
@@ -92,7 +90,6 @@
         <div class="networkswitch-label">IpAddr:</div><div class="networkswitch-value">{{nwsw.destination.ipAddr}}</div>
         <div class="networkswitch-label">Port:</div><div class="networkswitch-value">{{nwsw.destination.port}}</div>
       </div>
-      <!--        <button class="delete" (click)="delete(hero); $event.stopPropagation()">x</button> -->
     </div>
   </div>
 </div>

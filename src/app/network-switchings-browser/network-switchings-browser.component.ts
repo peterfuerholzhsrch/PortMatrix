@@ -178,6 +178,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
         this.networkswitchings.push(...nwsws);
         return this.networkswitchings;
       })
-      .catch(CommonRestService.handleError);
+      .catch(this.userManagementService.handleError);
   }
 }

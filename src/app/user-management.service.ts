@@ -44,7 +44,7 @@ export class UserManagementService extends CommonRestService {
         this.setJwtToken(jsonBody);
         return UserAndProject.jsonToObj(jsonBody);
       })
-      .catch(UserManagementService.handleError);
+      .catch(this.handleError);
   }
 
 
@@ -52,7 +52,7 @@ export class UserManagementService extends CommonRestService {
     return this.delete(`${UserManagementService.USERS_URL}/${userId}`)
       .toPromise()
       .then(() => null)
-      .catch(UserManagementService.handleError);
+      .catch(this.handleError);
   }
 
 
@@ -63,7 +63,7 @@ export class UserManagementService extends CommonRestService {
       .then(response => {
         return User.jsonToObj(response.json());
       })
-      .catch(UserManagementService.handleError);
+      .catch(this.handleError);
   }
 
 
@@ -77,7 +77,7 @@ export class UserManagementService extends CommonRestService {
       // project is not loaded or changed -> reload it:
       this.projectService.getProject(projectId)
         .then(project => this.project = project)
-        .catch(UserManagementService.handleError);
+        .catch(this.handleError);
     }
   }
 
@@ -126,16 +126,20 @@ export class UserManagementService extends CommonRestService {
    */
   public inviteColleagues(recipients: Array<string>): Promise<boolean> {
     if (!this.project) {
-      UserManagementService.handleError("no project set!");
+      this.handleError("no project set!");
       return;
     }
-    const params = { recipients: recipients, projectId: this.projectId, adminId: this.user.getId() };
+    const params = {
+      recipients: recipients,
+      projectId: this.projectId,
+      adminId: this.user.getId()
+    };
 
     return this.post(UserManagementService.USERSMAIL_URL, params)
       .toPromise()
       .then(response => {
         // OK
       })
-      .catch(UserManagementService.handleError);
+      .catch(this.handleError);
   }
 }

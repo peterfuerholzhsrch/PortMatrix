@@ -15,6 +15,8 @@ export class EditNetworkSwitchingComponent implements OnInit {
   private nwsw: Networkswitching;
   public testresultTimestampStr: string;
 
+  DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
+
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -42,11 +44,19 @@ export class EditNetworkSwitchingComponent implements OnInit {
   }
 
 
-  save(): void {
+  /**
+   * Saves network switching
+   * @param goBack true: goes back in browsing history
+   */
+  save(goBack: boolean): void {
     this.nwsw.lastchangeDate = new Date();
     this.nwsw.lastchangeBy = this.userManagementService.getUser().email;
     this.networkswitchingService.updateNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-      .then(() => this.goBack());
+      .then(() => {
+        if (goBack) {
+          this.goBack();
+        }
+      });
   }
 
 
@@ -62,7 +72,7 @@ export class EditNetworkSwitchingComponent implements OnInit {
       console.log("addTestresult success=" + success + " timestamp=" + testresultTimestamp); // TODO del
 
       this.nwsw.addTestresult(success, testresultTimestamp);
-      this.save();
+      this.save(false);
     }
   }
 

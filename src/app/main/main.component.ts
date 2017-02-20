@@ -75,11 +75,18 @@ export class MainComponent implements OnInit {
         this.handleError);
   }
 
+
   inviteColleagues(emailAddresses: Array<string>) {
     // TODO
     console.log("main.component.inviteColleagues: " + emailAddresses);
     this.userManagementService.inviteColleagues(emailAddresses)
   }
+
+
+  gotoNwswBrowsing() {
+    this.router.navigate(['/nwsw', this.userManagementService.getProjectId()]);
+  }
+
 
   /**
    * handleError is a closure so it is already bound to this!

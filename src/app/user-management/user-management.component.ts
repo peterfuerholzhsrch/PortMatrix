@@ -96,13 +96,17 @@ export class UserManagementComponent implements OnInit {
           return this.projectService.getProjectsByUserId(this.user.getId(), true/*assignedToo*/);
         })
       .then((projects) => {
-        if (this.authService.getRedirectUrl()) {
-          this.router.navigate([this.authService.getRedirectUrl()]);
-          this.authService.setRedirectUrl(undefined);
+        let redirectUrl = this.authService.getRedirectUrl();
+        if (redirectUrl) {
+          // check if saved redirection is still valid (e.g. project got deleted and thus is no longer valid):
+          const found = projects.find(project => redirectUrl.indexOf(project.getId()) >= 0);
+          if (found) {
+            this.router.navigate([this.authService.getRedirectUrl()]);
+            this.authService.setRedirectUrl(undefined);
+            return;
+          }
         }
-        else {
-          this.openProjects(projects)
-        }
+        this.openProjects(projects);
       })
       .catch(this.handleError);
   }

@@ -21,7 +21,7 @@ export class CommonRestService {
     this.redirectUrl = url;
   }
 
-  public getRedirectUrl() {
+  public getRedirectUrl(): string {
     return this.redirectUrl;
   }
 
@@ -58,7 +58,7 @@ export class CommonRestService {
         this.setJwtToken(jsonBody);
         return jsonBody['user'];
       })
-      .catch(CommonRestService.handleError);
+      .catch(this.handleError);
   }
 
 
@@ -80,8 +80,9 @@ export class CommonRestService {
   }
 
 
-  public static handleError(error: any): Promise<any> {
+  public handleError(error: any): Promise<any> {
     console.log('An error occurred', error); // for demo purposes only
+    this.redirectUrl = undefined; // don't try more than once (it may have got invalid)
     return Promise.reject(error.message || error);
   }
 
