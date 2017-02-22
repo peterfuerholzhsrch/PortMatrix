@@ -1,10 +1,10 @@
 <div *ngIf="nwsw">
-  <form #f="ngForm">
+  <form #createForm="ngForm">
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            <a data-toggle="collapse" class="accordion-toggle" data-parent="#accordion" href="#collapse1">
               General
             </a>
           </h4>
@@ -39,14 +39,15 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-              Host: {{nwsw.source.host}}
+            <a data-toggle="collapse" class="accordion-toggle" data-parent="#accordion" href="#collapse2">
+              Host / Destination
             </a>
           </h4>
         </div>
         <div id="collapse2" class="panel-collapse collapse">
           <div class="panel-body">
             <div class="networkswitch-part">
+              <h2>Host Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-host">Host</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" id="source-host" required="{{!sourceIpAddr.valid}}" placeholder="Host" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
@@ -72,20 +73,8 @@
                 </select>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-              Destination: {{nwsw.destination.host}}
-            </a>
-          </h4>
-        </div>
-        <div id="collapse3" class="panel-collapse collapse">
-          <div class="panel-body">
             <div class="networkswitch-part">
+              <h2>Destination Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-host">Host</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.host" #destinationHost="ngModel" name="destination-host" id="destination-host" placeholder="Host" required="{{!destinationIpAddr.valid}}" pattern="^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" />
@@ -117,8 +106,7 @@
         </div>
       </div>
     </div>
-    <button class="btn" type="button" (click)="goBack()">Back</button>
-    <button class="btn btn-default" type="submit" [disabled]="!f.valid"  (click)="save()">Save</button>
-
+    <button class="btn btn-default" type="button" (click)="goBack()">Back</button>
+    <button class="btn btn-success" type="submit" [disabled]="!createForm.valid"  (click)="save()">Save</button>
   </form>
 </div>

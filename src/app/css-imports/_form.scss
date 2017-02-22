@@ -1,0 +1,38 @@
+.networkswitch-label {
+  display: block;
+}
+
+.panel-body {
+  display: flex;
+}
+
+.networkswitch-part {
+  width: 50%;
+  padding-left: prem(20);
+  padding-right: prem(20);
+}
+
+.panel-heading {
+  padding: 0;
+}
+
+.accordion-toggle {
+  padding: prem(10) prem(15);
+  display: block;
+}
+
+@media (min-width: $width-mobile) {
+  .networkswitch-part:last-child {
+    border-left: 1px solid #eee;
+  }
+}
+
+@media (max-width: $width-mobile) {
+  .networkswitch-part {
+    width: 100%;
+  }
+
+  .panel-body {
+    flex-direction: column;
+  }
+}

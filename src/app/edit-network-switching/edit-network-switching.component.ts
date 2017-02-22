@@ -4,6 +4,7 @@ import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import {NetworkswitchingService} from '../networkswitching.service';
 import {UserManagementService} from "../user-management.service";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -11,7 +12,8 @@ import {UserManagementService} from "../user-management.service";
   templateUrl: 'edit-network-switching.component.html',
   styleUrls: ['edit-network-switching.component.scss']
 })
-export class EditNetworkSwitchingComponent implements OnInit {
+export class EditNetworkSwitchingComponent implements OnInit{
+
   private nwsw: Networkswitching;
   public testresultTimestampStr: string;
 
@@ -74,6 +76,12 @@ export class EditNetworkSwitchingComponent implements OnInit {
       this.nwsw.addTestresult(success, testresultTimestamp);
       this.save(false);
     }
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    return new Promise<boolean>(resolve => {
+      return resolve(window.confirm('Move away from this site and lose all changes?'));
+    });
   }
 
   goBack(): void {
