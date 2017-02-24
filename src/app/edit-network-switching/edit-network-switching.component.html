@@ -21,8 +21,8 @@
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.protocol" name="protocol" id="protocol" placeholder="protocol" />
               </div>
               <div class="form-group">
-                <label class="networkswitch-label" for="destination-zone">state</label>
-                <select class="form-control" [(ngModel)]="nwsw.state"  id="state" name="state">
+                <label class="networkswitch-label" for="state">state</label>
+                <select class="form-control" [(ngModel)]="nwsw.state" id="state" name="state">
                   <option *ngFor="let state of states">
                     {{state}}
                   </option>
