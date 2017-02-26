@@ -12,6 +12,19 @@
   padding-right: prem(20);
 }
 
+.development_system {
+  background-color: $system-development-color;
+}
+.test_system {
+  background-color: $system-test-color;
+}
+.integration_system {
+  background-color: $system-integration-color;
+}
+.production_system {
+  background-color: $system-production-color;
+}
+
 .panel-heading {
   padding: 0;
 }

@@ -24,7 +24,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   // used by template:
   STATES = Networkswitching.STATES;
   // used by template:
-  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS;
+  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
 
 
   @ViewChild('createForm') public editForm: NgForm;

@@ -18,7 +18,11 @@
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">System:</label>
-                <select class="form-control" [(ngModel)]="nwsw.systemEnvironment"  id="systemEnvironment" name="systemEnvironment">
+                <select class="form-control"
+                        [ngClass]="nwsw.getSystemEnvironmentCssClass()"
+                        [(ngModel)]="nwsw.systemEnvironment"
+                        id="systemEnvironment"
+                        name="systemEnvironment">
                   <option *ngFor="let systemEnvironment of SYSTEM_ENVIRONMENTS">
                     {{systemEnvironment}}
                   </option>
