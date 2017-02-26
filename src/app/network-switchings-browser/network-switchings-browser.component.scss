@@ -28,7 +28,7 @@ sort-button {
 }
 
 .networkswitch {
-  border: 1px solid $border-color;
+  border: 8px solid;
   margin-top: $default-space;
   margin-bottom: $default-space;
   border-radius: $border-radius;
@@ -40,6 +40,21 @@ sort-button {
     cursor: pointer;
   }
 }
+
+
+.development_system {
+  border-color: $system-development-color;
+}
+.test_system {
+  border-color: $system-test-color;
+}
+.integration_system {
+  border-color: $system-integration-color;
+}
+.production_system {
+  border-color: $system-production-color;
+}
+
 
 .network-part-title {
   background: $gray;

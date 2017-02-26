@@ -21,9 +21,21 @@
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.protocol" name="protocol" id="protocol" placeholder="protocol" />
               </div>
               <div class="form-group">
+                <label class="networkswitch-label" for="destination-zone">System:</label>
+                <select class="form-control"
+                        [ngClass]="nwsw.getSystemEnvironmentCssClass()"
+                        [(ngModel)]="nwsw.systemEnvironment"
+                        id="systemEnvironment"
+                        name="systemEnvironment">
+                  <option *ngFor="let systemEnvironment of SYSTEM_ENVIRONMENTS">
+                    {{systemEnvironment}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">state</label>
                 <select class="form-control" [(ngModel)]="nwsw.state"  id="state" name="state">
-                  <option *ngFor="let state of states">
+                  <option *ngFor="let state of STATES">
                     {{state}}
                   </option>
                 </select>
@@ -91,7 +103,7 @@
               <div class="form-group">
                 <label class="networkswitch-label" for="source-zone">Zone</label>
                 <select class="form-control" [(ngModel)]="nwsw.destination.zone"  id="source-zone" name="source-zone">
-                  <option *ngFor="let zone of zones">
+                  <option *ngFor="let zone of ZONES">
                     {{zone}}
                   </option>
                 </select>
@@ -130,7 +142,7 @@
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">Zone</label>
                 <select class="form-control" [(ngModel)]="nwsw.destination.zone"  id="destination-zone" name="destination-zone">
-                  <option *ngFor="let zone of zones">
+                  <option *ngFor="let zone of ZONES">
                     {{zone}}
                   </option>
                 </select>

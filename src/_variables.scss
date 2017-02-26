@@ -1,6 +1,5 @@
 @import "mixinsAndFunctions";
 
-$border-color: #eee;
 $gray: #eee;
 $primary-color: #193e84;
 $primary-color-dark: #051861;
@@ -12,3 +11,9 @@ $default-space: prem(15);
 $base-font-size: 16px;
 
 $width-mobile: 768px;
+
+
+$system-development-color: #7bfaff; // blueish
+$system-test-color: #72ff9b; // green-ish
+$system-integration-color: #f4ff6b; // yellow-ish
+$system-production-color: #ff6b59; // reddish

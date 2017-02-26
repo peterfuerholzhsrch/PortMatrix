@@ -4,6 +4,7 @@ import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import {NetworkswitchingService} from '../networkswitching.service';
 import {UserManagementService} from "../user-management.service";
+import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
 
 
 @Component({
@@ -15,7 +16,13 @@ export class EditNetworkSwitchingComponent implements OnInit {
   private nwsw: Networkswitching;
   public testresultTimestampStr: string;
 
+  // Used by template:
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
+  ZONES = Networkswitching.ZONES;
+  // used by template:
+  STATES = Networkswitching.STATES;
+  // used by template:
+  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
 
 
   constructor(
@@ -79,8 +86,4 @@ export class EditNetworkSwitchingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
-  zones: Array<string> = ['yellow', 'orange', 'red'];
-  states: Array<string> = ['Implemented', 'Deleted', 'Delete'];
-
 }

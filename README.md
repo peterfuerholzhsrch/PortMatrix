@@ -5,7 +5,7 @@ course by Marco Endres and Peter Fuerholz.
 
 ## Table Of Contents
 * [Specification](Specification.MD)
-* [Usage](Usage.MD)
+* [Development](Development.MD)
 
 
 ## Installation / Setup
@@ -52,51 +52,4 @@ _Common:_
 
 * Security: JWT
 
-
-## Testing
-Supported Testing:
-
-_Frontend:_
-
-* e2e  
-
-_Backend:_
-
-* Check REST-services:
-  `$(npm bin)/jasmine-node .`
-   To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.js
-   For these tests the server must be started before.
-
-
-
-## Additional Packages
-<dl>
-  <dt>npm install --save ng2-bootstrap</dt>
-  <dd>For collapsible pane, modal dialogs etc.</dd>
-  <dt>npm install --save jquery</dt>
-  <dd>Used for Bootstrap.</dd>
-  <dt>npm install --save angular2-infinite-scroll</dt>
-  <dd>Infinite scrolling of the network switchings.</dd>
-</dl>
-
-### At the server side:
-<dl>
-  <dt>npm install --save-dev frisby</dt>
-  <dd>Needed for REST-service testing, see <a href="http://frisbyjs.com">Frisby</a></dd> 
-  <dt>npm install --save-dev jasmine-node</dt>
-  <dd>Needed by Frisby (see above).</dd>
-  <dt>npm install --save-dev async</dt>
-  <dd>Needed by Frisby to easily run one HTTP-command after the other. (See 
-  <a href="http://caolan.github.io/async/">Async</a> and
-  <a href="https://github.com/vlucas/frisby/issues/64">see comment by codeHatcher</a>)</dd>
-  <dt>npm install --save jsonwebtoken</dt>
-  <dd>Needed for authenticate (session-less) REST-calls.</dd>   
-  
-  <dt>npm install --save promise</dt>
-  <dd>Needed????</dd>   
-  
-  <dt>npm install nodemailer --save</dt>
-  <dd>for sending emails</dd>
-  
-</dl>
 

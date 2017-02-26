@@ -2,7 +2,7 @@
 
 ## Introduction
 The PortMatrix is an application used by multiple users sharing a common network infrastructure. Within this network
-infrastructure divided into different zones countless firewall rules need be applied and managed. The tool here shall
+infrastructure divided into different zones countless firewall switchings need be applied and managed. The tool here shall
 save up these settings and represent the current state.
 
 Since a network infrastructure is shared within a community / company every firewall rule shall be visible among all
@@ -16,7 +16,7 @@ means that a user cannot take part in different network infrastructures, technic
       rule. A network switching is defined by a source network address (or its IP-address), its destination network
       address (or its IP-address) and a protocol (typically TCP or UDP)</dd>
   <dt>Project</dt>
-  <dd>A network infrastructure with all its network rules is represented as one project.</dd>
+  <dd>A network infrastructure with all its network switchings is represented as one project.</dd>
 </dl>
 
 ## General
@@ -45,13 +45,13 @@ Currently it is foreseen to have one type of user only. This means invited (and 
 * Manage network state
 * Manage network zones
 * Invite colleagues
-* enter network rules
-* edit network rules
-* delete network rules
-* show history of a network rule
-* enter a test result of a network rule
-* browse, filter and sort network rules
-* search for network rules
+* enter network switching
+* edit network switching
+* delete network switching
+* show history of a network switching
+* enter a test result of a network switching
+* browse, filter and sort network switching
+* search for network switching
 
 _Prio2:_
 * User has password forgotten

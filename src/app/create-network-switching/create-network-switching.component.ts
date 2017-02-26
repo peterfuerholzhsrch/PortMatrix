@@ -6,6 +6,7 @@ import { NetworkswitchingService } from '../networkswitching.service';
 import {Endpoint} from "../model/endpoint";
 import {User} from "../model/user";
 import {UserManagementService} from "../user-management.service";
+import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
 
 
 @Component({
@@ -15,6 +16,14 @@ import {UserManagementService} from "../user-management.service";
 })
 export class CreateNetworkSwitchingComponent implements OnInit {
   nwsw: Networkswitching;
+
+  // used by template:
+  ZONES = Networkswitching.ZONES;
+  // used by template:
+  STATES = Networkswitching.STATES;
+  // used by template:
+  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS;
+
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -49,7 +58,4 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
-
-  zones: Array<string> = ['yellow', 'orange', 'red'];
-  states: Array<string> = ['Implemented', 'Deleted', 'Delete'];
 }
