@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
@@ -8,6 +8,8 @@ import {User} from "../model/user";
 import {UserManagementService} from "../user-management.service";
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
 
+import {NgForm} from "@angular/forms";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'create-network-switching',
@@ -24,6 +26,8 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   // used by template:
   SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS;
 
+
+  @ViewChild('createForm') public editForm: NgForm;
 
   constructor(
     private networkswitchingService: NetworkswitchingService,
@@ -53,6 +57,16 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     this.nwsw.lastchangeBy = user.email;
     this.networkswitchingService.insertNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
       .then(() => this.goBack());
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if(this.editForm.pristine || this.editForm.submitted) {
+      return true;
+    }
+
+    return new Promise<boolean>(resolve => {
+      return resolve(window.confirm('Move away from this site and lose all changes?'));
+    });
   }
 
   goBack(): void {

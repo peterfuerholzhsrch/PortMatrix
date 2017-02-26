@@ -76,7 +76,6 @@ export class Networkswitching {
   public getSystemEnvironmentCssClass(): string {
     const foundIndex = SystemEnvironment.getIndex(this.systemEnvironment);
     const cssClass = SystemEnvironment.getCssClass(SYSTEM_ENVIRONMENTS[foundIndex]);
-    console.log("getSystemEnvironmentCssClass: cssClass=" + cssClass); // TODO del
     return cssClass;
   }
 }

@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute} from "@angular/router";
 import {NetworkswitchingService} from '../networkswitching.service';
 import {UserManagementService} from "../user-management.service";
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
+import {Observable} from "rxjs";
+import {NgForm} from "@angular/forms";
 
 
 @Component({
@@ -12,9 +14,11 @@ import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment
   templateUrl: 'edit-network-switching.component.html',
   styleUrls: ['edit-network-switching.component.scss']
 })
-export class EditNetworkSwitchingComponent implements OnInit {
+export class EditNetworkSwitchingComponent implements OnInit{
+
   private nwsw: Networkswitching;
   public testresultTimestampStr: string;
+  @ViewChild('editForm') public editForm: NgForm;
 
   // Used by template:
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
@@ -81,6 +85,16 @@ export class EditNetworkSwitchingComponent implements OnInit {
       this.nwsw.addTestresult(success, testresultTimestamp);
       this.save(false);
     }
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if(this.editForm.pristine || this.editForm.submitted) {
+      return true;
+    }
+
+    return new Promise<boolean>(resolve => {
+      return resolve(window.confirm('Move away from this site and lose all changes?'));
+    });
   }
 
   goBack(): void {

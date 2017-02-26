@@ -27,6 +27,7 @@ import {AuthGuardService} from "./auth-guard.service";
 import {SessionStorageService} from "./session-storage.service";
 import {MultiEmailDirective} from './multi-email.directive';
 import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.component';
+import {SharedModule} from "./shared/shared.module";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.compo
     HttpModule,
     InfiniteScrollModule,
     AppRoutingModule,
-    AlertModule
+    AlertModule,
+    SharedModule
 //    DatePickerModule
   ],
   providers: [CommonRestService,

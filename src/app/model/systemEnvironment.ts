@@ -28,7 +28,6 @@ namespace SystemEnvironment {
 
   export function getIndex(systemString: string): number {
     const foundIdx = SYSTEM_ENVIRONMENTS.find(idx => systemString == SystemEnvironment[idx].toString());
-    console.log("enumValue: foundIdx=" + foundIdx + ", sysEnv=" + SYSTEM_ENVIRONMENTS[foundIdx]); // TODO del
     return foundIdx;
   }
 }

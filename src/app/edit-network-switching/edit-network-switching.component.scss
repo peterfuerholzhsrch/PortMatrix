@@ -1,29 +1,6 @@
-@import "../../mixinsAndFunctions";
-@import "../../variables";
-
-.networkswitch-label {
-  display: block;
-}
-
-.panel-body {
-  display: flex;
-}
-
-.networkswitch-part {
-  width: 50%;
-  padding-left: prem(10);
-  padding-right: prem(10);
-}
-
-@media (max-width: $width-mobile) {
-  .networkswitch-part {
-    width: 100%;
-  }
-
-  .panel-body {
-    flex-direction: column;
-  }
-}
+@import "../css-imports/_mixinsAndFunctions";
+@import "../css-imports/_variables";
+@import "../css-imports/_form";
 
 
 // additional style:
