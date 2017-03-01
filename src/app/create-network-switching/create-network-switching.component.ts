@@ -28,6 +28,8 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   // used by template:
   SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
 
+  private hostRegEx: String = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+  private ipRegEx: String = "^[0-9.-]+$";
 
   @ViewChild('createForm') public editForm: NgForm;
 
