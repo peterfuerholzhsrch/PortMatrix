@@ -7,6 +7,7 @@ import {Project} from "./model/project";
 import {CommonRestService} from "./common-rest.service";
 import {SessionStorageService} from "./session-storage.service";
 import {ProjectService} from "./project.service";
+import {Observable} from "rxjs";
 
 
 @Injectable()
@@ -124,7 +125,7 @@ export class UserManagementService extends CommonRestService {
    * @param recipients
    * @returns {any}
    */
-  public inviteColleagues(recipients: Array<string>): Promise<boolean> {
+  public inviteColleagues(recipients: Array<string>): Observable<boolean> {
     if (!this.project) {
       this.handleError("no project set!");
       return;
@@ -135,11 +136,12 @@ export class UserManagementService extends CommonRestService {
       adminId: this.user.getId()
     };
 
-    return this.post(UserManagementService.USERSMAIL_URL, params)
+    let observable = this.post(UserManagementService.USERSMAIL_URL, params)
       .toPromise()
       .then(response => {
         // OK
       })
       .catch(this.handleError);
+    return observable as any as Observable<boolean>;
   }
 }

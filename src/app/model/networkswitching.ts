@@ -13,14 +13,13 @@ export class Networkswitching {
   source: Endpoint;
   destination: Endpoint;
   protocol: string;
-  state: string;
+  state: string = Networkswitching.STATES[0];
   remark: string;
   testresultList: Array<Testresult>;
   creationDate: Date;
   creationBy: string;
   lastchangeDate: Date;
   lastchangeBy: string;
-
 
   public static ZONES: Array<string> = ['yellow', 'orange', 'red'];
   public static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];

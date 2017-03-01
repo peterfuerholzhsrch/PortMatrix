@@ -7,8 +7,7 @@ import './rxjs-extensions';
 
 // Imports for loading & configuring the in-memory web api
 import {AlertModule} from 'ng2-bootstrap/ng2-bootstrap';
-
-//import { DatePickerModule } from 'ng2-datepicker';
+import {BootstrapModalModule} from 'ng2-bootstrap-modal';
 
 import {MainComponent} from './main/main.component';
 import {NetworkswitchingsBrowserComponent} from "./network-switchings-browser/network-switchings-browser.component";
@@ -28,6 +27,7 @@ import {SessionStorageService} from "./session-storage.service";
 import {MultiEmailDirective} from './multi-email.directive';
 import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.component';
 import {SharedModule} from "./shared/shared.module";
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -41,7 +41,8 @@ import {SharedModule} from "./shared/shared.module";
     SortButtonComponent,
     UserManagementComponent,
     MultiEmailDirective,
-    MultiEmailFormComponent
+    MultiEmailFormComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,8 +51,8 @@ import {SharedModule} from "./shared/shared.module";
     InfiniteScrollModule,
     AppRoutingModule,
     AlertModule,
-    SharedModule
-//    DatePickerModule
+    SharedModule,
+    BootstrapModalModule
   ],
   providers: [CommonRestService,
     NetworkswitchingService,
@@ -59,6 +60,9 @@ import {SharedModule} from "./shared/shared.module";
     ProjectService,
     AuthGuardService,
     SessionStorageService
+  ],
+  entryComponents: [
+    ConfirmDialogComponent // see https://www.npmjs.com/package/ng2-bootstrap-modal
   ],
   bootstrap: [MainComponent]
 })

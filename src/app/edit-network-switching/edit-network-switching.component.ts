@@ -7,6 +7,8 @@ import {UserManagementService} from "../user-management.service";
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
+import {DialogService} from "ng2-bootstrap-modal";
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class EditNetworkSwitchingComponent implements OnInit{
   constructor(
     private networkswitchingService: NetworkswitchingService,
     private userManagementService: UserManagementService,
+    private dialogService: DialogService,
     private route: ActivatedRoute,
     private location: Location
   ) {
@@ -87,15 +90,28 @@ export class EditNetworkSwitchingComponent implements OnInit{
     }
   }
 
+
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if(this.editForm.pristine || this.editForm.submitted) {
       return true;
     }
-
-    return new Promise<boolean>(resolve => {
-      return resolve(window.confirm('Move away from this site and lose all changes?'));
-    });
+    return this.showConfirm();
   }
+
+
+  /**
+   * Show confirm dialog to ask user if he wants to go on and cancel changes.
+   * See https://www.npmjs.com/package/ng2-bootstrap-modal
+   * @returns {Observable<boolean>}
+   */
+  showConfirm(): Observable<boolean> {
+    let disposable = this.dialogService.addDialog(ConfirmDialogComponent, {
+                                                    title: 'Confirm dialog',
+                                                    message: 'Move away from this site and lose all changes?'
+                                                  });
+    return disposable as any as Observable<boolean>;
+  }
+
 
   goBack(): void {
     this.location.back();

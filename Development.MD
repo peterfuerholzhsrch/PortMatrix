@@ -53,6 +53,8 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
   <dd>Used for Bootstrap.</dd>
   <dt>npm install --save angular2-infinite-scroll</dt>
   <dd>Infinite scrolling of the network switchings.</dd>
+  <dt>npm install --save ng2-bootstrap-modal</dt>
+  <dd>Simplifies the use of Bootstrap's modal dialogs</dd>
 </dl>
 
 ### At the server side:
