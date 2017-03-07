@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
@@ -17,6 +18,8 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
   styleUrls: ['edit-network-switching.component.scss']
 })
 export class EditNetworkSwitchingComponent implements OnInit{
+
+  private log = Log.create('edit-network-switching');
 
   private nwsw: Networkswitching;
   public testresultTimestampStr: string;
@@ -46,7 +49,7 @@ export class EditNetworkSwitchingComponent implements OnInit{
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId);
-        console.log("edit-nwsw project-id=" + projectId); // tODO del!!
+        this.log.i("edit-nwsw project-id=", projectId);
         return this.networkswitchingService.getNetworkswitching(projectId, params['id'])
       })
       .subscribe(nwsw => this.nwsw = nwsw);
@@ -75,15 +78,20 @@ export class EditNetworkSwitchingComponent implements OnInit{
 
 
   delete(): void {
-    this.networkswitchingService.deleteNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-      .then(() => this.goBack());
+    this.showConfirm('Confirm dialog', 'Are you sure to delete this network switching?')
+      .subscribe(ok => {
+        if (ok) {
+          this.networkswitchingService.deleteNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
+            .then(() => this.goBack());
+        }
+      });
   }
 
 
   addTestresult(success: boolean) {
     if (this.testresultTimestampStr) {
       const testresultTimestamp = new Date(Date.parse(this.testresultTimestampStr));
-      console.log("addTestresult success=" + success + " timestamp=" + testresultTimestamp); // TODO del
+      this.log.i("addTestresult success=", success, " timestamp=", testresultTimestamp);
 
       this.nwsw.addTestresult(success, testresultTimestamp);
       this.save(false);
@@ -95,19 +103,21 @@ export class EditNetworkSwitchingComponent implements OnInit{
     if(this.editForm.pristine || this.editForm.submitted) {
       return true;
     }
-    return this.showConfirm();
+    return this.showConfirm('Confirm dialog', 'Move away from this site and lose all changes?');
   }
 
 
   /**
    * Show confirm dialog to ask user if he wants to go on and cancel changes.
    * See https://www.npmjs.com/package/ng2-bootstrap-modal
+   * @param title text shown in title bar
+   * @param message text shown in the body
    * @returns {Observable<boolean>}
    */
-  showConfirm(): Observable<boolean> {
+  showConfirm(title: string, message: string): Observable<boolean> {
     let disposable = this.dialogService.addDialog(ConfirmDialogComponent, {
-                                                    title: 'Confirm dialog',
-                                                    message: 'Move away from this site and lose all changes?'
+                                                    title: title,
+                                                    message: message
                                                   });
     return disposable as any as Observable<boolean>;
   }

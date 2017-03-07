@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Log} from 'ng2-logger/ng2-logger'
+import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {User} from './model/user';
 
 
 @Injectable()
 export class CommonRestService {
+  private log = Log.create('common-rest-service');
 
   private static LOGIN_URL = '/api/login';
   protected static JSON_HEADERS = new Headers({'Content-Type': 'application/json'});
@@ -81,7 +83,7 @@ export class CommonRestService {
 
 
   public handleError(error: any): Promise<any> {
-    console.log('An error occurred', error); // for demo purposes only
+    this.log.er('An error occurred', error);
     this.redirectUrl = undefined; // don't try more than once (it may have got invalid)
     return Promise.reject(error.message || error);
   }

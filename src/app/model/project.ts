@@ -1,7 +1,3 @@
-import {Endpoint} from "./endpoint";
-import {Testresult} from "./testresult";
-
-
 /**
  * Model class for projects.
  * Created by pfu on 12/01/17.

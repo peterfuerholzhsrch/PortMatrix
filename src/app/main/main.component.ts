@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserManagementService} from "../user-management.service";
 import {Router} from "@angular/router";
@@ -10,6 +11,7 @@ import {User} from '../model/user';
   encapsulation: ViewEncapsulation.None
 })
 export class MainComponent implements OnInit {
+  private log = Log.create('main-component');
 
   private errormessage: String = '';
   private multiEmailFormValid: boolean;
@@ -27,7 +29,7 @@ export class MainComponent implements OnInit {
 
 
   setInviteColleaguesFormValid(valid: boolean) {
-    console.log("setInviteColleaguesFormValid " + valid);
+    this.log.i("setInviteColleaguesFormValid " + valid);
     this.multiEmailFormValid = valid;
   }
 
@@ -77,8 +79,7 @@ export class MainComponent implements OnInit {
 
 
   inviteColleagues(emailAddresses: Array<string>) {
-    // TODO
-    console.log("main.component.inviteColleagues: " + emailAddresses);
+    this.log.i("inviteColleagues: ", emailAddresses);
     this.userManagementService.inviteColleagues(emailAddresses)
   }
 
@@ -93,7 +94,7 @@ export class MainComponent implements OnInit {
    * @param err
    */
   private handleError = (err) => {
-    console.log("Error=" + err); // TODO delete
+    this.log.er("Error=" + err);
     this.errormessage = err.text() ? err.text() : err.statusText;
   }
 }

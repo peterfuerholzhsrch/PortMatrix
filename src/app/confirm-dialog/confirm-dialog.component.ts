@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 
 
+export interface ConfirmModel {
+  title: string;
+  message: string;
+}
+
 @Component({
   selector: 'confirmDialog',
   template: `<div class="modal-content">
@@ -19,10 +24,14 @@ import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
                  </div>`,
   styleUrls: ['./confirm-dialog.component.scss']
 })
-export class ConfirmDialogComponent extends DialogComponent {
+export class ConfirmDialogComponent extends DialogComponent<ConfirmModel, boolean> {
+  private title: string;
+  private message: string;
+
   constructor(dialogService: DialogService) {
     super(dialogService);
   }
+
   private confirm() {
     // we set dialog result as true on click on confirm button,
     // then we can get dialog result from caller code

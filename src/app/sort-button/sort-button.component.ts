@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import { Component, EventEmitter } from '@angular/core';
 import { Sorting } from '../model/Sorting';
 
@@ -12,6 +13,7 @@ import { Sorting } from '../model/Sorting';
   outputs: ['sortingChanged']
 })
 export class SortButtonComponent {
+  private log = Log.create('sort-button');
   public sorting: Sorting;
   public sortingList: Array<Sorting>;
   public sortingChanged: EventEmitter<Array<Sorting>> = new EventEmitter<Array<Sorting>>();
@@ -30,7 +32,7 @@ export class SortButtonComponent {
     else {
       const addSorting = Sorting.getSortingByDbColumn(sortButton);
       if (!addSorting) {
-        console.warn("Unknown sorting! sortButton=" + sortButton);
+        this.log.w("Unknown sorting! sortButton=", sortButton);
         return;
       }
       this.sortingList.push(addSorting);

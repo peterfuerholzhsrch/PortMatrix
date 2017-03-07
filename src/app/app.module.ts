@@ -4,9 +4,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AppRoutingModule}     from './app-routing.module';
 import './rxjs-extensions';
-
-// Imports for loading & configuring the in-memory web api
-import {AlertModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {Log, Level} from 'ng2-logger/ng2-logger'
+import {AlertModule} from 'ng2-bootstrap';
 import {BootstrapModalModule} from 'ng2-bootstrap-modal';
 
 import {MainComponent} from './main/main.component';
@@ -28,6 +27,10 @@ import {MultiEmailDirective} from './multi-email.directive';
 import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.component';
 import {SharedModule} from "./shared/shared.module";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import {TestStatusComponent} from "./test-status/test-status.component";
+
+// TODO Enable for production!!!
+// Log.setProductionMode();
 
 
 @NgModule({
@@ -39,6 +42,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     SortButtonComponent,
     CreateNetworkSwitchingComponent,
     SortButtonComponent,
+    TestStatusComponent,
     UserManagementComponent,
     MultiEmailDirective,
     MultiEmailFormComponent,

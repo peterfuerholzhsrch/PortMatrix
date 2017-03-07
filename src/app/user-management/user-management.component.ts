@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {User} from "../model/user";
@@ -19,6 +20,8 @@ import {CommonRestService} from "../common-rest.service";
   exportAs: 'ngModel'
 })
 export class UserManagementComponent implements OnInit {
+  private log = Log.create('user-management');
+
   private user: User; // used for form only
   private assignedProjectId: string;
 
@@ -88,7 +91,7 @@ export class UserManagementComponent implements OnInit {
   login(): void {
     this.userManagementService.validateUser(this.user.email, this.user.password)
       .then((jsonUser) => {
-          console.log("Login OK=" + jsonUser);
+          this.log.i("Login OK=" + jsonUser);
           this.errormessage = null;
           this.updateUserInternal(jsonUser); // save _id
         })
@@ -122,7 +125,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProject(project: Project): void {
-    console.log("openProject project=" + JSON.stringify(project));  // TODO del
+    this.log.i("openProject project=", JSON.stringify(project));
     if (project) {
       this.userManagementService.setProject(project);
       this.router.navigate(['/nwsw', project.getId()]);
@@ -131,7 +134,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProjects(projects: Array<Project>): void {
-    console.log("openProjects projects=" + projects);
+    this.log.i("openProjects projects=", projects);
     // TODO It is possible that a user belongs to more than one project. Currently we support only one!
     this.openProject(projects.length ? projects[0] : null);
   }
@@ -142,7 +145,7 @@ export class UserManagementComponent implements OnInit {
    * @param err
    */
   private handleError = (err) => {
-    console.log("Error=" + err); // TODO delete
+    this.log.er("Error=", err);
     this.errormessage = err.text() ? err.text() : err.statusText;
   }
 }
