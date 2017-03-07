@@ -53,7 +53,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId);
         this.log.i("create-nwsw project-id=", projectId);
-        return projectId;
+        return [];
       })
       .subscribe();
   }
