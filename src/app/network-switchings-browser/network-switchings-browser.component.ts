@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {Router, Params, ActivatedRoute} from "@angular/router";
@@ -16,6 +17,7 @@ import {UserManagementService} from "../user-management.service";
   styleUrls: ['./network-switchings-browser.component.scss'],
 })
 export class NetworkswitchingsBrowserComponent implements OnInit {
+  private log = Log.create('network-switching-browser');
 
   private searchTermObservable = new Subject<string>();
   private searchTerm: string = "";
@@ -63,7 +65,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId);
-        console.log("nwsw-browser project-id=" + projectId); // tODO del!!
+        this.log.i("project-id=", projectId);
         return this.loadNwsw()
       })
       .subscribe(nwsws => this.networkswitchings = nwsws);
@@ -131,12 +133,12 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
 
   onScrollDown() {
-    console.log("scrolled down");
+    this.log.d("scrolled down");
     this.loadNwsw();
   }
 
   onScrollUp() {
-    console.log("scrolled up");
+    this.log.d("scrolled up");
   }
 
   insert() {
@@ -144,7 +146,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   }
 
   public sortOrderChanged(sortingColumn) {
-    console.log("new sorting: " + sortingColumn.dbColumn);
+    this.log.i("new sorting: ", sortingColumn.dbColumn);
     this.reloadNwsw();
   }
 
@@ -174,7 +176,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
                                                              this.offset,
                                                              NetworkswitchingsBrowserComponent.LIMIT)
       .then(nwsws => {
-        console.log(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`); // TODO del
+        this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`);
         this.networkswitchings.push(...nwsws);
         return this.networkswitchings;
       })

@@ -55,6 +55,8 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
   <dd>Infinite scrolling of the network switchings.</dd>
   <dt>npm install --save ng2-bootstrap-modal</dt>
   <dd>Simplifies the use of Bootstrap's modal dialogs</dd>
+  <dt>npm install ng2-logger --save</dt>
+  <dd>A logger implementation, see https://www.npmjs.com/package/ng2-logger</dd>
 </dl>
 
 ### At the server side:
@@ -75,4 +77,6 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
 
   <dt>npm install nodemailer --save</dt>
   <dd>for sending emails</dd>
+  <dt>npm install winston --save</dt>
+  <dd>A logger implementation, see https://blog.risingstack.com/node-js-logging-tutorial/</dd>
 </dl>

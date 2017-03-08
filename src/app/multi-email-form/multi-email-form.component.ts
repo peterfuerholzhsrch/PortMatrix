@@ -1,6 +1,8 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild, EventEmitter} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {MultiEmailDirective} from "../multi-email.directive";
+
 
 @Component({
   selector: 'multi-email-form',
@@ -9,6 +11,7 @@ import {MultiEmailDirective} from "../multi-email.directive";
   outputs: ['inputValid']
 })
 export class MultiEmailFormComponent implements OnInit {
+  private log = Log.create('multi-email-form');
 
   private multiEmailForm: NgForm;
 
@@ -41,7 +44,7 @@ export class MultiEmailFormComponent implements OnInit {
     if (!this.multiEmailForm) {
       return;
     }
-    // console.log('onValueChanged: ' + JSON.stringify(data) + "  valid=" + this.multiEmailForm.valid);
+    this.log.d('onValueChanged: ', JSON.stringify(data), "  valid=", this.multiEmailForm.valid);
 
     if (this.multiEmailValid !== this.multiEmailForm.valid) {
       // valid flag has changed:

@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
@@ -13,12 +14,16 @@ import {Observable} from "rxjs";
 import {DialogService} from "ng2-bootstrap-modal";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
+
 @Component({
   selector: 'create-network-switching',
   templateUrl: './create-network-switching.component.html',
   styleUrls: ['./create-network-switching.component.scss']
 })
 export class CreateNetworkSwitchingComponent implements OnInit {
+
+  private log = Log.create('create-network-switching');
+
   nwsw: Networkswitching;
 
   // used by template:
@@ -49,8 +54,8 @@ export class CreateNetworkSwitchingComponent implements OnInit {
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId);
-        console.log("create-nwsw project-id=" + projectId); // tODO del!!
-        return projectId;
+        this.log.i("create-nwsw project-id=", projectId);
+        return [];
       })
       .subscribe();
   }

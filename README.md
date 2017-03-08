@@ -27,9 +27,10 @@ course by Marco Endres and Peter Fuerholz.
 
 ## Notable *Cool* Features
 
-* Responsive network switching overview
+* UI is generally responsive 
 * Infinite scrolling of the network switchings / lazy loading
 * Sorting (by multiple columns) and searching network switchings
+* Allows to invite more users into same project (by email)
 
 
 ## Technical Decisions

@@ -57,10 +57,16 @@ export class Networkswitching {
   /**
    * @returns {boolean} null if not available
    */
-  public getLastTeststate() : Boolean {
+  public getLastTeststateResult() : Boolean {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].result : null;
   }
 
+  /**
+   * @returns {Date} null if not available
+   */
+  public getLastTeststateTimestamp() : Date {
+    return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].timestamp : null;
+  }
 
   public addTestresult(success: boolean, timestamp: Date) {
     this.testresultList.push(new Testresult(success, timestamp));

@@ -1,3 +1,4 @@
+import {Log} from 'ng2-logger/ng2-logger'
 import {Injectable} from '@angular/core';
 import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {CommonRestService} from './common-rest.service';
@@ -5,11 +6,12 @@ import {CommonRestService} from './common-rest.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
+  private log = Log.create('auth-guard');
 
   constructor(private commonRestService: CommonRestService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, routeState: RouterStateSnapshot) {
-    console.log('AuthGuard#canActivate called');
+    this.log.i('AuthGuard#canActivate called');
     if (this.commonRestService.isLoggedIn()) {
       return true;
     }
