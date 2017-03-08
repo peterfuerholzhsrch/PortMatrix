@@ -1,5 +1,5 @@
 <div *ngIf="nwsw">
-  <form #editForm="ngForm">
+  <form #editForm="ngForm" novalidate>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -94,15 +94,15 @@
               <h2>Host Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-host">Host</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" id="source-host" required="{{!sourceIpAddr.valid}}" placeholder="Host" pattern="{{hostRegEx}}" />
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" id="source-host" placeholder="Host" pattern="{{hostRegEx}}" />
               </div>
               <div class="form-group">
-                <label class="networkswitch-label" for="source-group">Gruppe</label>
+                <label class="networkswitch-label" for="source-group">Group</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.group" name="source-group" id="source-group" placeholder="Gruppe" />
               </div>
               <div class="form-group">
-                <label class="networkswitch-label" for="source-ipAddr">Ip Adresse</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" #sourceIpAddr="ngModel" name="source-ipAddr" id="source-ipAddr" required="{{!sourceHost.valid}}" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
+                <label class="networkswitch-label" for="source-ipAddr">Ip address</label>
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" #sourceIpAddr="ngModel" name="source-ipAddr" id="source-ipAddr" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-port">Port</label>
@@ -116,20 +116,23 @@
                   </option>
                 </select>
               </div>
+              <div class="alert alert-danger" [hidden]="(sourceIpAddr.valid || sourceHost.valid)">
+                The <strong>Host</strong> or the<strong> Ip address</strong> needs to be filled out!
+              </div>
             </div>
             <div class="networkswitch-part">
               <h2>Destination Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-host">Host</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.host" #destinationHost="ngModel" name="destination-host" id="destination-host" placeholder="Host" required="{{!destinationIpAddr.valid}}" pattern="{{hostRegEx}}" />
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.host" #destinationHost="ngModel" name="destination-host" id="destination-host" placeholder="Host" pattern="{{hostRegEx}}" />
               </div>
               <div class="form-group">
-                <label class="networkswitch-label" for="destination-group">Gruppe</label>
+                <label class="networkswitch-label" for="destination-group">Group</label>
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.group" name="destination-group" id="destination-group" placeholder="Gruppe" />
               </div>
               <div class="form-group">
-                <label class="networkswitch-label" for="destination-ipAddr">Ip Adresse</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.ipAddr" #destinationIpAddr="ngModel" required="{{!destinationHost.valid}}" name="destination-ipAddr" id="destination-ipAddr" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
+                <label class="networkswitch-label" for="destination-ipAddr">Ip address</label>
+                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.ipAddr" #destinationIpAddr="ngModel" name="destination-ipAddr" id="destination-ipAddr" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-port">Port</label>
@@ -142,6 +145,9 @@
                     {{zone}}
                   </option>
                 </select>
+              </div>
+              <div class="alert alert-danger" [hidden]="(destinationHost.valid || destinationIpAddr.valid)">
+                The <strong>Host</strong> or the<strong> Ip address</strong> needs to be filled out!
               </div>
             </div>
           </div>

@@ -33,4 +33,8 @@ export class PortMatrixPage {
   getUserEmail() {
     return element(by.css('.user-email'));
   }
+
+  getLogOutButton() {
+      return element(by.css('.log-out'));
+  }
 }

@@ -26,6 +26,7 @@ import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
 import {AuthGuardService} from "../auth-guard.service";
 import {SessionStorageService} from "../session-storage.service";
+import {TestStatusComponent} from "../test-status/test-status.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -50,6 +51,7 @@ describe('editNetworkSwitching', () => {
         SortButtonComponent,
         UserManagementComponent,
         MultiEmailDirective,
+        TestStatusComponent,
         MultiEmailFormComponent,
         ConfirmDialogComponent
       ],
@@ -90,33 +92,12 @@ describe('editNetworkSwitching', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});
-
-
-describe('HostRegex', () => {
-  let component: EditNetworkSwitchingComponent;
 
   it('should accept one hostaddress', () => {
-    expect("test@test.ch").toMatch(component.hostRegEx);
+    expect("test.test.ch").toMatch(component.hostRegEx);
   });
 
-  it('should accept multiple hostaddress', () => {
-    expect("test@test.ch, test2@test2.com").toMatch(component.hostRegEx);
-  });
-
-  it('should accept multiple hostaddress', () => {
-    expect("test@test.ch, test2@test2.com").toMatch(component.hostRegEx);
-  });
-
-  it('should not accept missing Top-Level-Domain', () => {
-    expect("test@test").not.toMatch(component.hostRegEx);
-  });
-
-  it('should not accept wrong hostaddress', () => {
-    expect("test").not.toMatch(component.hostRegEx);
-  });
-
-  it('should not accept one wrong out of multiple hostaddresses', () => {
-    expect("test test@test.ch").not.toMatch(component.hostRegEx);
+  it('should not accept special characters', () => {
+    expect("test@ test.ch").not.toMatch(component.hostRegEx);
   });
 });
