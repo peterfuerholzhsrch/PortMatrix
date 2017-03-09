@@ -26,6 +26,7 @@ import {UserManagementService} from "../user-management.service";
 import {ProjectService} from "../project.service";
 import {AuthGuardService} from "../auth-guard.service";
 import {SessionStorageService} from "../session-storage.service";
+import {TestStatusComponent} from "../test-status/test-status.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -50,6 +51,7 @@ describe('editNetworkSwitching', () => {
         SortButtonComponent,
         UserManagementComponent,
         MultiEmailDirective,
+        TestStatusComponent,
         MultiEmailFormComponent,
         ConfirmDialogComponent
       ],
@@ -89,5 +91,13 @@ describe('editNetworkSwitching', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should accept one hostaddress', () => {
+    expect("test.test.ch").toMatch(component.hostRegEx);
+  });
+
+  it('should not accept special characters', () => {
+    expect("test@ test.ch").not.toMatch(component.hostRegEx);
   });
 });

@@ -27,6 +27,7 @@ import {ProjectService} from "../project.service";
 import {AuthGuardService} from "../auth-guard.service";
 import {SessionStorageService} from "../session-storage.service";
 import {APP_BASE_HREF} from "@angular/common";
+import {TestStatusComponent} from "../test-status/test-status.component";
 
 describe('CreateNetworkSwitching', () => {
   let component: CreateNetworkSwitchingComponent;
@@ -45,6 +46,7 @@ describe('CreateNetworkSwitching', () => {
         UserManagementComponent,
         MultiEmailDirective,
         MultiEmailFormComponent,
+        TestStatusComponent,
         ConfirmDialogComponent
       ],
       imports: [
@@ -78,4 +80,13 @@ describe('CreateNetworkSwitching', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should accept one hostaddress', () => {
+    expect("test.test.ch").toMatch(component.hostRegEx);
+  });
+
+  it('should not accept special characters', () => {
+    expect("test@ test.ch").not.toMatch(component.hostRegEx);
+  });
+
 });

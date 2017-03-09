@@ -1,5 +1,5 @@
 import { PortMatrixPage } from './app.po';
-import {protractor} from "protractor";
+import {protractor, browser} from "protractor";
 
 describe('port-matrix App', function() {
   let page: PortMatrixPage;
@@ -19,7 +19,7 @@ describe('port-matrix App', function() {
     page.getEmailField().sendKeys(email);
     page.getPasswordField().sendKeys('a');
     page.pressSubmitButton();
-    expect(page.getUserEmail().getText()).toEqual("User: " + email);
+    expect(page.getLogOutButton().isPresent()).toBeTruthy();
   });
 
 /*  it('should display search', () => {
