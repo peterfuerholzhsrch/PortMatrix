@@ -14,7 +14,7 @@ export class MainComponent implements OnInit {
   private log = Log.create('main-component');
 
   private errormessage: String = '';
-  private errormessageShown = false;
+  private lastErrormessage: number;
   private multiEmailFormValid: boolean;
 
 
@@ -28,15 +28,26 @@ export class MainComponent implements OnInit {
     this.errormessage = null;
   }
 
+
+  /**
+   * ngOnChanges() cannot be used here since method is called too infrequently.
+   * @returns {any}
+   */
   ngDoCheck() {
     // clear errormessage after first rendering:
     if (this.errormessage) {
-      if (this.errormessageShown) {
-        this.errormessage = null;
+      if (!this.lastErrormessage) {
+        // save time of new error message:
+        this.lastErrormessage = new Date().getTime();
       }
-      this.errormessageShown = !this.errormessageShown;
+      else if (new Date().getTime() - this.lastErrormessage > 2000) {
+        // error message appeared for at least 2 seconds:
+        this.errormessage = null;
+        this.lastErrormessage = null;
+      }
     }
   }
+
 
   setInviteColleaguesFormValid(valid: boolean) {
     this.log.i("setInviteColleaguesFormValid " + valid);

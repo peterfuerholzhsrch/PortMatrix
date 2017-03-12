@@ -136,9 +136,9 @@ export class UserManagementService extends CommonRestService {
       adminId: this.user.getId()
     };
 
-    let observable = this.post(UserManagementService.USERSMAIL_URL, params);
-    observable.subscribe(ok => { CommonRestService.log.i("emails to=", recipients, " OK!") },
-                         err => CommonRestService.handleError(err));
+    let observable = this.post(UserManagementService.USERSMAIL_URL, params)
+      .do(ok => { CommonRestService.log.i("emails to=", recipients, " OK!") },
+          err => CommonRestService.handleError(err));
     return observable;
   }
 }

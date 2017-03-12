@@ -11,8 +11,8 @@ course by Marco Endres and Peter Fuerholz.
 ## Installation / Setup
 1. Download the two project PortMatrix and PortMatrixServer into the same base directory
 2. Install all dependencies
-  1. Do `cd PortMatrix`, `npm install`
-  2. Do `cd PortMatrixServer`, `npm install`
+   Do `cd PortMatrix`, `npm install`
+   Do `cd PortMatrixServer`, `npm install`
 2. Create dist of the PortMatrix: `$(npm bin)/ng build`
 3. Before starting the server set environment variable:
   `PORTMATRIX_SMTP_CONFIG=smtps://portmatrix@neshendra.ch:<password>@asmtp.mail.hostpoint.ch`
@@ -21,6 +21,9 @@ course by Marco Endres and Peter Fuerholz.
 4. Start the server: `npm run server`
 5. _Optional:_ Load initial user, project and network switches: 
   Execute `runFillExampleData.sh`
+  This script creates:
+  one user: a@a.a, password: a
+  the user has one project and around 60 network switchings
 6. Open browser on: http://localhost:4200
 7. If you have run `runFillExampleData.sh` you can log in with following credentials: username: a@a.a, password: a
 
