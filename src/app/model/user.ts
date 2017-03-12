@@ -16,6 +16,9 @@ export class User {
    * @returns {User}
    */
   public static jsonToObj(jsonObj: Object): User {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a User from!');
+    }
     const user: User = Object.assign(new User(), jsonObj);
     return user;
   }

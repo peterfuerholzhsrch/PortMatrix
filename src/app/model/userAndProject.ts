@@ -17,6 +17,9 @@ export class UserAndProject {
    * @returns {UserAndProject}
    */
   public static jsonToObj(jsonObj: Object): UserAndProject {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a User and Project from!');
+    }
     const userAndProject = new UserAndProject();
 
     userAndProject.user = User.jsonToObj(jsonObj['user']);

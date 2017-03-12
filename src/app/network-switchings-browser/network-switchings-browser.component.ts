@@ -46,6 +46,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   networkswitchings: Networkswitching[] = [];
 
   private sortingList: Array<Sorting> = [];
+  private errormessage: string;
 
 
   /**
@@ -64,17 +65,23 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
-        this.userManagementService.setProjectId(projectId);
+        this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
         this.log.i("project-id=", projectId);
         return this.loadNwsw()
       })
-      .subscribe(nwsws => this.networkswitchings = nwsws);
+      .subscribe(nwsws => this.networkswitchings = nwsws,
+                 err => this.setErrormessage(err));
 
     // execute search when user entered a new value and after last keyup of 500ms:
     this.searchTermObservable
       .debounceTime(500)
       .distinctUntilChanged()
       .subscribe((searchTerm) => { this.reloadNwsw() });
+  }
+
+
+  private setErrormessage(error) {
+    this.errormessage = error.message || error;
   }
 
 
@@ -180,6 +187,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
         this.networkswitchings.push(...nwsws);
         return this.networkswitchings;
       })
-      .catch(this.userManagementService.handleError);
+      .catch(CommonRestService.handleError);
   }
 }

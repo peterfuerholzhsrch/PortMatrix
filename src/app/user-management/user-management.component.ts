@@ -20,12 +20,12 @@ import {CommonRestService} from "../common-rest.service";
   exportAs: 'ngModel'
 })
 export class UserManagementComponent implements OnInit {
-  private log = Log.create('user-management');
+  private static log = Log.create('user-management');
 
   private user: User; // used for form only
   private assignedProjectId: string;
 
-  private errormessage: string;
+  private static errormessage: string;
 
 
   constructor(
@@ -46,6 +46,9 @@ export class UserManagementComponent implements OnInit {
     this.userManagementService.setUser(this.user);
   }
 
+  private getErrormessage(): string {
+    return UserManagementComponent.errormessage;
+  }
 
 
   ngOnInit() {
@@ -63,7 +66,7 @@ export class UserManagementComponent implements OnInit {
 
   initUser(): void {
     this.user = new User();
-    this.errormessage = null;
+    UserManagementComponent.errormessage = null;
   }
 
 
@@ -76,14 +79,14 @@ export class UserManagementComponent implements OnInit {
     if (this.assignedProjectId) {
       this.userManagementService.addUserToProject(this.user.email, this.user.password, this.assignedProjectId)
         .then((userAndProject) => {
-          this.errormessage = null;
+          UserManagementComponent.errormessage = null;
           this.updateUserInternal(userAndProject.user); // save _id
           this.openProject(userAndProject.project)
-        }, this.handleError);
+        }, UserManagementComponent.handleError);
     }
     else {
       this.userManagementService.addUser(this.user.email, this.user.password)
-        .then((userAndProject) => this.openProject(userAndProject.project), this.handleError);
+        .then((userAndProject) => this.openProject(userAndProject.project), UserManagementComponent.handleError);
     }
   }
 
@@ -91,8 +94,8 @@ export class UserManagementComponent implements OnInit {
   login(): void {
     this.userManagementService.validateUser(this.user.email, this.user.password)
       .then((jsonUser) => {
-          this.log.i("Login OK=" + jsonUser);
-          this.errormessage = null;
+          UserManagementComponent.log.i("Login OK=" + jsonUser);
+          UserManagementComponent.errormessage = null;
           this.updateUserInternal(jsonUser); // save _id
         })
       .then(() => {
@@ -111,7 +114,7 @@ export class UserManagementComponent implements OnInit {
         }
         this.openProjects(projects);
       })
-      .catch(this.handleError);
+      .catch(UserManagementComponent.handleError);
   }
 
 
@@ -120,12 +123,12 @@ export class UserManagementComponent implements OnInit {
       .then((user) => {
           this.setUser(undefined);
         },
-        this.handleError);
+        UserManagementComponent.handleError);
   }
 
 
   private openProject(project: Project): void {
-    this.log.i("openProject project=", JSON.stringify(project));
+    UserManagementComponent.log.i("openProject project=", JSON.stringify(project));
     if (project) {
       this.userManagementService.setProject(project);
       this.router.navigate(['/nwsw', project.getId()]);
@@ -134,7 +137,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProjects(projects: Array<Project>): void {
-    this.log.i("openProjects projects=", projects);
+    UserManagementComponent.log.i("openProjects projects=", projects);
     // TODO It is possible that a user belongs to more than one project. Currently we support only one!
     this.openProject(projects.length ? projects[0] : null);
   }
@@ -144,8 +147,8 @@ export class UserManagementComponent implements OnInit {
    * handleError is a closure so it is already bound to this!
    * @param err
    */
-  private handleError = (err) => {
-    this.log.er("Error=", err);
-    this.errormessage = err.text() ? err.text() : err.statusText;
+  private static handleError(err) {
+    UserManagementComponent.log.er("Error=", err);
+    UserManagementComponent.errormessage = err.text() ? err.text() : err.statusText;
   }
 }

@@ -1,8 +1,7 @@
 import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
-import {Params, ActivatedRoute} from "@angular/router";
+import {Params, ActivatedRoute, Router} from "@angular/router";
 import { NetworkswitchingService } from '../networkswitching.service';
 import {Endpoint} from "../model/endpoint";
 import {User} from "../model/user";
@@ -24,17 +23,16 @@ export class CreateNetworkSwitchingComponent implements OnInit {
 
   private log = Log.create('create-network-switching');
 
-  nwsw: Networkswitching;
+  private nwsw: Networkswitching;
+  private errormessage: string;
 
   // used by template:
+
   ZONES = Networkswitching.ZONES;
-  // used by template:
   STATES = Networkswitching.STATES;
-  // used by template:
   SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
-
-  public hostRegEx: String = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
-  public ipRegEx: String = "^[0-9.-]+$";
+  HOST_REGEX: string = Networkswitching.HOST_REGEX;
+  IP_RANGE_REGEX: string = Networkswitching.IP_RANGE_REGEX;
 
   @ViewChild('createForm') public editForm: NgForm;
 
@@ -43,7 +41,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     private userManagementService: UserManagementService,
     private dialogService: DialogService,
     private route: ActivatedRoute,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,12 +51,18 @@ export class CreateNetworkSwitchingComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
-        this.userManagementService.setProjectId(projectId);
+        this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
         this.log.i("create-nwsw project-id=", projectId);
         return [];
       })
-      .subscribe();
+      .subscribe(ok => {}, err => this.setErrormessage(err) );
   }
+
+
+  private setErrormessage(error) {
+    this.errormessage = error.message || error;
+  }
+
 
   save(): void {
     this.nwsw.creationDate = new Date();
@@ -71,7 +75,7 @@ export class CreateNetworkSwitchingComponent implements OnInit {
 
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.editForm.pristine || this.editForm.submitted) {
+    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
       return true;
     }
     return this.showConfirm();
@@ -93,6 +97,6 @@ export class CreateNetworkSwitchingComponent implements OnInit {
 
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['./nwsw', this.userManagementService.getProjectId()]);
   }
 }

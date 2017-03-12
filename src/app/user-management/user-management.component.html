@@ -1,4 +1,3 @@
-
 <!-- implemented according https://angular.io/docs/ts/latest/guide/forms.html -->
 <h1>PortMatrix User Management</h1>
 <form #loginForm="ngForm">
@@ -34,9 +33,9 @@
     </div>
   </div>
 
-  <div [hidden]="!errormessage"
+  <div [hidden]="!getErrormessage()"
        class="alert alert-danger">
-    {{errormessage}}
+    {{getErrormessage()}}
   </div>
 
   <button type="submit"

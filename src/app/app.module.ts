@@ -28,6 +28,7 @@ import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.compo
 import {SharedModule} from "./shared/shared.module";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {TestStatusComponent} from "./test-status/test-status.component";
+import { PrePostfixPipe } from './pre-postfix.pipe';
 
 // TODO Enable for production!!!
 // Log.setProductionMode();
@@ -46,7 +47,8 @@ import {TestStatusComponent} from "./test-status/test-status.component";
     UserManagementComponent,
     MultiEmailDirective,
     MultiEmailFormComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    PrePostfixPipe
   ],
   imports: [
     BrowserModule,

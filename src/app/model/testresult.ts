@@ -13,6 +13,9 @@ export class Testresult {
    * @returns {any}
    */
   public static jsonToObj(jsonObj: Object): Testresult {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a Testresult from!');
+    }
     const testresult = Object.assign(new Testresult(), jsonObj);
     return testresult;
   }

@@ -14,6 +14,7 @@ export class MainComponent implements OnInit {
   private log = Log.create('main-component');
 
   private errormessage: String = '';
+  private errormessageShown = false;
   private multiEmailFormValid: boolean;
 
 
@@ -27,6 +28,15 @@ export class MainComponent implements OnInit {
     this.errormessage = null;
   }
 
+  ngDoCheck() {
+    // clear errormessage after first rendering:
+    if (this.errormessage) {
+      if (this.errormessageShown) {
+        this.errormessage = null;
+      }
+      this.errormessageShown = !this.errormessageShown;
+    }
+  }
 
   setInviteColleaguesFormValid(valid: boolean) {
     this.log.i("setInviteColleaguesFormValid " + valid);
@@ -80,12 +90,14 @@ export class MainComponent implements OnInit {
 
   inviteColleagues(emailAddresses: Array<string>) {
     this.log.i("inviteColleagues: ", emailAddresses);
-    this.userManagementService.inviteColleagues(emailAddresses)
+    this.userManagementService.inviteColleagues(emailAddresses).subscribe(ok =>{}, err => this.handleError(err));
   }
 
 
   gotoNwswBrowsing() {
-    this.router.navigate(['/nwsw', this.userManagementService.getProjectId()]);
+    if (this.userManagementService.getProjectId()) {
+      this.router.navigate(['/nwsw', this.userManagementService.getProjectId()]);
+    }
   }
 
 
@@ -95,6 +107,6 @@ export class MainComponent implements OnInit {
    */
   private handleError = (err) => {
     this.log.er("Error=" + err);
-    this.errormessage = err.text() ? err.text() : err.statusText;
+    this.errormessage = (err.text && err.text()) || err.statusText || err;
   }
 }

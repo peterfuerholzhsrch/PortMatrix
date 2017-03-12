@@ -51,7 +51,11 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a data-toggle="collapse" class="accordion-toggle" data-parent="#accordion" href="#collapse2">
+            <a data-toggle="collapse"
+               class="accordion-toggle"
+               data-parent="#accordion"
+               href="#collapse2"
+               [ngClass]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid) ? 'invalidAccordeon' : ''">
               Host / Destination
             </a>
           </h4>
@@ -62,19 +66,42 @@
               <h2>Host Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-host">Host</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.host" #sourceHost="ngModel" name="source-host" id="source-host" placeholder="Host" pattern="{{hostRegEx}}" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.source.host"
+                       #sourceHost="ngModel"
+                       name="source-host"
+                       id="source-host"
+                       placeholder="Host"
+                       pattern="{{HOST_REGEX}}"
+                       required />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-group">Gruppe</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.group" name="source-group" id="source-group" placeholder="Gruppe" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.source.group"
+                       name="source-group"
+                       id="source-group"
+                       placeholder="Gruppe" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-ipAddr">Ip address</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.ipAddr" #sourceIpAddr="ngModel" name="source-ipAddr" id="source-ipAddr" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.source.ipAddr"
+                       #sourceIpAddr="ngModel"
+                       name="source-ipAddr"
+                       id="source-ipAddr"
+                       placeholder="Ip Adresse"
+                       pattern="{{IP_RANGE_REGEX}}"
+                       required />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-port">Port</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.source.port" name="source-port" id="source-port" placeholder="Port" type="number" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.source.port"
+                       name="source-port"
+                       id="source-port"
+                       placeholder="Port"
+                       type="number" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-zone">Zone</label>
@@ -92,19 +119,41 @@
               <h2>Destination Settings</h2>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-host">Host</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.host" #destinationHost="ngModel" name="destination-host" id="destination-host" placeholder="Host" pattern="{{hostRegEx}}" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.destination.host"
+                       #destinationHost="ngModel"
+                       name="destination-host"
+                       id="destination-host"
+                       placeholder="Host"
+                       pattern="{{HOST_REGEX}}"
+                       required />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-group">Group</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.group" name="destination-group" id="destination-group" placeholder="Gruppe" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.destination.group"
+                       name="destination-group"
+                       id="destination-group"
+                       placeholder="Gruppe" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-ipAddr">Ip address</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.ipAddr" #destinationIpAddr="ngModel"  name="destination-ipAddr" id="destination-ipAddr" placeholder="Ip Adresse" pattern="{{ipRegEx}}" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.destination.ipAddr"
+                       #destinationIpAddr="ngModel"
+                       name="destination-ipAddr"
+                       id="destination-ipAddr"
+                       placeholder="Ip Adresse"
+                       pattern="{{IP_RANGE_REGEX}}"
+                       required />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-port">Port</label>
-                <input class="form-control networkswitch-value" [(ngModel)]="nwsw.destination.port" name="destination-port" id="destination-port" placeholder="Port" />
+                <input class="form-control networkswitch-value"
+                       [(ngModel)]="nwsw.destination.port"
+                       name="destination-port"
+                       id="destination-port"
+                       placeholder="Port" />
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">Zone</label>
@@ -124,7 +173,12 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-default" type="button" (click)="goBack()">Back</button>
-    <button class="btn btn-success" type="submit" [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"  (click)="save()">Save</button>
+    <button class="btn btn-default"
+            type="button"
+            (click)="goBack()">Back</button>
+    <button class="btn btn-success"
+            type="submit"
+            [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"
+            (click)="save()">Save</button>
   </form>
 </div>

@@ -82,11 +82,11 @@ describe('CreateNetworkSwitching', () => {
   });
 
   it('should accept one hostaddress', () => {
-    expect("test.test.ch").toMatch(component.hostRegEx);
+    expect("test.test.ch").toMatch(component.HOST_REGEX);
   });
 
   it('should not accept special characters', () => {
-    expect("test@ test.ch").not.toMatch(component.hostRegEx);
+    expect("test@ test.ch").not.toMatch(component.HOST_REGEX);
   });
 
 });

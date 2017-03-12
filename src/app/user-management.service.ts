@@ -45,7 +45,7 @@ export class UserManagementService extends CommonRestService {
         this.setJwtToken(jsonBody);
         return UserAndProject.jsonToObj(jsonBody);
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -53,7 +53,7 @@ export class UserManagementService extends CommonRestService {
     return this.delete(`${UserManagementService.USERS_URL}/${userId}`)
       .toPromise()
       .then(() => null)
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -64,7 +64,7 @@ export class UserManagementService extends CommonRestService {
       .then(response => {
         return User.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -72,14 +72,14 @@ export class UserManagementService extends CommonRestService {
    * When redirecting we just know the URL and with this the projectId -> load project if needed
    * @param projectId
    */
-  public setProjectId(projectId: string) {
+  public setProjectId(projectId: string) : Promise<Project> {
     this.projectId = projectId;
     if (!this.project || this.project.getId() != projectId) {
       // project is not loaded or changed -> reload it:
-      this.projectService.getProject(projectId)
-        .then(project => this.project = project)
-        .catch(this.handleError);
+      return this.projectService.getProject(projectId)
+        .then(project => this.project = project, err => Promise.reject(err));
     }
+    return Promise.resolve(this.project);
   }
 
   public getProjectId(): string {
@@ -125,10 +125,10 @@ export class UserManagementService extends CommonRestService {
    * @param recipients
    * @returns {any}
    */
-  public inviteColleagues(recipients: Array<string>): Observable<boolean> {
+  public inviteColleagues(recipients: Array<string>): Observable<any> {
     if (!this.project) {
-      this.handleError("no project set!");
-      return;
+      CommonRestService.handleError("no project set!");
+      return Observable.throw("no project set!");
     }
     const params = {
       recipients: recipients,
@@ -136,12 +136,9 @@ export class UserManagementService extends CommonRestService {
       adminId: this.user.getId()
     };
 
-    let observable = this.post(UserManagementService.USERSMAIL_URL, params)
-      .toPromise()
-      .then(response => {
-        // OK
-      })
-      .catch(this.handleError);
-    return observable as any as Observable<boolean>;
+    let observable = this.post(UserManagementService.USERSMAIL_URL, params);
+    observable.subscribe(ok => { CommonRestService.log.i("emails to=", recipients, " OK!") },
+                         err => CommonRestService.handleError(err));
+    return observable;
   }
 }

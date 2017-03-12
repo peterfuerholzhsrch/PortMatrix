@@ -31,7 +31,14 @@
 
 .accordion-toggle {
   padding: prem(10) prem(15);
+  // color taken from Bootstrap's .panel-default>.panel:
+  border-left: 5px solid #f5f5f5;
   display: block;
+}
+
+.invalidAccordeon {
+  // same as Bootstrap's ng-invalid:
+  border-left: 5px solid #a94442;
 }
 
 @media (min-width: $width-mobile) {

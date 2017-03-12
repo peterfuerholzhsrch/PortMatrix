@@ -1,8 +1,7 @@
 import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Location} from '@angular/common';
 import {Networkswitching} from "../model/networkswitching";
-import {Params, ActivatedRoute} from "@angular/router";
+import {Params, ActivatedRoute, Router} from "@angular/router";
 import {NetworkswitchingService} from '../networkswitching.service';
 import {UserManagementService} from "../user-management.service";
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
@@ -25,16 +24,17 @@ export class EditNetworkSwitchingComponent implements OnInit{
   public testresultTimestampStr: string;
   @ViewChild('editForm') public editForm: NgForm;
 
+  private errormessage: string;
+
+
   // Used by template:
+
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
   ZONES = Networkswitching.ZONES;
-  // used by template:
   STATES = Networkswitching.STATES;
-  // used by template:
   SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
-
-  public hostRegEx: string = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
-  public ipRegEx: string = "^[0-9.-]+$";
+  HOST_REGEX: string = Networkswitching.HOST_REGEX;
+  IP_RANGE_REGEX: string = Networkswitching.IP_RANGE_REGEX;
 
 
   constructor(
@@ -42,7 +42,7 @@ export class EditNetworkSwitchingComponent implements OnInit{
     private userManagementService: UserManagementService,
     private dialogService: DialogService,
     private route: ActivatedRoute,
-    private location: Location
+    private router: Router
   ) {
   }
 
@@ -51,16 +51,22 @@ export class EditNetworkSwitchingComponent implements OnInit{
     this.route.params
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
-        this.userManagementService.setProjectId(projectId);
+        this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
         this.log.i("edit-nwsw project-id=", projectId);
         return this.networkswitchingService.getNetworkswitching(projectId, params['id'])
       })
-      .subscribe(nwsw => this.nwsw = nwsw);
+      .subscribe(nwsw => this.nwsw = nwsw,
+                 err => this.setErrormessage(err));
 
     let date = new Date();
     date.setSeconds(0, 0);
     this.testresultTimestampStr = date.toJSON(); // format: (example) '2014-01-02T11:42:13.510';
     this.testresultTimestampStr = this.testresultTimestampStr.substr(0, this.testresultTimestampStr.length-2);
+  }
+
+
+  private setErrormessage(error) {
+    this.errormessage = error.message || error;
   }
 
 
@@ -103,7 +109,8 @@ export class EditNetworkSwitchingComponent implements OnInit{
 
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.editForm.pristine || this.editForm.submitted) {
+    // if nwsw could not be shown 'this.editForm' is <undefined>:
+    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
       return true;
     }
     return this.showConfirm('Confirm dialog', 'Move away from this site and lose all changes?');
@@ -127,6 +134,6 @@ export class EditNetworkSwitchingComponent implements OnInit{
 
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['./nwsw', this.userManagementService.getProjectId()]);
   }
 }

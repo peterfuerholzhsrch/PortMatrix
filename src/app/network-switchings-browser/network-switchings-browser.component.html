@@ -2,6 +2,12 @@
   <h2>Network Switchings</h2>
   <button class="btn btn-default add-networkswitch" (click)="insert()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create New Network Switching</button>
 </div>
+
+<div [hidden]="!errormessage"
+     class="alert alert-danger">
+  {{errormessage}}
+</div>
+
 <div class="networkswitchings"
      infinite-scroll
      [infiniteScrollDistance]="1.5"
@@ -79,7 +85,7 @@
         <div class="networkswitch-label">Teststate:</div>
         <div>
           <test-status [result]="nwsw.getLastTeststateResult()"></test-status>
-          ({{nwsw.getLastTeststateTimestamp() | date:DATE_FORMAT}})
+          {{nwsw.getLastTeststateTimestamp() | date:DATE_FORMAT | prePostfix:'(':')'}}
         </div>
       </div>
       <div class="network-part-title">Source</div>

@@ -6,7 +6,7 @@ import {User} from './model/user';
 
 @Injectable()
 export class CommonRestService {
-  private log = Log.create('common-rest-service');
+  protected static log = Log.create('common-rest-service');
 
   private static LOGIN_URL = '/api/login';
   protected static JSON_HEADERS = new Headers({'Content-Type': 'application/json'});
@@ -14,17 +14,17 @@ export class CommonRestService {
   // static: token must be shared between UserManagemntService, ProjectService etc.!
   private static token = undefined;
 
-  private redirectUrl: string;
+  private static redirectUrl: string;
 
   constructor(private http: Http) {
   }
 
   public setRedirectUrl(url: string) {
-    this.redirectUrl = url;
+    CommonRestService.redirectUrl = url;
   }
 
   public getRedirectUrl(): string {
-    return this.redirectUrl;
+    return CommonRestService.redirectUrl;
   }
 
 
@@ -60,7 +60,7 @@ export class CommonRestService {
         this.setJwtToken(jsonBody);
         return jsonBody['user'];
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -82,9 +82,9 @@ export class CommonRestService {
   }
 
 
-  public handleError(error: any): Promise<any> {
-    this.log.er('An error occurred', error);
-    this.redirectUrl = undefined; // don't try more than once (it may have got invalid)
+  public static handleError(error: any): Promise<any> {
+    CommonRestService.log.er('An error occurred', error);
+    CommonRestService.redirectUrl = undefined; // don't try more than once (it may have got invalid)
     return Promise.reject(error.message || error);
   }
 

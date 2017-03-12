@@ -21,7 +21,7 @@ export class ProjectService extends CommonRestService {
       .then(response => {
         return Project.jsonArrToObjArr(response.json().data);
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -32,7 +32,7 @@ export class ProjectService extends CommonRestService {
       .then(response => {
         return Project.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+     .catch(CommonRestService.handleError);
   }
 
   // currently unused:
@@ -45,6 +45,6 @@ export class ProjectService extends CommonRestService {
   //     .then(response => {
   //       return Project.jsonToObj(response.json());
   //     })
-  //     .catch(this.handleError);
+  //     .catch(CommonRestService.handleError);
   // }
 }

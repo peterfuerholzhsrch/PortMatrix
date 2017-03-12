@@ -16,6 +16,9 @@ export class Project {
    * @returns {Networkswitching}
    */
   public static jsonToObj(jsonObj: Object): Project {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a Project from!');
+    }
     const project: Project = Object.assign(new Project(), jsonObj);
     return project;
   }

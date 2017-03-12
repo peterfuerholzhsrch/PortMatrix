@@ -24,6 +24,10 @@ export class Networkswitching {
   public static ZONES: Array<string> = ['yellow', 'orange', 'red'];
   public static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];
 
+  // from http://stackoverflow.com/questions/106179/regular-expression-to-match-dns-hostname-or-ip-address:
+  public static HOST_REGEX: string = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+  // we allow to IP addresses with ranges, e.g. 127.202.12.1-128
+  public static IP_RANGE_REGEX: string = "^[0-9.-]+$";
 
   /**
    * Helper method for packing JSON object.
@@ -31,6 +35,9 @@ export class Networkswitching {
    * @returns {Networkswitching}
    */
   public static jsonToObj(jsonObj: Object): Networkswitching {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a Network Switching from!');
+    }
     const networkswitching: Networkswitching = Object.assign(new Networkswitching(), jsonObj);
     networkswitching.source = Endpoint.jsonToObj(jsonObj['source']);
     networkswitching.destination = Endpoint.jsonToObj(jsonObj['destination']);

@@ -44,7 +44,7 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonArrToObjArr(response.json().data);
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -55,7 +55,7 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
 
@@ -67,7 +67,7 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
   insertNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
@@ -77,7 +77,7 @@ export class NetworkswitchingService extends CommonRestService {
       .then(response => {
         return Networkswitching.jsonToObj(response.json());
       })
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 
   deleteNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<void> {
@@ -85,6 +85,6 @@ export class NetworkswitchingService extends CommonRestService {
       .delete(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.getId()}`)
       .toPromise()
       .then(() => null)
-      .catch(this.handleError);
+      .catch(CommonRestService.handleError);
   }
 }

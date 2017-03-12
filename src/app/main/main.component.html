@@ -51,9 +51,10 @@
   </div>
 </nav>
 
-
-
-<div>{{errorMessage}}</div>
+<div [hidden]="!errormessage"
+     class="alert alert-danger">
+  {{errormessage}}
+</div>
 
 <router-outlet></router-outlet>
 

@@ -16,6 +16,9 @@ export class Endpoint {
    * @returns {any}
    */
   public static jsonToObj(jsonObj: Object): Endpoint {
+    if (!jsonObj) {
+      throw new Error('There is no object to build an Endpoint from!');
+    }
     const endpoint = Object.assign(new Endpoint(), jsonObj);
     return endpoint;
   }
