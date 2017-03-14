@@ -118,3 +118,5 @@ When clicking 'Show History' a new page is presented with:
     * _optionally:_ changes on other fields (commentary, source, destination, protocol): save old value
 * a 'close' button
 
+#### Navigation Map
+![alt text](SpecificationNavigationMap.png "Navigation Map")
