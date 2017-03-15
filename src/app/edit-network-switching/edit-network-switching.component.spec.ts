@@ -30,6 +30,7 @@ import {TestStatusComponent} from "../test-status/test-status.component";
 import {APP_BASE_HREF} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
+import {PrePostfixPipe} from "../pre-postfix.pipe";
 
 describe('editNetworkSwitching', () => {
   let component: EditNetworkSwitchingComponent;
@@ -53,7 +54,8 @@ describe('editNetworkSwitching', () => {
         MultiEmailDirective,
         TestStatusComponent,
         MultiEmailFormComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        PrePostfixPipe
       ],
       imports: [
         BrowserModule,

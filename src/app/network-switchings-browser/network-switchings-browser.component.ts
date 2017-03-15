@@ -47,7 +47,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   private sortingList: Array<Sorting> = [];
   private errormessage: string;
-
+  private isLoading: boolean;
 
   /**
    * @param networkswitchingService
@@ -172,6 +172,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   // TODO move to Service class ???
   private loadNwsw(): Promise<Array<Networkswitching>> {
+    this.isLoading = true;
     this.offset = this.networkswitchings.length;
     if (this.offset === this.lastRequestedOffset) {
       return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
@@ -185,8 +186,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       .then(nwsws => {
         this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`);
         this.networkswitchings.push(...nwsws);
+        this.isLoading = false;
         return this.networkswitchings;
       })
-      .catch(CommonRestService.handleError);
+      .catch(CommonRestService.handleError)
   }
 }

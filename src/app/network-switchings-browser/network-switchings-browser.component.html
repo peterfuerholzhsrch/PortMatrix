@@ -104,6 +104,12 @@
         <div class="networkswitch-label">Port:</div><div class="networkswitch-value">{{nwsw.destination.port}}</div>
       </div>
     </div>
+    <div *ngIf="networkswitchings?.length <= 0 && !isLoading" class="empty-networkswitch-message">
+      <h2>Oh, it looks like you have no networkswitches :(</h2>
+      <h2>A friend needs to invite you or you can create your own networkswitches here:</h2>
+      <button class="btn btn-default add-networkswitch" (click)="insert()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create New Network Switching</button>
+    </div>
   </div>
 </div>
+
 

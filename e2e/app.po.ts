@@ -37,4 +37,16 @@ export class PortMatrixPage {
   getLogOutButton() {
       return element(by.css('.log-out'));
   }
+
+  getNetworkswitchingsHeader() {
+    return element(by.css('networkswitchings-header'));
+  }
+
+  getFirstNetworkswitch() {
+    return element(by.css('.networkswitch:first-child'));
+  }
+
+  getSaveButton() {
+    return element(by.css('.btn-success'));
+  }
 }

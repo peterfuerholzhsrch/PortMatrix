@@ -23,17 +23,16 @@
 }
 
 sort-button {
-  width: prem(200);
+  width: 20rem;
   display: flex;
 }
 
 .networkswitch {
-  border: 8px solid;
-  margin-top: $default-space;
-  margin-bottom: $default-space;
+  //border: 8px solid;
   border-radius: $border-radius;
   transition: $default-transition;
-  width: prem(350);
+  width: 35rem;
+  margin: $default-space;
 
   &:hover {
     background-color: lighten($primary-color, 68%);
@@ -43,24 +42,28 @@ sort-button {
 
 
 .development_system {
-  border-color: $system-development-color;
+  //border-color: $system-development-color;
+  box-shadow: 0 0 10px 3px $system-development-color;
 }
 .test_system {
-  border-color: $system-test-color;
+  //border-color: $system-test-color;
+  box-shadow: 0 0 10px 3px $system-test-color;
 }
 .integration_system {
-  border-color: $system-integration-color;
+  //border-color: $system-integration-color;
+  box-shadow: 0 0 10px 3px $system-integration-color;
 }
 .production_system {
-  border-color: $system-production-color;
+  //border-color: $system-production-color;
+  box-shadow: 0 0 10px 3px $system-production-color;
 }
 
 
 .network-part-title {
   background: $gray;
   text-align: center;
-  padding-top: prem(5);
-  padding-bottom: prem(5);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .networkswitchings-header {
@@ -77,9 +80,13 @@ sort-button {
 .networkswitch-container{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
+.empty-networkswitch-message {
+  text-align: center;
+  width: 100%;
+}
 
 @media screen and (max-width: $width-mobile) {
   sort-button {

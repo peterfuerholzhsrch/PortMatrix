@@ -7,7 +7,7 @@
   height: 100%;
   border-bottom-right-radius: $border-radius;
   border-top-right-radius: $border-radius;
-  width: prem(40);
+  width: 4rem;
   align-items: center;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -15,7 +15,7 @@
 
 
   > .number {
-    margin-left: prem(3);
+    margin-left: 0.3rem;
   }
 }
 

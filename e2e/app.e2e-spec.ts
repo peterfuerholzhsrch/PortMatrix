@@ -1,5 +1,4 @@
 import { PortMatrixPage } from './app.po';
-import {protractor, browser} from "protractor";
 
 describe('port-matrix App', function() {
   let page: PortMatrixPage;
@@ -19,11 +18,33 @@ describe('port-matrix App', function() {
     page.getEmailField().sendKeys(email);
     page.getPasswordField().sendKeys('a');
     page.pressSubmitButton();
-    expect(page.getLogOutButton().isPresent()).toBeTruthy();
+    expect(page.getNetworkswitchingsHeader().isPresent()).toBeTruthy();
   });
 
-/*  it('should display search', () => {
+  /*  it('should display search', () => {
+   page.navigateTo();
+   expect(page.getFilter().isPresent()).toBeTruthy();
+   });*/
+});
+
+describe('App actions', function() {
+  let page: PortMatrixPage;
+
+  beforeEach(() => {
+    page = new PortMatrixPage();
+    let email = 'a@a.a';
     page.navigateTo();
-    expect(page.getFilter().isPresent()).toBeTruthy();
-  });*/
+    page.getEmailField().sendKeys(email);
+    page.getPasswordField().sendKeys('a');
+    page.pressSubmitButton();
+  });
+
+  it('has networkswitchings', () => {
+    expect(page.getFirstNetworkswitch().isPresent()).toBeTruthy();
+  });
+
+  it('can open networkswitching', () => {
+    page.getFirstNetworkswitch().click();
+    expect(page.getSaveButton().isPresent()).toBeTruthy();
+  });
 });
