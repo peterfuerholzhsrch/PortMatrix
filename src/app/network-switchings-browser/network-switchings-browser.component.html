@@ -77,7 +77,7 @@
          [ngClass]="nwsw == null ? '' : nwsw.getSystemEnvironmentCssClass()"
          *ngFor="let nwsw of networkswitchings"
          [routerLink]="['/detail', getProjectId(), nwsw._id]">
-      <div class="network-part-title">General</div>
+      <div class="network-part-title main-network-part-title">General</div>
       <div class="network-part">
         <div class="networkswitch-label">ID:</div><div class="networkswitch-value">{{nwsw.id}}</div>
         <div class="networkswitch-label">State:</div><div class="networkswitch-value">{{nwsw.state}}</div>
