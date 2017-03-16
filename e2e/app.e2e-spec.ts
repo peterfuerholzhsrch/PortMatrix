@@ -1,4 +1,5 @@
 import { PortMatrixPage } from './app.po';
+import {browser} from "protractor";
 
 describe('port-matrix App', function() {
   let page: PortMatrixPage;
@@ -10,15 +11,6 @@ describe('port-matrix App', function() {
   it('should display correct browser title', () => {
     page.navigateTo();
     expect(page.getTitle()).toEqual('PortMatrix');
-  });
-
-  it('should login', () => {
-    let email = 'a@a.a';
-    page.navigateTo();
-    page.getEmailField().sendKeys(email);
-    page.getPasswordField().sendKeys('a');
-    page.pressSubmitButton();
-    expect(page.getNetworkswitchingsHeader().isPresent()).toBeTruthy();
   });
 
   /*  it('should display search', () => {

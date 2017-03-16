@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class PortMatrixPage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/user');
   }
 
   getParagraphText() {
@@ -27,7 +27,7 @@ export class PortMatrixPage {
   }
 
   pressSubmitButton() {
-    return element(by.css('button[type="submit"]')).click();
+    return element(by.css('.login-button')).click();
   }
 
   getUserEmail() {
