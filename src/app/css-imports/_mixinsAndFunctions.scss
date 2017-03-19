@@ -1,5 +1,0 @@
-
-@function prem($px, $base: 10) {
-  @return #{$px / $base}rem;
-}
-

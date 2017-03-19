@@ -13,7 +13,8 @@
      [infiniteScrollDistance]="1.5"
      [infiniteScrollThrottle]="500"
      (scrolled)="onScrollDown()"
-     (scrolledUp)="onScrollUp()">
+     (scrolledUp)="onScrollUp()"
+     (window:resize)="onResize()">
 
   <div class="networkswitchings-filter">
     <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
@@ -49,12 +50,17 @@
       </div>
     </div>
   </div>
-  <div class="networkswitch-container">
+  <div class="view-switcher hidden-xs hidden-sm hidden-md">
+    <span class="view-switcher-label">Switch view</span>
+    <button class="btn btn-default" name="view" value="mobile" (click)="setNetworkswitchView(true)" [ngClass]="mobileView ? 'active' : ''" >Mobile</button>
+    <button class="btn btn-default" name="view" value="list" (click)="setNetworkswitchView(false)" [ngClass]="!mobileView ? 'active' : ''">List</button>
+  </div>
+  <div class="networkswitch-container mobile-view" *ngIf="mobileView">
     <div class="networkswitch"
          [ngClass]="nwsw == null ? '' : nwsw.getSystemEnvironmentCssClass()"
          *ngFor="let nwsw of networkswitchings"
          [routerLink]="['/detail', getProjectId(), nwsw._id]">
-      <div class="network-part-title">General</div>
+      <div class="network-part-title main-network-part-title">General</div>
       <div class="network-part">
         <div class="networkswitch-label">ID:</div><div class="networkswitch-value">{{nwsw.id}}</div>
         <div class="networkswitch-label">State:</div><div class="networkswitch-value">{{nwsw.state}}</div>
@@ -82,5 +88,54 @@
       </div>
     </div>
   </div>
+  <div class="networkswitch-container desktop-view" *ngIf="!mobileView">
+      <table class="table table-hover networkswitch-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>State</th>
+            <th>User</th>
+            <th>Teststate</th>
+            <th>Zone</th>
+            <th>Group</th>
+            <th>Host</th>
+            <th>IpAddr</th>
+            <th>Zone</th>
+            <th>Group</th>
+            <th>Host</th>
+            <th>IpAddr</th>
+            <th>Port</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr [ngClass]="nwsw == null ? '' : nwsw.getSystemEnvironmentCssClass()"
+              *ngFor="let nwsw of networkswitchings"
+              [routerLink]="['/detail', getProjectId(), nwsw._id]">
+            <td>{{nwsw.id}}</td>
+            <td>{{nwsw.state}}</td>
+            <td>{{nwsw.creationBy}}</td>
+            <td>
+              <test-status [result]="nwsw.getLastTeststateResult()"></test-status>
+              {{nwsw.getLastTeststateTimestamp() | date:DATE_FORMAT | prePostfix:'(':')'}}
+            </td>
+            <td>{{nwsw.source.zone}}</td>
+            <td>{{nwsw.source.group}}</td>
+            <td>{{nwsw.source.host}}</td>
+            <td>{{nwsw.source.ipAddr}}</td>
+            <td>{{nwsw.destination.zone}}</td>
+            <td>{{nwsw.destination.group}}</td>
+            <td>{{nwsw.destination.host}}</td>
+            <td>{{nwsw.destination.ipAddr}}</td>
+            <td>{{nwsw.destination.port}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="networkswitchings?.length <= 0 && !isLoading" class="empty-networkswitch-message">
+      <h2>Oh, it looks like you have no networkswitches :(</h2>
+      <h2>A friend needs to invite you or you can create your own networkswitches here:</h2>
+      <button class="btn btn-default add-networkswitch" (click)="insert()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create New Network Switching</button>
+    </div>
 </div>
+
 

@@ -46,7 +46,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   networkswitchings: Networkswitching[] = [];
 
   private errormessage: string;
-
+  private isLoading: boolean;
+  private mobileView: boolean;
+  private viewBreakpoint: number = 1200;
 
   /**
    * @param networkswitchingService
@@ -58,6 +60,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
               private userManagementService: UserManagementService,
               private route: ActivatedRoute,
               private router: Router) {
+    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
 
@@ -122,10 +125,22 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.router.navigate(['./create', this.userManagementService.getProjectId()]);
   }
 
+  public sortOrderChanged(sortingColumn) {
+    this.log.i("new sorting: ", sortingColumn.dbColumn);
+    this.reloadNwsw();
+  }
+
+  onResize() {
+    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
+  }
 
   public search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.searchTermObservable.next(this.searchTerm);
+  }
+
+  public setNetworkswitchView (mobileViewEnabled: boolean) {
+    this.mobileView = mobileViewEnabled;
   }
 
 
@@ -137,6 +152,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   // TODO move to Service class ???
   private loadNwsw(): Promise<Array<Networkswitching>> {
+    this.isLoading = true;
     this.offset = this.networkswitchings.length;
     if (this.offset === this.lastRequestedOffset) {
       return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
@@ -151,8 +167,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       .then(nwsws => {
         this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(sortingList)}`);
         this.networkswitchings.push(...nwsws);
+        this.isLoading = false;
         return this.networkswitchings;
       })
-      .catch(CommonRestService.handleError);
+      .catch(CommonRestService.handleError)
   }
 }

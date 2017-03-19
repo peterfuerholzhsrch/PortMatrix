@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class PortMatrixPage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/user');
   }
 
   getParagraphText() {
@@ -27,7 +27,7 @@ export class PortMatrixPage {
   }
 
   pressSubmitButton() {
-    return element(by.css('button[type="submit"]')).click();
+    return element(by.css('.login-button')).click();
   }
 
   getUserEmail() {
@@ -36,5 +36,17 @@ export class PortMatrixPage {
 
   getLogOutButton() {
       return element(by.css('.log-out'));
+  }
+
+  getNetworkswitchingsHeader() {
+    return element(by.css('networkswitchings-header'));
+  }
+
+  getFirstNetworkswitch() {
+    return element(by.css('.networkswitch:first-child'));
+  }
+
+  getSaveButton() {
+    return element(by.css('.btn-success'));
   }
 }

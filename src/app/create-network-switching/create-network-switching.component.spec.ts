@@ -28,6 +28,7 @@ import {AuthGuardService} from "../auth-guard.service";
 import {SessionStorageService} from "../session-storage.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {TestStatusComponent} from "../test-status/test-status.component";
+import {PrePostfixPipe} from "../pre-postfix.pipe";
 
 describe('CreateNetworkSwitching', () => {
   let component: CreateNetworkSwitchingComponent;
@@ -47,7 +48,8 @@ describe('CreateNetworkSwitching', () => {
         MultiEmailDirective,
         MultiEmailFormComponent,
         TestStatusComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        PrePostfixPipe
       ],
       imports: [
         BrowserModule,
