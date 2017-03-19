@@ -48,7 +48,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   private errormessage: string;
   private isLoading: boolean;
   private mobileView: boolean;
-  private viewBreakpoint: number = 1200;
+  private viewBreakpoint: number = 1000;
 
   /**
    * @param networkswitchingService
@@ -60,7 +60,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
               private userManagementService: UserManagementService,
               private route: ActivatedRoute,
               private router: Router) {
-    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
+    window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
 
@@ -119,6 +119,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   onScrollUp() {
     this.log.d("scrolled up");
+    this.loadNwsw();
   }
 
   insert() {
@@ -127,7 +128,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
 
   onResize() {
-    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
+    window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
   public search(searchTerm: string): void {
