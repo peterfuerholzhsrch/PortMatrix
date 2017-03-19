@@ -1,25 +1,33 @@
 import {Endpoint} from "./endpoint";
 import {Testresult} from "./testresult";
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from "./systemEnvironment";
+import {IdBasedModel} from "./idBasedModel";
 
 /**
  * Model class for Network Switchings.
+ *
+ * Please notice!
+ * If you add/remove attributes or change the data type you probably have to update following server code as well:
+ * - controller/networkswitchingsController.js (query- / sortings parameter)
+ * - test/fillExampleData.js
+ *
+ *
  * Created by pfu on 15/11/16.
  */
-export class Networkswitching {
-  private _id: string = null;
-  id: number;
-  systemEnvironment: string = SystemEnvironment[SystemEnvironment.INTEGRATION_SYSTEM];
-  source: Endpoint;
-  destination: Endpoint;
-  protocol: string;
-  state: string = Networkswitching.STATES[0];
-  remark: string;
-  testresultList: Array<Testresult>;
-  creationDate: Date;
-  creationBy: string;
-  lastchangeDate: Date;
-  lastchangeBy: string;
+export class Networkswitching extends IdBasedModel {
+
+  public id: number;
+  public systemEnvironment: string = SystemEnvironment[SystemEnvironment.INTEGRATION_SYSTEM];
+  public source: Endpoint;
+  public destination: Endpoint;
+  public protocol: string;
+  public state: string = Networkswitching.STATES[0];
+  public remark: string;
+  public testresultList: Array<Testresult>;
+  public creationDate: Date;
+  public creationBy: string;
+  public lastchangeDate: Date;
+  public lastchangeBy: string;
 
   public static ZONES: Array<string> = ['yellow', 'orange', 'red'];
   public static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];
@@ -80,14 +88,8 @@ export class Networkswitching {
   }
 
 
-  public getId(): string {
-    return this._id;
-  }
-
-
   public getSystemEnvironmentCssClass(): string {
     const foundIndex = SystemEnvironment.getIndex(this.systemEnvironment);
-    const cssClass = SystemEnvironment.getCssClass(SYSTEM_ENVIRONMENTS[foundIndex]);
-    return cssClass;
+    return SystemEnvironment.getCssClass(SYSTEM_ENVIRONMENTS[foundIndex]);
   }
 }

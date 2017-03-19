@@ -1,9 +1,10 @@
+import {IdBasedModel} from "./idBasedModel";
 /**
  * Model class for projects.
  * Created by pfu on 12/01/17.
  */
-export class Project {
-  private _id: string;
+export class Project extends IdBasedModel {
+
   adminId: string;
   users: Array<String>;
   name: string;
@@ -36,14 +37,5 @@ export class Project {
       }
     }
     return projectArr;
-  }
-
-  /**
-   * TODO create base class!!!
-   *
-   * @returns {string}
-   */
-  public getId(): string {
-    return this._id;
   }
 }

@@ -15,24 +15,6 @@
      (scrolled)="onScrollDown()"
      (scrolledUp)="onScrollUp()">
 
-<!--
-    <div>
-      <label for="sort1">Sort Primary By:</label>
-      <select id="sort1" [(ngModel)]="sortingColumn1" (ngModelChange)="sortOrderChanged(sortingColumn1)">
-        <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
-          {{sortingColumn.text}}
-        </option>
-      </select>
-    </div>
-    <div>
-      <label for="sort2">Sort Secondary By:</label>
-      <select id="sort2" [(ngModel)]="sortingColumn2" (ngModelChange)="sortOrderChanged(sortingColumn1)">
-        <option *ngFor="let sortingColumn of availableSortingColumns" [ngValue]="sortingColumn">
-          {{sortingColumn.text}}
-        </option>
-      </select>
-    </div>
--->
   <div class="networkswitchings-filter">
     <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
   </div>
@@ -47,28 +29,23 @@
 
     <div class="tab-content well">
       <div id="sorting-general" class="network-header-row tab-pane in active">
-  <!--
-        <button class="sort-btn" (click)="sortingButtonClicked('id')">ID
-          <sort-indicator ascending="{{isAscending('id')}}" order="{{getOrder('id')}}"></sort-indicator>
-        </button>
-      -->
-        <sort-button [sorting]="SortingID" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingSTATE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingUSER" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingTEST_STATE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingID" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingSTATE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingUSER" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingTEST_STATE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
       </div>
       <div id="sorting-source" class="network-header-row tab-pane fade">
-        <sort-button [sorting]="SortingSOURCE_ZONE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingSOURCE_GROUP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingSOURCE_HOST" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingSOURCE_IP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingSOURCE_ZONE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingSOURCE_GROUP" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingSOURCE_HOST" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingSOURCE_IP" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
       </div>
       <div id="sorting-destination" class="network-header-row tab-pane fade">
-        <sort-button [sorting]="SortingDESTINATION_ZONE" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingDESTINATION_GROUP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingDESTINATION_HOST" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingDESTINATION_IP" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
-        <sort-button [sorting]="SortingDESTINATION_PORT" [sortingList]="sortingList" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingDESTINATION_ZONE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingDESTINATION_GROUP" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingDESTINATION_HOST" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingDESTINATION_IP" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingDESTINATION_PORT" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
       </div>
     </div>
   </div>

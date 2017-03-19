@@ -6,7 +6,7 @@ import {Router, Params, ActivatedRoute} from "@angular/router";
 import {Networkswitching} from '../model/networkswitching';
 import {NetworkswitchingService} from '../networkswitching.service';
 import {Sorting} from '../model/Sorting';
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {CommonRestService} from "../common-rest.service";
 import {UserManagementService} from "../user-management.service";
 
@@ -45,12 +45,12 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   networkswitchings: Networkswitching[] = [];
 
-  private sortingList: Array<Sorting> = [];
   private errormessage: string;
 
 
   /**
    * @param networkswitchingService
+   * @param userManagementService
    * @param route
    * @param router
    */
@@ -60,8 +60,8 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
               private router: Router) {
   }
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
@@ -94,45 +94,15 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
    * Resets current sort settings
    */
   public resetSorting() {
-    this.sortingList = [];
+    this.userManagementService.clearSorting();
     this.reloadNwsw();
   }
 
-  /**
-   * To be called by a sorting button
-   * @param sortButton
-   */
-  public sortingButtonClicked(sortButton : string) {
-    const sorting = this.getSorting(sortButton);
-    if (sorting) {
-      sorting.ascending = !sorting.ascending;
-    }
-    else {
-      const addSorting = Sorting.getSortingByDbColumn(sortButton);
-      this.sortingList.push(addSorting);
-    }
-    this.reloadNwsw();
+
+  public getSortingList() {
+    return this.userManagementService.getSortingList();
   }
 
-  public isAscending(sortButton: string): Boolean {
-    const sorting = this.getSorting(sortButton);
-    return sorting ? sorting.ascending : null;
-  }
-
-  public getOrder(sortButton: string): Number {
-    const sorting = Sorting.getSortingByDbColumn(sortButton);
-    const sortIndex = this.sortingList.indexOf(sorting);
-    return sortIndex >= 0 ? sortIndex : null;
-  }
-
-  private getSorting(sortButton: string): Sorting {
-    const sorting = Sorting.getSortingByDbColumn(sortButton);
-    const sortIndex = this.sortingList.indexOf(sorting);
-    if (sortIndex >= 0) {
-      return sorting;
-    }
-    return null;
-  }
 
   public sortingChanged() {
     this.reloadNwsw();
@@ -152,14 +122,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.router.navigate(['./create', this.userManagementService.getProjectId()]);
   }
 
-  public sortOrderChanged(sortingColumn) {
-    this.log.i("new sorting: ", sortingColumn.dbColumn);
-    this.reloadNwsw();
-  }
-
 
   public search(searchTerm: string): void {
-    this.searchTerm = "'" + searchTerm + "'"; // "'" -> use 'string' search);
+    this.searchTerm = searchTerm;
     this.searchTermObservable.next(this.searchTerm);
   }
 
@@ -177,13 +142,14 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
       return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
+    const sortingList = this.userManagementService.getSortingList();
     return this.networkswitchingService.getNetworkswitchings(this.userManagementService.getProjectId(),
                                                              this.searchTerm,
-                                                             this.sortingList,
+                                                             sortingList,
                                                              this.offset,
                                                              NetworkswitchingsBrowserComponent.LIMIT)
       .then(nwsws => {
-        this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(this.sortingList)}`);
+        this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(sortingList)}`);
         this.networkswitchings.push(...nwsws);
         return this.networkswitchings;
       })

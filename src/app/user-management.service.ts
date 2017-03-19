@@ -8,7 +8,7 @@ import {CommonRestService} from "./common-rest.service";
 import {SessionStorageService} from "./session-storage.service";
 import {ProjectService} from "./project.service";
 import {Observable} from "rxjs";
-
+import {Sorting} from  './model/sorting';
 
 @Injectable()
 export class UserManagementService extends CommonRestService {
@@ -19,6 +19,8 @@ export class UserManagementService extends CommonRestService {
   private project: Project;
   private projectId: string; // used to bridge the gap where project is not yet loaded
   private user: User;
+
+  private sortingList: Array<Sorting> = [];
 
 
   constructor(private sessionStorageService: SessionStorageService,
@@ -140,5 +142,22 @@ export class UserManagementService extends CommonRestService {
       .do(ok => { CommonRestService.log.i("emails to=", recipients, " OK!") },
           err => CommonRestService.handleError(err));
     return observable;
+  }
+
+
+  public clearSorting() {
+    this.sortingList = [];
+  }
+
+  public addSorting(sorting: Sorting) {
+    this.sortingList.push(sorting);
+  }
+
+  public getSortingIndex(sorting: Sorting): number {
+    return this.sortingList.indexOf(sorting);
+  }
+
+  public getSortingList(): Sorting[] {
+    return this.sortingList;
   }
 }

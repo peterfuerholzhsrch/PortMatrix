@@ -14,7 +14,7 @@ export class Sorting {
   public static ID = new Sorting("ID", "id", true);
   public static STATE = new Sorting("State", "state", true);
   public static CREATION_BY = new Sorting("Creator", "creationBy", true);
-  public static TEST_STATE = new Sorting("Test State", "testState", true); // TODO does not yet exist in the DB
+  public static TEST_STATE = new Sorting("Test State", "testresultList.result", true);
   public static SOURCE_GROUP = new Sorting("Source Group", "source.group", true);
   public static SOURCE_HOST = new Sorting("Source Host", "source.host", true);
   public static SOURCE_IP = new Sorting("Source IP", "source.ipAddr", true);
