@@ -48,6 +48,8 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   private sortingList: Array<Sorting> = [];
   private errormessage: string;
   private isLoading: boolean;
+  private mobileView: boolean;
+  private viewBreakpoint: number = 1200;
 
   /**
    * @param networkswitchingService
@@ -58,6 +60,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
               private userManagementService: UserManagementService,
               private route: ActivatedRoute,
               private router: Router) {
+    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
   ngOnInit(): void {
@@ -157,10 +160,17 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.reloadNwsw();
   }
 
+  onResize() {
+    window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
+  }
 
   public search(searchTerm: string): void {
     this.searchTerm = "'" + searchTerm + "'"; // "'" -> use 'string' search);
     this.searchTermObservable.next(this.searchTerm);
+  }
+
+  public setNetworkswitchView (mobileViewEnabled: boolean) {
+    this.mobileView = mobileViewEnabled;
   }
 
 

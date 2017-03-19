@@ -28,7 +28,6 @@ sort-button {
 }
 
 .networkswitch {
-  //border: 8px solid;
   border-radius: $border-radius;
   transition: $default-transition;
   width: 35rem;
@@ -41,22 +40,45 @@ sort-button {
 }
 
 
-.development_system {
-  //border-color: $system-development-color;
-  box-shadow: 0 0 10px 3px $system-development-color;
+// These classes come from the javascript, that's why they have a underline instead of a dash.
+.mobile-view {
+  .development_system {
+    box-shadow: 0 0 10px 3px $system-development-color;
+  }
+  .test_system {
+    box-shadow: 0 0 10px 3px $system-test-color;
+  }
+  .integration_system {
+    box-shadow: 0 0 10px 3px $system-integration-color;
+  }
+  .production_system {
+    box-shadow: 0 0 10px 3px $system-production-color;
+  }
 }
-.test_system {
-  //border-color: $system-test-color;
-  box-shadow: 0 0 10px 3px $system-test-color;
+
+.desktop-view {
+  .development_system {
+    td:first-child{
+      background-color: $system-development-color;
+    }
+  }
+  .test_system {
+    td:first-child{
+      background-color: $system-test-color;
+    }
+  }
+  .integration_system {
+    td:first-child{
+      background-color: $system-integration-color;
+    }
+  }
+  .production_system {
+    td:first-child{
+      background-color: $system-production-color;
+    }
+  }
 }
-.integration_system {
-  //border-color: $system-integration-color;
-  box-shadow: 0 0 10px 3px $system-integration-color;
-}
-.production_system {
-  //border-color: $system-production-color;
-  box-shadow: 0 0 10px 3px $system-production-color;
-}
+
 
 
 .network-part-title {
@@ -87,6 +109,24 @@ sort-button {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.networkswitch-table {
+  width: 100%;
+
+  tr:hover {
+    cursor: pointer;
+  }
+}
+
+.view-switcher {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.view-switcher-label {
+  margin-right: 1rem;
 }
 
 .empty-networkswitch-message {
