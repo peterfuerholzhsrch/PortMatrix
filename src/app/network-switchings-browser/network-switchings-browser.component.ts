@@ -125,10 +125,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     this.router.navigate(['./create', this.userManagementService.getProjectId()]);
   }
 
-  public sortOrderChanged(sortingColumn) {
-    this.log.i("new sorting: ", sortingColumn.dbColumn);
-    this.reloadNwsw();
-  }
 
   onResize() {
     window.screen.width < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
