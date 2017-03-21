@@ -29,6 +29,7 @@ import {SharedModule} from "./shared/shared.module";
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {TestStatusComponent} from "./test-status/test-status.component";
 import { PrePostfixPipe } from './pre-postfix.pipe';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
 // TODO Enable for production!!!
 // Log.setProductionMode();
@@ -48,7 +49,8 @@ import { PrePostfixPipe } from './pre-postfix.pipe';
     MultiEmailDirective,
     MultiEmailFormComponent,
     ConfirmDialogComponent,
-    PrePostfixPipe
+    PrePostfixPipe,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,8 @@ import { PrePostfixPipe } from './pre-postfix.pipe';
     SessionStorageService
   ],
   entryComponents: [
-    ConfirmDialogComponent // see https://www.npmjs.com/package/ng2-bootstrap-modal
+    ConfirmDialogComponent, // see https://www.npmjs.com/package/ng2-bootstrap-modal
+    AlertDialogComponent
   ],
   bootstrap: [MainComponent]
 })

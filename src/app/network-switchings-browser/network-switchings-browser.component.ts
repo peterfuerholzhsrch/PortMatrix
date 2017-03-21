@@ -9,7 +9,8 @@ import {Sorting} from '../model/Sorting';
 import {Subject} from "rxjs";
 import {CommonRestService} from "../common-rest.service";
 import {UserManagementService} from "../user-management.service";
-
+import {DialogService} from "ng2-bootstrap-modal";
+import {AlertDialogComponent} from "../alert-dialog/alert-dialog.component";
 
 @Component({
   selector: 'network-switchings-browser',
@@ -21,8 +22,6 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   private searchTermObservable = new Subject<string>();
   private searchTerm: string = "";
-
-  private static LIMIT: number = 10;
 
   offset: number = 0;
   private lastRequestedOffset = null;
@@ -58,6 +57,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
    */
   constructor(private networkswitchingService: NetworkswitchingService,
               private userManagementService: UserManagementService,
+              private dialogService: DialogService,
               private route: ActivatedRoute,
               private router: Router) {
     window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
@@ -131,13 +131,47 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
     window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
-  public search(searchTerm: string): void {
+  search(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.searchTermObservable.next(this.searchTerm);
   }
 
-  public setNetworkswitchView (mobileViewEnabled: boolean) {
+  setNetworkswitchView (mobileViewEnabled: boolean) {
     this.mobileView = mobileViewEnabled;
+  }
+
+
+  showInfoOnFilter() {
+    const message = `Entered words are looked up on all fields of a network switching. Only network switchings matching 
+all words are returned. Following rules apply: <br>
+<ul>
+<li>use <code>true</code> / <code>false</code> for boolean values (for successful / failed test results)</li>
+<li>use <code>&lt;year&gt;-&lt;month&gt;-&lt;day&gt;</code> for filtering on dates (creation date, updated date, test 
+timestamp), e.g <code>2017-03-12</code></li>
+</ul>`;
+
+    this.dialogService.addDialog(AlertDialogComponent,
+      { title: "Filtering",
+        message: message },
+      { closeByClickingOutside: true });
+  }
+
+
+  showInfoOnSort() {
+    const message = `You can sort on multiple columns by pressing the column names shown next here. Click the 
+column with first precedence first then with second precedence second (and so on). If you a column a second time 
+it is changing from ascending to descending (and vice versa). To start over click the 'Reset Sorting' button.`;
+
+    this.dialogService.addDialog(AlertDialogComponent,
+                                { title: "Sorting",
+                                  message: message },
+                                { closeByClickingOutside: true });
+  }
+
+
+  private getNumberOfNwswsToLoad() {
+    // in the mobileView 15 items is enough to load to fill a big screen as well:
+    return this.mobileView ? 15 : 30;
   }
 
 
@@ -160,7 +194,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
                                                              this.searchTerm,
                                                              sortingList,
                                                              this.offset,
-                                                             NetworkswitchingsBrowserComponent.LIMIT)
+                                                             this.getNumberOfNwswsToLoad())
       .then(nwsws => {
         this.log.i(`offset=${this.offset}, sorting=${JSON.stringify(sortingList)}`);
         this.networkswitchings.push(...nwsws);

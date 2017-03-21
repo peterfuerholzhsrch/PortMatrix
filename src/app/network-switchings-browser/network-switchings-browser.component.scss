@@ -101,6 +101,9 @@ sort-button {
 }
 
 .networkswitchings-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: $default-space;
   margin-bottom: $default-space;
 }

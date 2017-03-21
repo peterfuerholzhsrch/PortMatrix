@@ -18,6 +18,9 @@
 
   <div class="networkswitchings-filter">
     <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
+    <button class="btn btn-link pull-right reset" (click)="showInfoOnFilter()">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    </button>
   </div>
 
   <div class="networkswitch-sorting">
@@ -25,7 +28,14 @@
       <li class="active"><a data-toggle="pill" href="#sorting-general">General</a></li>
       <li><a data-toggle="pill" href="#sorting-source">Source</a></li>
       <li><a data-toggle="pill" href="#sorting-destination">Destination</a></li>
-      <button class="btn btn-default pull-right reset" (click)="resetSorting()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>Reset Sorting</button>
+
+      <button class="btn btn-link pull-right reset" (click)="showInfoOnSort()">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+      </button>
+      <button class="btn btn-default pull-right reset" (click)="resetSorting()">
+        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+        Reset Sorting
+      </button>
     </ul>
 
     <div class="tab-content well">

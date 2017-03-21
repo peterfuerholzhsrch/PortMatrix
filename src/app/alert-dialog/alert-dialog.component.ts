@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
 
 
-export interface ConfirmModel {
+export interface AlertModel {
   title: string;
   message: string;
 }
@@ -11,36 +11,28 @@ export interface ConfirmModel {
  * See https://www.npmjs.com/package/ng2-bootstrap-modal
  */
 @Component({
-  selector: 'confirmDialog',
+  selector: 'alertDialog',
   template: `<div class="modal-dialog">
                <div class="modal-content">
                  <div class="modal-header">
                    <button type="button" class="close" (click)="close()" >&times;</button>
-                   <h4 class="modal-title">{{title || 'Confirm'}}</h4>
+                   <h4 class="modal-title">{{title || 'Alert'}}</h4>
                  </div>
                  <div class="modal-body">
-                   <p>{{message || 'Are you sure?'}}</p>
+                   <p [innerHTML]="message || 'OK'"></p>
                  </div>
                  <div class="modal-footer">
-                   <button type="button" class="btn btn-primary" (click)="confirm()">OK</button>
-                   <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>
+                   <button type="button" class="btn btn-default" (click)="close()" >OK</button>
                  </div>
                </div>
              </div>`,
-  styleUrls: ['./confirm-dialog.component.scss']
+  styleUrls: ['./alert-dialog.component.scss']
 })
-export class ConfirmDialogComponent extends DialogComponent<ConfirmModel, boolean> {
+export class AlertDialogComponent extends DialogComponent<AlertModel, null> {
   private title: string;
   private message: string;
 
   constructor(dialogService: DialogService) {
     super(dialogService);
-  }
-
-  private confirm() {
-    // we set dialog result as true on click on confirm button,
-    // then we can get dialog result from caller code
-    this.result = true;
-    this.close();
   }
 }
