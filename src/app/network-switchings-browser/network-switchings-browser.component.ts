@@ -49,6 +49,16 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   private mobileView: boolean;
   private viewBreakpoint: number = 1000;
 
+  searchFilterHelpMessage = `Entered words are looked up on all fields of a network switching. Only network switchings matching 
+all words are returned. Following rules apply: <br>
+<ul>
+<li>the search in case-insensitive</li>
+<li>use <code>true</code> / <code>false</code> for boolean values (for successful / failed test results)</li>
+<li>use <code>&lt;year&gt;-&lt;month&gt;-&lt;day&gt;</code> for filtering on dates (creation date, updated date, test 
+timestamp), e.g <code>2017-03-12</code></li>
+</ul>`;
+
+
   /**
    * @param networkswitchingService
    * @param userManagementService
@@ -142,17 +152,9 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
 
   showInfoOnFilter() {
-    const message = `Entered words are looked up on all fields of a network switching. Only network switchings matching 
-all words are returned. Following rules apply: <br>
-<ul>
-<li>use <code>true</code> / <code>false</code> for boolean values (for successful / failed test results)</li>
-<li>use <code>&lt;year&gt;-&lt;month&gt;-&lt;day&gt;</code> for filtering on dates (creation date, updated date, test 
-timestamp), e.g <code>2017-03-12</code></li>
-</ul>`;
-
     this.dialogService.addDialog(AlertDialogComponent,
       { title: "Filtering",
-        message: message },
+        message: this.searchFilterHelpMessage },
       { closeByClickingOutside: true });
   }
 

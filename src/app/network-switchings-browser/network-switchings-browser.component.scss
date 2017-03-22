@@ -122,12 +122,22 @@ sort-button {
   tr:hover {
     cursor: pointer;
   }
+
+  tr th {
+    text-align: center;
+  }
+
+  th {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+  }
 }
 
 .view-switcher {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .view-switcher-label {
@@ -137,6 +147,10 @@ sort-button {
 .empty-networkswitch-message {
   text-align: center;
   width: 100%;
+}
+
+.empty-networkswitch-helpMessage {
+  text-align: left;
 }
 
 @media screen and (max-width: $width-mobile) {
