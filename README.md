@@ -36,7 +36,6 @@ course by Marco Endres and Peter Fuerholz.
 * Allows to invite more users into same project (by email)
 * Stylelinting for SCSS
 * e2e tests with protractor run with: "npm run e2e"
-* IE11 compatibility
 
 
 

@@ -32,6 +32,7 @@ export class EditNetworkSwitchingComponent implements OnInit{
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
   ZONES = Networkswitching.ZONES;
   STATES = Networkswitching.STATES;
+  PROTOCOLS = Networkswitching.PROTOCOLS;
   SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
   HOST_REGEX: string = Networkswitching.HOST_REGEX;
   IP_RANGE_REGEX: string = Networkswitching.IP_RANGE_REGEX;
