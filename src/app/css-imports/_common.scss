@@ -1,0 +1,14 @@
+/* apply on .i-button's parent element */
+.with-i-button {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* use for info button */
+.i-button {
+  padding: 0;
+  span {
+    margin-right: 0;
+    margin-left: 0.5em;
+  }
+}

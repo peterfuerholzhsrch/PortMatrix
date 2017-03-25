@@ -15,7 +15,7 @@ export class Endpoint {
    * @param jsonObj
    * @returns {any}
    */
-  public static jsonToObj(jsonObj: Object): Endpoint {
+  static jsonToObj(jsonObj: Object): Endpoint {
     if (!jsonObj) {
       throw new Error('There is no object to build an Endpoint from!');
     }
@@ -28,7 +28,7 @@ export class Endpoint {
    * @param jsonArr
    * @returns {Array<Endpoint>}
    */
-  public static jsonArrToObjArr(jsonArr: Array<Object>): Array<Endpoint> {
+  static jsonArrToObjArr(jsonArr: Array<Object>): Array<Endpoint> {
     const endpointArr: Array<Endpoint> = [];
     if (jsonArr) {
       for (const json of jsonArr) {

@@ -3,29 +3,31 @@
  */
 
 export class Sorting {
-  public constructor(public text: String, public dbColumn: String, public ascending: boolean) {
+
+  constructor(public text: String, public dbColumn: String, public ascending: boolean) {
   }
 
-  public toRestQuery(): string {
+
+  toRestQuery(): string {
     return (this.ascending ? "+" : "-") + this.dbColumn;
   }
 
 
-  public static ID = new Sorting("ID", "id", true);
-  public static STATE = new Sorting("State", "state", true);
-  public static CREATION_BY = new Sorting("Creator", "creationBy", true);
-  public static TEST_STATE = new Sorting("Test State", "testresultList.result", true);
-  public static SOURCE_GROUP = new Sorting("Source Group", "source.group", true);
-  public static SOURCE_HOST = new Sorting("Source Host", "source.host", true);
-  public static SOURCE_IP = new Sorting("Source IP", "source.ipAddr", true);
-  public static SOURCE_ZONE = new Sorting("Source Zone", "source.zone", true);
-  public static DESTINATION_GROUP = new Sorting("Destination Group", "destination.group", true);
-  public static DESTINATION_HOST = new Sorting("Destination Host", "destination.host", true);
-  public static DESTINATION_IP = new Sorting("Destination IP", "destination.ipAddr", true);
-  public static DESTINATION_ZONE = new Sorting("Destination Zone", "destination.zone", true);
-  public static DESTINATION_PORT = new Sorting("Destination Port(s)", "destination.port", true);
-  public static PROTOCOL = new Sorting("Protocol", "protocol", true);
-  public static REMARK = new Sorting("Remark", "remark", true);
+  static ID = new Sorting("ID", "id", true);
+  static STATE = new Sorting("State", "state", true);
+  static CREATION_BY = new Sorting("Creator", "creationBy", true);
+  static TEST_STATE = new Sorting("Test State", "testresultList.result", true);
+  static SOURCE_GROUP = new Sorting("Source Group", "source.group", true);
+  static SOURCE_HOST = new Sorting("Source Host", "source.host", true);
+  static SOURCE_IP = new Sorting("Source IP", "source.ipAddr", true);
+  static SOURCE_ZONE = new Sorting("Source Zone", "source.zone", true);
+  static DESTINATION_GROUP = new Sorting("Destination Group", "destination.group", true);
+  static DESTINATION_HOST = new Sorting("Destination Host", "destination.host", true);
+  static DESTINATION_IP = new Sorting("Destination IP", "destination.ipAddr", true);
+  static DESTINATION_ZONE = new Sorting("Destination Zone", "destination.zone", true);
+  static DESTINATION_PORT = new Sorting("Destination Port(s)", "destination.port", true);
+  static PROTOCOL = new Sorting("Protocol", "protocol", true);
+  static REMARK = new Sorting("Remark", "remark", true);
 
   static ALL_SORTINGS: Array<Sorting> = [];
   static init() {
@@ -46,8 +48,39 @@ export class Sorting {
     this.ALL_SORTINGS.push(this.REMARK);
   }
 
-  public static getSortingByDbColumn(dbColumn: string): Sorting {
+  static getSortingByDbColumn(dbColumn: string): Sorting {
     return this.ALL_SORTINGS.find(sorting => sorting.dbColumn == dbColumn);
+  }
+
+  static getSortingIndexByDbColumn(sortingList: Sorting[], dbColumn: string): number {
+    return sortingList.findIndex(sorting => sorting.dbColumn == dbColumn);
+  }
+
+  /**
+   * Helper method for packing JSON object.
+   * @param jsonObj
+   * @returns {any}
+   */
+  static jsonToObj(jsonObj: Object): Sorting {
+    if (!jsonObj) {
+      throw new Error('There is no object to build a Sorting from!');
+    }
+    return Object.assign(new Sorting(null, null, false), jsonObj);
+  }
+
+  /**
+   * Helper method for packing JSON array.
+   * @param jsonArr
+   * @returns {Array<Sorting>}
+   */
+  static jsonArrToObjArr(jsonArr: Array<Object>): Array<Sorting> {
+    const sortingArr: Array<Sorting> = [];
+    if (jsonArr) {
+      for (const json of jsonArr) {
+        sortingArr.push(this.jsonToObj(json));
+      }
+    }
+    return sortingArr;
   }
 }
 Sorting.init();

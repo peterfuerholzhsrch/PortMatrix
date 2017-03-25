@@ -1,17 +1,16 @@
-import {Log} from 'ng2-logger/ng2-logger'
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Log} from "ng2-logger/ng2-logger";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Networkswitching} from "../model/networkswitching";
 import {Params, ActivatedRoute, Router} from "@angular/router";
-import { NetworkswitchingService } from '../networkswitching.service';
+import {NetworkswitchingService} from "../networkswitching.service";
 import {Endpoint} from "../model/endpoint";
 import {User} from "../model/user";
 import {UserManagementService} from "../user-management.service";
-import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
-
 import {NgForm} from "@angular/forms";
 import {Observable} from "rxjs";
 import {DialogService} from "ng2-bootstrap-modal";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
 
 
 @Component({
@@ -19,31 +18,21 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
   templateUrl: './create-network-switching.component.html',
   styleUrls: ['./create-network-switching.component.scss']
 })
-export class CreateNetworkSwitchingComponent implements OnInit {
+export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit {
 
   private log = Log.create('create-network-switching');
 
-  private nwsw: Networkswitching;
-  private errormessage: string;
+  @ViewChild('createForm') editForm: NgForm;
 
-  // used by template:
 
-  ZONES = Networkswitching.ZONES;
-  STATES = Networkswitching.STATES;
-  PROTOCOLS = Networkswitching.PROTOCOLS;
-  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
-  HOST_REGEX: string = Networkswitching.HOST_REGEX;
-  IP_RANGE_REGEX: string = Networkswitching.IP_RANGE_REGEX;
+  constructor(networkswitchingService: NetworkswitchingService,
+              userManagementService: UserManagementService,
+              dialogService: DialogService,
+              route: ActivatedRoute,
+              router: Router) {
+    super(networkswitchingService, userManagementService, dialogService, route, router);
+  }
 
-  @ViewChild('createForm') public editForm: NgForm;
-
-  constructor(
-    private networkswitchingService: NetworkswitchingService,
-    private userManagementService: UserManagementService,
-    private dialogService: DialogService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.nwsw = new Networkswitching();
@@ -60,18 +49,14 @@ export class CreateNetworkSwitchingComponent implements OnInit {
   }
 
 
-  private setErrormessage(error) {
-    this.errormessage = error.message || error;
-  }
-
-
   save(): void {
     this.nwsw.creationDate = new Date();
     const user: User = this.userManagementService.getUser();
     this.nwsw.creationBy = user.email;
     this.nwsw.lastchangeBy = user.email;
     this.networkswitchingService.insertNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-      .then(() => this.goBack());
+      .then(() => this.goBack())
+      .catch(error => this.setErrormessage(error));
   }
 
 
@@ -94,10 +79,5 @@ export class CreateNetworkSwitchingComponent implements OnInit {
                                                     message: 'Move away from this site and lose all changes?'
                                                   });
     return disposable as any as Observable<boolean>;
-  }
-
-
-  goBack(): void {
-    this.router.navigate(['./nwsw', this.userManagementService.getProjectId()]);
   }
 }

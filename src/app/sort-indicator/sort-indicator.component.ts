@@ -10,19 +10,19 @@ import { Component } from '@angular/core';
   inputs: ['ascending', 'order' ]
 })
 export class SortIndicator {
-  public ascending: string;
-  public order: string;
+  ascending: string;
+  order: string;
 
   constructor() { }
 
-  public getArrowClass(): string {
+  getArrowClass(): string {
     if (this.ascending) {
       return this.ascending == "true" ? "glyphicon-menu-down" : "glyphicon-menu-up";
     }
     return "";
   }
 
-  public getSortOrder(): string {
+  getSortOrder(): string {
     if (this.order && Number(this.order) >= 0) {
       return String((Number(this.order) + 1));
     }

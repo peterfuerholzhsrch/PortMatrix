@@ -7,8 +7,8 @@ import {Project} from './project';
 
 
 export class UserAndProject {
-  public user: User;
-  public project: Project;
+  user: User;
+  project: Project;
 
 
   /**
@@ -16,7 +16,7 @@ export class UserAndProject {
    * @param jsonObj
    * @returns {UserAndProject}
    */
-  public static jsonToObj(jsonObj: Object): UserAndProject {
+  static jsonToObj(jsonObj: Object): UserAndProject {
     if (!jsonObj) {
       throw new Error('There is no object to build a User and Project from!');
     }

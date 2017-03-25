@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { User } from './model/user';
+import {Sorting} from  './model/sorting';
+
 
 @Injectable()
 export class SessionStorageService {
-  private static  USER = "CREATION_BY";
+  private static USER = "CREATION_BY";
+  private static PROJECT_ID = "PROJECT_ID";
+  private static JWT_TOKEN = "TOKEN";
+  private static SEARCH_TERM = "SEARCH_TERM";
+  private static SORTING = "SORTING";
 
   constructor() { }
 
 
-  public getUser(): User {
+  //
+  // USER
+  //
+
+  getUser(): User {
     const userStr = sessionStorage.getItem(SessionStorageService.USER);
     return userStr ? User.jsonToObj(JSON.parse(userStr)) : null;
   }
@@ -17,7 +27,7 @@ export class SessionStorageService {
    * Saves the user in the SessionStorage. Do mind that only following attributes get saved: _id, email
    * @param user
    */
-  public setUser(user: User) {
+  setUser(user: User) {
     let userClone = undefined;
     if (user) {
       userClone = {};
@@ -29,6 +39,74 @@ export class SessionStorageService {
     }
     else {
       sessionStorage.removeItem(SessionStorageService.USER);
+    }
+  }
+
+
+  //
+  // PROJECT_ID
+  //
+
+  getProjectId(): string {
+    return sessionStorage.getItem(SessionStorageService.PROJECT_ID);
+  }
+
+  setProjectId(projectId: string) {
+    if (projectId) {
+      sessionStorage.setItem(SessionStorageService.PROJECT_ID, projectId);
+    }
+    else {
+      sessionStorage.removeItem(SessionStorageService.PROJECT_ID);
+    }
+  }
+
+  //
+  // JWT_TOKEN
+  //
+
+  getJwtToken(): string {
+    return sessionStorage.getItem(SessionStorageService.JWT_TOKEN);
+  }
+
+  setJwtToken(jwtToken: string) {
+    if (jwtToken) {
+      sessionStorage.setItem(SessionStorageService.JWT_TOKEN, jwtToken);
+    }
+    else {
+      sessionStorage.removeItem(SessionStorageService.JWT_TOKEN);
+    }
+  }
+
+
+  //
+  // NETWORK_SWITCHING
+  //
+
+  getSearchTerm(): string {
+    return sessionStorage.getItem(SessionStorageService.SEARCH_TERM);
+  }
+
+  setSearchTerm(searchTerm: string) {
+    if (searchTerm) {
+      sessionStorage.setItem(SessionStorageService.SEARCH_TERM, searchTerm);
+    }
+    else {
+      sessionStorage.removeItem(SessionStorageService.SEARCH_TERM);
+    }
+  }
+
+  getSortingList(): Sorting[] {
+    const sortingStr = sessionStorage.getItem(SessionStorageService.SORTING);
+    const sortingList: Sorting[] = sortingStr ? Sorting.jsonArrToObjArr(JSON.parse(sortingStr)) : [];
+    return sortingList;
+  }
+
+  setSortingList(sortingList: Sorting[]) {
+    if (sortingList) {
+      sessionStorage.setItem(SessionStorageService.SORTING, JSON.stringify(sortingList));
+    }
+    else {
+      sessionStorage.removeItem(SessionStorageService.SORTING);
     }
   }
 }

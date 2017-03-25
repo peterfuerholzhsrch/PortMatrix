@@ -2,6 +2,7 @@ import {Log} from 'ng2-logger/ng2-logger'
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {User} from './model/user';
+import {SessionStorageService} from "./session-storage.service";
 
 
 @Injectable()
@@ -10,20 +11,19 @@ export class CommonRestService {
 
   private static LOGIN_URL = '/api/login';
   protected static JSON_HEADERS = new Headers({'Content-Type': 'application/json'});
-
-  // static: token must be shared between UserManagemntService, ProjectService etc.!
-  private static token = undefined;
-
   private static redirectUrl: string;
 
-  constructor(private http: Http) {
+
+  constructor(private http: Http,
+              protected sessionStorageService: SessionStorageService) {
   }
 
-  public setRedirectUrl(url: string) {
+
+  setRedirectUrl(url: string) {
     CommonRestService.redirectUrl = url;
   }
 
-  public getRedirectUrl(): string {
+  getRedirectUrl(): string {
     return CommonRestService.redirectUrl;
   }
 
@@ -51,7 +51,7 @@ export class CommonRestService {
    * @param password
    * @returns {any}
    */
-  public validateUser(email: string, password: string): Promise<User> {
+  validateUser(email: string, password: string): Promise<User> {
     return this
       .post(CommonRestService.LOGIN_URL, {email: email, password: password})
       .toPromise()
@@ -66,33 +66,35 @@ export class CommonRestService {
 
   protected setJwtToken(jsonBody) {
     if (jsonBody) {
-      CommonRestService.token = jsonBody['token'];
+      this.sessionStorageService.setJwtToken(jsonBody['token']);
     }
   }
 
 
-  public logout(): Promise<any> {
-    CommonRestService.token = undefined;
+  logout(): Promise<any> {
+    this.sessionStorageService.setJwtToken(null);
     return Promise.resolve();
   }
 
 
-  public isLoggedIn(): boolean {
-    return !!CommonRestService.token;
+  isLoggedIn(): boolean {
+    return !!this.sessionStorageService.getJwtToken();
   }
 
 
-  public static handleError(error: any): Promise<any> {
+  static handleError(error: any): Promise<any> {
     CommonRestService.log.er('An error occurred', error);
     CommonRestService.redirectUrl = undefined; // don't try more than once (it may have got invalid)
-    return Promise.reject(error.message || error);
+    const text = error.text && error.text();
+    return Promise.reject(error.message || text || error);
   }
 
 
   protected getHeaders(headers = new Headers()): Object {
     let headerObj = {headers: headers};
-    if (CommonRestService.token) {
-      headers.set('authorization', "Bearer " + CommonRestService.token);
+    const jwtToken = this.sessionStorageService.getJwtToken();
+    if (jwtToken) {
+      headers.set('authorization', "Bearer " + jwtToken);
     }
     return headerObj;
   }

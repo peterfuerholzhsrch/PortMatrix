@@ -82,7 +82,8 @@ export class MainComponent implements OnInit {
 
   logout(): void {
     this.userManagementService.logout().then(() => {
-        this.userManagementService.setUser(undefined);
+        this.userManagementService.setUser(null);
+        this.userManagementService.setProjectId(null);
         return this.router.navigate(['/'])
       },
       this.handleError);
@@ -101,7 +102,8 @@ export class MainComponent implements OnInit {
 
   inviteColleagues(emailAddresses: Array<string>) {
     this.log.i("inviteColleagues: ", emailAddresses);
-    this.userManagementService.inviteColleagues(emailAddresses).subscribe(ok =>{}, err => this.handleError(err));
+    this.userManagementService.inviteColleagues(emailAddresses)
+      .subscribe(ok =>{}, err => this.handleError(err));
   }
 
 

@@ -12,7 +12,7 @@ export class Testresult {
    * @param jsonObj
    * @returns {any}
    */
-  public static jsonToObj(jsonObj: Object): Testresult {
+  static jsonToObj(jsonObj: Object): Testresult {
     if (!jsonObj) {
       throw new Error('There is no object to build a Testresult from!');
     }
@@ -25,7 +25,7 @@ export class Testresult {
    * @param jsonArr
    * @returns {Array<Testresult>}
    */
-  public static jsonArrToObjArr(jsonArr: Array<Object>): Array<Testresult> {
+  static jsonArrToObjArr(jsonArr: Array<Object>): Array<Testresult> {
     const testresultArr: Array<Testresult> = [];
     if (jsonArr) {
       for (const json of jsonArr) {

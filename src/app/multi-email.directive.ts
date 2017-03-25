@@ -18,7 +18,7 @@ import {validateConfig} from "@angular/router/src/config";
 })
 export class MultiEmailDirective implements Validator {
 
-  constructor(@Attribute('multiEmail') public multiEmail: string) { }
+  constructor(@Attribute('multiEmail') multiEmail: string) { }
 
   validate(c: AbstractControl): { [key: string]: any } {
     let multiEmail = c.value;
@@ -30,7 +30,7 @@ export class MultiEmailDirective implements Validator {
    * @param multiEmail
    * @returns {any} null = multiEmail contains invalid content
    */
-  public static getEmailList(multiEmail: String): Array<String> {
+  static getEmailList(multiEmail: String): Array<String> {
     const emails = [];
     if (!multiEmail) {
       return emails;

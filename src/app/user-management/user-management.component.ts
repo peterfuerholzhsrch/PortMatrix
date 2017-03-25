@@ -46,7 +46,7 @@ export class UserManagementComponent implements OnInit {
     this.userManagementService.setUser(this.user);
   }
 
-  private getErrormessage(): string {
+  getErrormessage(): string {
     return UserManagementComponent.errormessage;
   }
 
@@ -86,7 +86,10 @@ export class UserManagementComponent implements OnInit {
     }
     else {
       this.userManagementService.addUser(this.user.email, this.user.password)
-        .then((userAndProject) => this.openProject(userAndProject.project), UserManagementComponent.handleError);
+        .then((userAndProject) => {
+          this.updateUserInternal(userAndProject.user); // save _id
+          this.openProject(userAndProject.project)
+        }, UserManagementComponent.handleError);
     }
   }
 

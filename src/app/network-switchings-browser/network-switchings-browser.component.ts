@@ -5,12 +5,13 @@ import {Router, Params, ActivatedRoute} from "@angular/router";
 
 import {Networkswitching} from '../model/networkswitching';
 import {NetworkswitchingService} from '../networkswitching.service';
-import {Sorting} from '../model/Sorting';
-import {Subject} from "rxjs";
+import {Sorting} from '../model/sorting';
+import {Subject, Observable} from "rxjs";
 import {CommonRestService} from "../common-rest.service";
 import {UserManagementService} from "../user-management.service";
 import {DialogService} from "ng2-bootstrap-modal";
 import {AlertDialogComponent} from "../alert-dialog/alert-dialog.component";
+import {SessionStorageService} from "../session-storage.service";
 
 @Component({
   selector: 'network-switchings-browser',
@@ -23,24 +24,26 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   private searchTermObservable = new Subject<string>();
   private searchTerm: string = "";
 
+  private sortingList: Array<Sorting> = [];
+
   offset: number = 0;
   private lastRequestedOffset = null;
 
   // AngularJS2's HTML templates can access component class instance only. So we have to provide the Sorting's constants
   // as instance members (see http://stackoverflow.com/questions/39193538/how-to-bind-static-variable-of-component-in-html-in-angular-2):
-  public SortingID = Sorting.ID;
-  public SortingSTATE = Sorting.STATE;
-  public SortingUSER = Sorting.CREATION_BY;
-  public SortingTEST_STATE = Sorting.TEST_STATE;
-  public SortingSOURCE_ZONE = Sorting.SOURCE_ZONE;
-  public SortingSOURCE_GROUP = Sorting.SOURCE_GROUP;
-  public SortingSOURCE_HOST = Sorting.SOURCE_HOST;
-  public SortingSOURCE_IP = Sorting.SOURCE_IP;
-  public SortingDESTINATION_ZONE = Sorting.DESTINATION_ZONE;
-  public SortingDESTINATION_GROUP = Sorting.DESTINATION_GROUP;
-  public SortingDESTINATION_HOST = Sorting.DESTINATION_HOST;
-  public SortingDESTINATION_IP = Sorting.DESTINATION_IP;
-  public SortingDESTINATION_PORT = Sorting.DESTINATION_PORT;
+  SortingID = Sorting.ID;
+  SortingSTATE = Sorting.STATE;
+  SortingUSER = Sorting.CREATION_BY;
+  SortingTEST_STATE = Sorting.TEST_STATE;
+  SortingSOURCE_ZONE = Sorting.SOURCE_ZONE;
+  SortingSOURCE_GROUP = Sorting.SOURCE_GROUP;
+  SortingSOURCE_HOST = Sorting.SOURCE_HOST;
+  SortingSOURCE_IP = Sorting.SOURCE_IP;
+  SortingDESTINATION_ZONE = Sorting.DESTINATION_ZONE;
+  SortingDESTINATION_GROUP = Sorting.DESTINATION_GROUP;
+  SortingDESTINATION_HOST = Sorting.DESTINATION_HOST;
+  SortingDESTINATION_IP = Sorting.DESTINATION_IP;
+  SortingDESTINATION_PORT = Sorting.DESTINATION_PORT;
 
   networkswitchings: Networkswitching[] = [];
 
@@ -49,7 +52,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
   private mobileView: boolean;
   private viewBreakpoint: number = 1000;
 
-  searchFilterHelpMessage = `Entered words are looked up on all fields of a network switching. Only network switchings matching 
+  private SEARCH_FILTER_HELP_MESSAGE = `Entered words are looked up on all fields of a network switching. Only network switchings matching 
 all words are returned. Following rules apply: <br>
 <ul>
 <li>the search in case-insensitive</li>
@@ -62,12 +65,14 @@ timestamp), e.g <code>2017-03-12</code></li>
   /**
    * @param networkswitchingService
    * @param userManagementService
+   * @param sessionStorageService
    * @param route
    * @param router
    */
   constructor(private networkswitchingService: NetworkswitchingService,
               private userManagementService: UserManagementService,
               private dialogService: DialogService,
+              private sessionStorageService: SessionStorageService,
               private route: ActivatedRoute,
               private router: Router) {
     window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
@@ -75,6 +80,7 @@ timestamp), e.g <code>2017-03-12</code></li>
 
 
   ngOnInit(): void {
+    this.searchTerm = this.sessionStorageService.getSearchTerm();
     this.route.params
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
@@ -89,7 +95,16 @@ timestamp), e.g <code>2017-03-12</code></li>
     this.searchTermObservable
       .debounceTime(500)
       .distinctUntilChanged()
-      .subscribe((searchTerm) => { this.reloadNwsw() });
+      .subscribe(searchTerm => {
+        // save searchTerm to survive page reload:
+        this.sessionStorageService.setSearchTerm(searchTerm);
+        this.reloadNwsw()
+      });
+  }
+
+  ngAfterViewInit() {
+    this.sortingList = this.sessionStorageService.getSortingList();
+    return true;
   }
 
 
@@ -98,7 +113,7 @@ timestamp), e.g <code>2017-03-12</code></li>
   }
 
 
-  public getProjectId() {
+  getProjectId() {
     return this.userManagementService.getProjectId();
   }
 
@@ -106,18 +121,19 @@ timestamp), e.g <code>2017-03-12</code></li>
   /**
    * Resets current sort settings
    */
-  public resetSorting() {
-    this.userManagementService.clearSorting();
+  resetSorting() {
+    this.sortingList = [];
+    this.sessionStorageService.setSortingList(this.sortingList);
     this.reloadNwsw();
   }
 
 
-  public getSortingList() {
-    return this.userManagementService.getSortingList();
+  getSortingList() {
+    return this.sortingList;
   }
 
-
-  public sortingChanged() {
+  sortingChanged() {
+    this.sessionStorageService.setSortingList(this.sortingList)
     this.reloadNwsw();
   }
 
@@ -154,7 +170,7 @@ timestamp), e.g <code>2017-03-12</code></li>
   showInfoOnFilter() {
     this.dialogService.addDialog(AlertDialogComponent,
       { title: "Filtering",
-        message: this.searchFilterHelpMessage },
+        message: this.SEARCH_FILTER_HELP_MESSAGE },
       { closeByClickingOutside: true });
   }
 
@@ -191,7 +207,7 @@ it is changing from ascending to descending (and vice versa). To start over clic
       return Promise.resolve(this.networkswitchings); // already loaded, don't load again...
     }
     this.lastRequestedOffset = this.offset;
-    const sortingList = this.userManagementService.getSortingList();
+    const sortingList = this.sessionStorageService.getSortingList();
     return this.networkswitchingService.getNetworkswitchings(this.userManagementService.getProjectId(),
                                                              this.searchTerm,
                                                              sortingList,

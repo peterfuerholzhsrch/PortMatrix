@@ -1,6 +1,6 @@
 import {Log} from 'ng2-logger/ng2-logger'
 import { Component, EventEmitter } from '@angular/core';
-import { Sorting } from '../model/Sorting';
+import { Sorting } from '../model/sorting';
 
 @Component({
   selector: 'sort-button',
@@ -14,9 +14,9 @@ import { Sorting } from '../model/Sorting';
 })
 export class SortButtonComponent {
   private log = Log.create('sort-button');
-  public sorting: Sorting;
-  public sortingList: Array<Sorting>;
-  public sortingChanged: EventEmitter<Array<Sorting>> = new EventEmitter<Array<Sorting>>();
+  sorting: Sorting;
+  sortingList: Array<Sorting>;
+  sortingChanged: EventEmitter<Array<Sorting>> = new EventEmitter<Array<Sorting>>();
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class SortButtonComponent {
    * To be called by a sorting button
    * @param sortButton
    */
-  public sortingButtonClicked(sortButton : string) {
+  sortingButtonClicked(sortButton : string) {
     const sorting = this.getSorting(sortButton);
     if (sorting) {
       sorting.ascending = !sorting.ascending;
@@ -40,22 +40,20 @@ export class SortButtonComponent {
     this.sortingChanged.next(this.sortingList);
   }
 
-  public isAscending(sortButton: string): Boolean {
+  isAscending(sortButton: string): Boolean {
     const sorting = this.getSorting(sortButton);
     return sorting ? sorting.ascending : null;
   }
 
-  public getOrder(sortButton: string): Number {
-    const sorting = Sorting.getSortingByDbColumn(sortButton);
-    const sortIndex = this.sortingList.indexOf(sorting);
+  getOrder(sortButton: string): Number {
+    const sortIndex = Sorting.getSortingIndexByDbColumn(this.sortingList, sortButton);
     return sortIndex >= 0 ? sortIndex : null;
   }
 
   private getSorting(sortButton: string): Sorting {
-    const sorting = Sorting.getSortingByDbColumn(sortButton);
-    const sortIndex = this.sortingList.indexOf(sorting);
+    const sortIndex = Sorting.getSortingIndexByDbColumn(this.sortingList, sortButton);
     if (sortIndex >= 0) {
-      return sorting;
+      return this.sortingList[sortIndex];
     }
     return null;
   }

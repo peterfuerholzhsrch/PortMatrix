@@ -9,7 +9,7 @@ course by Marco Endres and Peter Fuerholz.
 
 
 ## Installation / Setup
-1. Download the two project PortMatrix and PortMatrixServer into the same base directory
+1. Download the two project PortMatrix and [PortMatrixServer](https://github.com/peterfuerholzhsrch/PortMatrixServer) into the same base directory
 2. Install all dependencies
    Do `cd PortMatrix`, `npm install`
    Do `cd PortMatrixServer`, `npm install`

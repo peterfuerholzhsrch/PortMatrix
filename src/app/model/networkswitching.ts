@@ -16,33 +16,33 @@ import {IdBasedModel} from "./idBasedModel";
  */
 export class Networkswitching extends IdBasedModel {
 
-  public id: number;
-  public systemEnvironment: string = SystemEnvironment[SystemEnvironment.INTEGRATION_SYSTEM];
-  public source: Endpoint;
-  public destination: Endpoint;
-  public protocol: string;
-  public state: string = Networkswitching.STATES[0];
-  public remark: string;
-  public testresultList: Array<Testresult>;
-  public creationDate: Date;
-  public creationBy: string;
-  public lastchangeDate: Date;
-  public lastchangeBy: string;
+  id: number;
+  systemEnvironment: string = SystemEnvironment[SystemEnvironment.INTEGRATION_SYSTEM];
+  source: Endpoint;
+  destination: Endpoint;
+  protocol: Array<string> = [];
+  state: string = Networkswitching.STATES[0];
+  remark: string;
+  testresultList: Array<Testresult>;
+  creationDate: Date;
+  creationBy: string;
+  lastchangeDate: Date;
+  lastchangeBy: string;
 
-  public static ZONES: Array<string> = ['yellow', 'orange', 'red'];
-  public static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];
-  public static PROTOCOLS: Array<string> = ['oracle-jdbc', 'http', 'https', 'sftp', 'db2-jdbc', 'ssh'];
+  static ZONES: Array<string> = ['yellow', 'orange', 'red'];
+  static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];
+  static PROTOCOLS: Array<string> = ['oracle-jdbc', 'http', 'https', 'sftp', 'db2-jdbc', 'ssh'];
   // from http://stackoverflow.com/questions/106179/regular-expression-to-match-dns-hostname-or-ip-address:
-  public static HOST_REGEX: string = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+  static HOST_REGEX: string = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
   // we allow to IP addresses with ranges, e.g. 127.202.12.1-128
-  public static IP_RANGE_REGEX: string = "^[0-9.-]+$";
+  static IP_RANGE_REGEX: string = "^[0-9.-]+$";
 
   /**
    * Helper method for packing JSON object.
    * @param jsonObj
    * @returns {Networkswitching}
    */
-  public static jsonToObj(jsonObj: Object): Networkswitching {
+  static jsonToObj(jsonObj: Object): Networkswitching {
     if (!jsonObj) {
       throw new Error('There is no object to build a Network Switching from!');
     }
@@ -50,6 +50,18 @@ export class Networkswitching extends IdBasedModel {
     networkswitching.source = Endpoint.jsonToObj(jsonObj['source']);
     networkswitching.destination = Endpoint.jsonToObj(jsonObj['destination']);
     networkswitching.testresultList = Testresult.jsonArrToObjArr(jsonObj['testresultList']);
+    // objectify protocol-array:
+    var protocolList: Array<string> = [];
+    networkswitching['protocol'] = protocolList;
+    if (jsonObj['protocol'] instanceof Array) {
+      for (const protocolJson of jsonObj['protocol']) {
+        protocolList.push(protocolJson);
+      }
+    }
+    else {
+      // protocol just a string:
+      protocolList.push(jsonObj['protocol']);
+    }
     return networkswitching;
   }
 
@@ -58,7 +70,7 @@ export class Networkswitching extends IdBasedModel {
    * @param jsonArr
    * @returns {Array<Networkswitching>}
    */
-  public static jsonArrToObjArr(jsonArr: Array<Object>): Array<Networkswitching> {
+  static jsonArrToObjArr(jsonArr: Array<Object>): Array<Networkswitching> {
     const networkswitchingArr: Array<Networkswitching> = [];
     if (jsonArr) {
       for (const json of jsonArr) {
@@ -72,23 +84,23 @@ export class Networkswitching extends IdBasedModel {
   /**
    * @returns {boolean} null if not available
    */
-  public getLastTeststateResult() : Boolean {
+  getLastTeststateResult() : Boolean {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].result : null;
   }
 
   /**
    * @returns {Date} null if not available
    */
-  public getLastTeststateTimestamp() : Date {
+  getLastTeststateTimestamp() : Date {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].timestamp : null;
   }
 
-  public addTestresult(success: boolean, timestamp: Date) {
+  addTestresult(success: boolean, timestamp: Date) {
     this.testresultList.push(new Testresult(success, timestamp));
   }
 
 
-  public getSystemEnvironmentCssClass(): string {
+  getSystemEnvironmentCssClass(): string {
     const foundIndex = SystemEnvironment.getIndex(this.systemEnvironment);
     return SystemEnvironment.getCssClass(SYSTEM_ENVIRONMENTS[foundIndex]);
   }

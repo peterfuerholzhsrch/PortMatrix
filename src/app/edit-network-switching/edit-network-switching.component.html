@@ -1,6 +1,6 @@
-<div [hidden]="!errormessage"
+<div [hidden]="!getErrormessage()"
      class="alert alert-danger">
-  {{errormessage}}
+  {{getErrormessage()}}
 </div>
 
 <div *ngIf="nwsw">
@@ -22,12 +22,17 @@
                 <input class="form-control networkswitch-value" [(ngModel)]="nwsw.id" placeholder="ID" name="id" id="id" type="text" />
               </div>
               <div class="form-group">
+                <div class="with-i-button">
                   <label class="networkswitch-label" for="protocol">Protocol:</label>
-                  <select multiple class="form-control" [(ngModel)]="nwsw.protocol"  id="protocol" name="protocol">
-                    <option *ngFor="let protocol of PROTOCOLS">
-                      {{protocol}}
-                    </option>
-                  </select>
+                  <button class="btn btn-link pull-right i-button" (click)="showInfoOnProtocolSelect()">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <select multiple class="form-control" (change)="updateProtocolList($event.target.options)" id="protocol" name="protocol">
+                  <option *ngFor="let protocol of PROTOCOLS" [selected]="isProtocolSelected(protocol)">
+                    {{protocol}}
+                  </option>
+                </select>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">System:</label>

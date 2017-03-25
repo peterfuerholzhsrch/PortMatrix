@@ -17,8 +17,14 @@
      (window:resize)="onResize()">
 
   <div class="networkswitchings-filter">
-    <input type="text" class="form-control" placeholder="Search for..." #searchInp id="searchInput" (keyup)="search(searchInp.value)">
-    <button class="btn btn-link pull-right reset" (click)="showInfoOnFilter()">
+    <input type="text"
+           class="form-control"
+           placeholder="Search for..."
+           #searchInp
+           id="searchInput"
+           (keyup)="search(searchInp.value)"
+           [value]="searchTerm">
+    <button class="btn btn-link pull-right i-button" (click)="showInfoOnFilter()">
       <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
     </button>
   </div>
@@ -29,7 +35,7 @@
       <li><a data-toggle="pill" href="#sorting-source">Source</a></li>
       <li><a data-toggle="pill" href="#sorting-destination">Destination</a></li>
 
-      <button class="btn btn-link pull-right reset" (click)="showInfoOnSort()">
+      <button class="btn btn-link pull-right  i-button" (click)="showInfoOnSort()">
         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
       </button>
       <button class="btn btn-default pull-right reset" (click)="resetSorting()">
@@ -40,7 +46,9 @@
 
     <div class="tab-content well">
       <div id="sorting-general" class="network-header-row tab-pane in active">
-        <sort-button [sorting]="SortingID" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
+        <sort-button [sorting]="SortingID"
+                     [sortingList]="getSortingList()"
+                     (sortingChanged)="sortingChanged()"></sort-button>
         <sort-button [sorting]="SortingSTATE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
         <sort-button [sorting]="SortingUSER" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
         <sort-button [sorting]="SortingTEST_STATE" [sortingList]="getSortingList()" (sortingChanged)="sortingChanged()"></sort-button>
@@ -158,7 +166,7 @@
     <p>Please refine your search terms!</p>
     <div class="empty-networkswitch-helpMessage">
       <h3>Help:</h3>
-      <p [innerHTML]="searchFilterHelpMessage"></p>
+      <p [innerHTML]="SEARCH_FILTER_HELP_MESSAGE"></p>
     </div>
   </div>
 </div>

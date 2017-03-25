@@ -8,7 +8,8 @@ import {CommonRestService} from "./common-rest.service";
 import {SessionStorageService} from "./session-storage.service";
 import {ProjectService} from "./project.service";
 import {Observable} from "rxjs";
-import {Sorting} from  './model/sorting';
+
+
 
 @Injectable()
 export class UserManagementService extends CommonRestService {
@@ -17,19 +18,15 @@ export class UserManagementService extends CommonRestService {
   private static USERSMAIL_URL = '/api/usersmail';
 
   private project: Project;
-  private projectId: string; // used to bridge the gap where project is not yet loaded
-  private user: User;
-
-  private sortingList: Array<Sorting> = [];
 
 
-  constructor(private sessionStorageService: SessionStorageService,
+  constructor(http: Http,
               private projectService: ProjectService,
-              http: Http) {
-    super(http);
+              sessionStorageService: SessionStorageService) {
+    super(http, sessionStorageService);
   }
 
-  public addUser(email: string, password: string): Promise<UserAndProject> {
+  addUser(email: string, password: string): Promise<UserAndProject> {
     return this.addUserToProject(email, password, null);
   }
 
@@ -51,7 +48,7 @@ export class UserManagementService extends CommonRestService {
   }
 
 
-  public removeUser(userId: string): Promise<void> {
+  removeUser(userId: string): Promise<void> {
     return this.delete(`${UserManagementService.USERS_URL}/${userId}`)
       .toPromise()
       .then(() => null)
@@ -59,7 +56,7 @@ export class UserManagementService extends CommonRestService {
   }
 
 
-  public updateUser(user: User): Promise<User> {
+  updateUser(user: User): Promise<User> {
     const url = `${UserManagementService.USERS_URL}/${user.getId()}`;
     return this.put(url, user)
       .toPromise()
@@ -74,38 +71,40 @@ export class UserManagementService extends CommonRestService {
    * When redirecting we just know the URL and with this the projectId -> load project if needed
    * @param projectId
    */
-  public setProjectId(projectId: string) : Promise<Project> {
-    this.projectId = projectId;
-    if (!this.project || this.project.getId() != projectId) {
-      // project is not loaded or changed -> reload it:
-      return this.projectService.getProject(projectId)
-        .then(project => this.project = project, err => Promise.reject(err));
+  setProjectId(projectId: string) : Promise<Project> {
+    this.sessionStorageService.setProjectId(projectId);
+
+    if (projectId) {
+      if (!this.project || this.project.getId() != projectId) {
+        // project is not loaded or changed -> reload it:
+        return this.projectService.getProject(projectId)
+          .then(project => this.project = project, err => Promise.reject(err));
+      }
+    }
+    else {
+      this.project = null;
     }
     return Promise.resolve(this.project);
   }
 
-  public getProjectId(): string {
-    return this.projectId;
+  getProjectId(): string {
+    return this.sessionStorageService.getProjectId();
   }
 
-  public setUser(user: User) {
-    this.user = user;
-// TODO if saved persistently then JWT token must be saved as well:
-//    this.sessionStorageService.setUser(user);
+  setUser(user: User) {
+    this.sessionStorageService.setUser(user);
   }
 
-  public getUser(): User {
-    return this.user;
-// TODO if saved persistently then JWT token must be saved as well:
-//   return this.sessionStorageService.getUser();
+  getUser(): User {
+   return this.sessionStorageService.getUser();
   }
 
-  public setProject(project: Project) {
+  setProject(project: Project) {
     this.project = project;
-    this.projectId = this.project ? this.project.getId() : null;
+    this.sessionStorageService.setProjectId(this.project ? this.project.getId() : null);
   }
 
-  public getProject(): Project {
+  getProject(): Project {
     return this.project;
   }
 
@@ -113,7 +112,7 @@ export class UserManagementService extends CommonRestService {
    * @returns {Boolean} true if user logged in and the user is set project's admin (= (normally) its creator); null
    * if information is missing
    */
-  public isProjectAdmin(): Boolean {
+  isProjectAdmin(): Boolean {
     const user = this.getUser();
     if (!this.project || !user) {
       return null;
@@ -127,37 +126,20 @@ export class UserManagementService extends CommonRestService {
    * @param recipients
    * @returns {any}
    */
-  public inviteColleagues(recipients: Array<string>): Observable<any> {
+  inviteColleagues(recipients: Array<string>): Observable<any> {
     if (!this.project) {
       CommonRestService.handleError("no project set!");
       return Observable.throw("no project set!");
     }
     const params = {
       recipients: recipients,
-      projectId: this.projectId,
-      adminId: this.user.getId()
+      projectId: this.sessionStorageService.getProjectId(),
+      adminId: this.sessionStorageService.getUser().getId()
     };
 
     let observable = this.post(UserManagementService.USERSMAIL_URL, params)
       .do(ok => { CommonRestService.log.i("emails to=", recipients, " OK!") },
           err => CommonRestService.handleError(err));
     return observable;
-  }
-
-
-  public clearSorting() {
-    this.sortingList = [];
-  }
-
-  public addSorting(sorting: Sorting) {
-    this.sortingList.push(sorting);
-  }
-
-  public getSortingIndex(sorting: Sorting): number {
-    return this.sortingList.indexOf(sorting);
-  }
-
-  public getSortingList(): Sorting[] {
-    return this.sortingList;
   }
 }

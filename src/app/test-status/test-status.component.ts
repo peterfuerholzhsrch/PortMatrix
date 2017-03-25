@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
   inputs: ['result']
 })
 export class TestStatusComponent {
-  public result: Boolean;
+  result: Boolean;
 
   constructor() {
   }

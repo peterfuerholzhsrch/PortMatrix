@@ -54,7 +54,7 @@ export class MultiEmailFormComponent implements OnInit {
   }
 
 
-  public isMultiEmailValid() {
+  isMultiEmailValid() {
     return this.multiEmailValid;
   }
 
@@ -62,7 +62,7 @@ export class MultiEmailFormComponent implements OnInit {
   /**
    * @returns {Array} empty array of emails if empty or invalid
    */
-  public getEmailAddresses(): Array<String> {
+  getEmailAddresses(): Array<String> {
     if (!this.isMultiEmailValid()) {
       return [];
     }

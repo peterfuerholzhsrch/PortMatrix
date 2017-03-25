@@ -5,10 +5,8 @@ import {IdBasedModel} from "./idBasedModel";
  * Created by pfu on 12/01/17.
  */
 export class User extends IdBasedModel {
-  public email: string;
-  public password: string;
-
-  // TODO 'public' in networkswitching ???
+  email: string;
+  password: string;
 
 
   /**
@@ -16,7 +14,7 @@ export class User extends IdBasedModel {
    * @param jsonObj
    * @returns {User}
    */
-  public static jsonToObj(jsonObj: Object): User {
+  static jsonToObj(jsonObj: Object): User {
     if (!jsonObj) {
       throw new Error('There is no object to build a User from!');
     }
@@ -24,11 +22,11 @@ export class User extends IdBasedModel {
     return user;
   }
 
-  public getId(): string {
+  getId(): string {
     return this._id;
   }
 
-  public updateUser(user) {
+  updateUser(user) {
     Object.assign(this, user);
   }
 }

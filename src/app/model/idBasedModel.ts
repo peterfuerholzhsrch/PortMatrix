@@ -9,7 +9,7 @@ export abstract class IdBasedModel {
   /**
    * @returns {string}
    */
-  public getId(): string {
+  getId(): string {
     return this._id;
   }
 }

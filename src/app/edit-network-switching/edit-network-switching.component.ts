@@ -1,14 +1,13 @@
-import {Log} from 'ng2-logger/ng2-logger'
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Networkswitching} from "../model/networkswitching";
+import {Log} from "ng2-logger/ng2-logger";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Params, ActivatedRoute, Router} from "@angular/router";
-import {NetworkswitchingService} from '../networkswitching.service';
+import {NetworkswitchingService} from "../networkswitching.service";
 import {UserManagementService} from "../user-management.service";
-import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from '../model/systemEnvironment';
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {DialogService} from "ng2-bootstrap-modal";
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
 
 
 @Component({
@@ -16,35 +15,25 @@ import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component
   templateUrl: 'edit-network-switching.component.html',
   styleUrls: ['edit-network-switching.component.scss']
 })
-export class EditNetworkSwitchingComponent implements OnInit{
+export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit {
 
   private log = Log.create('edit-network-switching');
 
-  private nwsw: Networkswitching;
-  public testresultTimestampStr: string;
-  @ViewChild('editForm') public editForm: NgForm;
+  testresultTimestampStr: string;
+  @ViewChild('editForm') editForm: NgForm;
 
-  private errormessage: string;
-
+  static PROTOCOL_SETTINGS_HELP_MESSAGE = "You can select multiple protocols by pressing the Control key."
 
   // Used by template:
-
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
-  ZONES = Networkswitching.ZONES;
-  STATES = Networkswitching.STATES;
-  PROTOCOLS = Networkswitching.PROTOCOLS;
-  SYSTEM_ENVIRONMENTS = SYSTEM_ENVIRONMENTS.map(system => SystemEnvironment.text(system));
-  HOST_REGEX: string = Networkswitching.HOST_REGEX;
-  IP_RANGE_REGEX: string = Networkswitching.IP_RANGE_REGEX;
 
 
-  constructor(
-    private networkswitchingService: NetworkswitchingService,
-    private userManagementService: UserManagementService,
-    private dialogService: DialogService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(networkswitchingService: NetworkswitchingService,
+              userManagementService: UserManagementService,
+              dialogService: DialogService,
+              route: ActivatedRoute,
+              router: Router) {
+    super(networkswitchingService, userManagementService, dialogService, route, router);
   }
 
 
@@ -66,11 +55,6 @@ export class EditNetworkSwitchingComponent implements OnInit{
   }
 
 
-  private setErrormessage(error) {
-    this.errormessage = error.message || error;
-  }
-
-
   /**
    * Saves network switching
    * @param goBack true: goes back in browsing history
@@ -79,11 +63,8 @@ export class EditNetworkSwitchingComponent implements OnInit{
     this.nwsw.lastchangeDate = new Date();
     this.nwsw.lastchangeBy = this.userManagementService.getUser().email;
     this.networkswitchingService.updateNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-      .then(() => {
-        if (goBack) {
-          this.goBack();
-        }
-      });
+      .then(() => this.goBack())
+      .catch(error => this.setErrormessage(error));
   }
 
 
@@ -92,7 +73,8 @@ export class EditNetworkSwitchingComponent implements OnInit{
       .subscribe(ok => {
         if (ok) {
           this.networkswitchingService.deleteNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-            .then(() => this.goBack());
+            .then(() => this.goBack())
+            .catch(error => this.setErrormessage(error));
         }
       });
   }
@@ -107,7 +89,6 @@ export class EditNetworkSwitchingComponent implements OnInit{
       this.save(false);
     }
   }
-
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     // if nwsw could not be shown 'this.editForm' is <undefined>:
@@ -131,10 +112,5 @@ export class EditNetworkSwitchingComponent implements OnInit{
                                                     message: message
                                                   });
     return disposable as any as Observable<boolean>;
-  }
-
-
-  goBack(): void {
-    this.router.navigate(['./nwsw', this.userManagementService.getProjectId()]);
   }
 }

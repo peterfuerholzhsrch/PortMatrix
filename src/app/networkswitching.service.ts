@@ -7,8 +7,9 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import {Networkswitching} from './model/networkswitching';
-import {Sorting} from './model/Sorting';
+import {Sorting} from './model/sorting';
 import {CommonRestService} from "./common-rest.service";
+import {SessionStorageService} from "./session-storage.service";
 
 
 
@@ -17,8 +18,9 @@ export class NetworkswitchingService extends CommonRestService {
 
   private static NETWORKSWITCHING_URL = 'api/nwsws';  // URL to web api
 
-  constructor(http: Http) {
-    super(http);
+  constructor(http: Http,
+              sessionStorageService: SessionStorageService) {
+    super(http, sessionStorageService);
   }
 
 
@@ -32,9 +34,7 @@ export class NetworkswitchingService extends CommonRestService {
    */
   getNetworkswitchings(projectId: string, filter: string, sorting: Sorting[], offset: number, limit: number): Promise<Networkswitching[]> {
 
-    filter = encodeURIComponent(filter);
-    const filterQuery = filter ? `&q=${filter}` : '';
-
+    const filterQuery = filter ? `&q=${encodeURIComponent(filter)}` : '';
     const sortingQueryPart = encodeURIComponent(sorting.map(sort => sort.toRestQuery()).join(','));
     const sortingQuery = `?sort=${sortingQueryPart}&offset=${offset}&limit=${limit}`;
 

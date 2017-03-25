@@ -16,7 +16,7 @@ export class Project extends IdBasedModel {
    * @param jsonObj
    * @returns {Networkswitching}
    */
-  public static jsonToObj(jsonObj: Object): Project {
+  static jsonToObj(jsonObj: Object): Project {
     if (!jsonObj) {
       throw new Error('There is no object to build a Project from!');
     }
@@ -29,7 +29,7 @@ export class Project extends IdBasedModel {
    * @param jsonArr
    * @returns {Array<User>}
    */
-  public static jsonArrToObjArr(jsonArr: Array<Object>): Array<Project> {
+  static jsonArrToObjArr(jsonArr: Array<Object>): Array<Project> {
     const projectArr: Array<Project> = [];
     if (jsonArr) {
       for (const json of jsonArr) {
