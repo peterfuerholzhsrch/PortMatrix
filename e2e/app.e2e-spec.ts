@@ -31,9 +31,15 @@ describe('App actions', function() {
     page.pressSubmitButton();
   });
 
+  afterEach(() => {
+    page.getLogOutButton().click();
+  });
+
+
   it('has networkswitchings', () => {
     expect(page.getFirstNetworkswitch().isPresent()).toBeTruthy();
   });
+
 
   it('can open networkswitching', () => {
     page.getFirstNetworkswitch().click();
