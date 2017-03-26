@@ -29,6 +29,11 @@ describe('App actions', function() {
     page.getEmailField().sendKeys(email);
     page.getPasswordField().sendKeys('a');
     page.pressSubmitButton();
+
+    // TODO Current implementation works without moving to mobile as well:
+    if (!page.getFirstNetworkswitch().isPresent()) {
+      page.getMobileViewButton().click();
+    }
   });
 
   afterEach(() => {
@@ -41,8 +46,13 @@ describe('App actions', function() {
   });
 
 
-  it('can open networkswitching', () => {
+  it('has a save button', () => {
     page.getFirstNetworkswitch().click();
     expect(page.getSaveButton().isPresent()).toBeTruthy();
+  });
+
+
+  it('has a a networkswitch', () => {
+    expect(page.getFirstNetworkswitch().isPresent).toBeTruthy();
   });
 });

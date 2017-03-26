@@ -44,9 +44,14 @@ export class PortMatrixPage {
 
   getFirstNetworkswitch() {
     return element(by.css('[class $= "_system"]:first-child'));
+    // TODO works for mobile only: return element(by.css('.networkswitch:first-of-type'));
   }
 
   getSaveButton() {
-    return element(by.buttonText('Save'));
+    return element(by.css('.btn-success'));
+  }
+
+  getMobileViewButton() {
+    return element(by.css('.mobile-view-button'));
   }
 }

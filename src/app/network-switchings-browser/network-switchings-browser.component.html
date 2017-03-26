@@ -70,8 +70,8 @@
   </div>
   <div class="view-switcher hidden-xs">
     <span class="view-switcher-label">Switch view</span>
-    <button class="btn btn-default" name="view" value="mobile" (click)="setNetworkswitchView(true)" [ngClass]="mobileView ? 'active' : ''" >Mobile</button>
-    <button class="btn btn-default" name="view" value="list" (click)="setNetworkswitchView(false)" [ngClass]="!mobileView ? 'active' : ''">List</button>
+    <button class="btn btn-default mobile-view-button" name="view" value="mobile" (click)="setNetworkswitchView(true)" [ngClass]="mobileView ? 'active' : ''" >Mobile</button>
+    <button class="btn btn-default list-view-button" name="view" value="list" (click)="setNetworkswitchView(false)" [ngClass]="!mobileView ? 'active' : ''">List</button>
   </div>
   <div class="networkswitch-container mobile-view" *ngIf="mobileView">
     <div class="networkswitch"
