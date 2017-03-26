@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Small component to show Sorting's directions and order in one component.
+ */
 @Component({
   selector: 'sort-indicator',
   template: `<span class="sort-indicator">

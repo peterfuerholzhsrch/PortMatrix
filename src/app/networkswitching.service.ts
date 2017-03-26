@@ -12,12 +12,19 @@ import {CommonRestService} from "./common-rest.service";
 import {SessionStorageService} from "./session-storage.service";
 
 
-
+/**
+ * REST service for handling network switchings.
+ */
 @Injectable()
 export class NetworkswitchingService extends CommonRestService {
 
   private static NETWORKSWITCHING_URL = 'api/nwsws';  // URL to web api
 
+
+  /**
+   * @param http injected service
+   * @param sessionStorageService injected service
+   */
   constructor(http: Http,
               sessionStorageService: SessionStorageService) {
     super(http, sessionStorageService);
@@ -48,6 +55,11 @@ export class NetworkswitchingService extends CommonRestService {
   }
 
 
+  /**
+   * @param projectId
+   * @param id
+   * @returns {Promise<R>|Promise<Promise<any>>}
+   */
   getNetworkswitching(projectId: string, id: string): Promise<Networkswitching> {
     return this
       .get(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${id}`)
@@ -59,6 +71,11 @@ export class NetworkswitchingService extends CommonRestService {
   }
 
 
+  /**
+   * @param projectId
+   * @param networkswitching
+   * @returns {Promise<R>|Promise<Promise<any>>}
+   */
   updateNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
     const url = `${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.getId()}`;
     return this
@@ -70,6 +87,12 @@ export class NetworkswitchingService extends CommonRestService {
       .catch(CommonRestService.handleError);
   }
 
+
+  /**
+   * @param projectId
+   * @param networkswitching
+   * @returns {Promise<R>|Promise<Promise<any>>}
+   */
   insertNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<Networkswitching> {
     return this
       .post(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}`, networkswitching)
@@ -80,6 +103,12 @@ export class NetworkswitchingService extends CommonRestService {
       .catch(CommonRestService.handleError);
   }
 
+
+  /**
+   * @param projectId
+   * @param networkswitching
+   * @returns {Promise<R>|Promise<Promise<any>>}
+   */
   deleteNetworkswitching(projectId: string, networkswitching: Networkswitching): Promise<void> {
     return this
       .delete(`${NetworkswitchingService.NETWORKSWITCHING_URL}/${projectId}/${networkswitching.getId()}`)

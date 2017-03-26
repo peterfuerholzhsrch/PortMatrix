@@ -10,6 +10,9 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
 
 
+/**
+ * This component handles editing a network switching.
+ */
 @Component({
   selector: 'edit-network-switching',
   templateUrl: 'edit-network-switching.component.html',
@@ -28,6 +31,13 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
 
 
+  /**
+   * @param networkswitchingService injected service
+   * @param userManagementService injected service
+   * @param dialogService injected service
+   * @param route injected current route
+   * @param router injected router
+   */
   constructor(networkswitchingService: NetworkswitchingService,
               userManagementService: UserManagementService,
               dialogService: DialogService,
@@ -37,6 +47,9 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
   }
 
 
+  /**
+   * NG2 lifecycle hook
+   */
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => {
@@ -56,6 +69,19 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
 
 
   /**
+   * NG2 router hook.
+   * @returns {any}
+   */
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    // if nwsw could not be shown 'this.editForm' is <undefined>:
+    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
+      return true;
+    }
+    return this.showConfirm('Confirm dialog', 'Move away from this site and lose all changes?');
+  }
+
+
+  /**
    * Saves network switching
    * @param goBack true: goes back in browsing history
    */
@@ -68,6 +94,9 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
   }
 
 
+  /**
+   * Deletes current network switching
+   */
   delete(): void {
     this.showConfirm('Confirm dialog', 'Are you sure to delete this network switching?')
       .subscribe(ok => {
@@ -88,14 +117,6 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
       this.nwsw.addTestresult(success, testresultTimestamp);
       this.save(false);
     }
-  }
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    // if nwsw could not be shown 'this.editForm' is <undefined>:
-    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
-      return true;
-    }
-    return this.showConfirm('Confirm dialog', 'Move away from this site and lose all changes?');
   }
 
 

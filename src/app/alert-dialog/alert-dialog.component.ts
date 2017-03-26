@@ -8,6 +8,7 @@ export interface AlertModel {
 }
 
 /**
+ * Implements a modal alert dialog (= one close button).
  * See https://www.npmjs.com/package/ng2-bootstrap-modal
  */
 @Component({

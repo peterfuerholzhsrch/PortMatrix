@@ -4,6 +4,9 @@ import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '
 import {CommonRestService} from './common-rest.service';
 
 
+/**
+ * To restrict unauthenticated users to the unauthenticated area they will be redirected to the login page.
+ */
 @Injectable()
 export class AuthGuardService implements CanActivate {
   private log = Log.create('auth-guard');

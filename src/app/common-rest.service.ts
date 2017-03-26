@@ -5,6 +5,9 @@ import {User} from './model/user';
 import {SessionStorageService} from "./session-storage.service";
 
 
+/**
+ * Base class for all REST calls to the PortMatrix server.
+ */
 @Injectable()
 export class CommonRestService {
   protected static log = Log.create('common-rest-service');
@@ -14,39 +17,75 @@ export class CommonRestService {
   private static redirectUrl: string;
 
 
+  /**
+   * @param http injected service
+   * @param sessionStorageService injected service
+   */
   constructor(private http: Http,
               protected sessionStorageService: SessionStorageService) {
   }
 
 
+  /**
+   * Set a URL where user shall be redirected after successful login.
+   * @param url
+   */
   setRedirectUrl(url: string) {
     CommonRestService.redirectUrl = url;
   }
 
+  /**
+   * @returns {string} set redirected URL
+   */
   getRedirectUrl(): string {
     return CommonRestService.redirectUrl;
   }
 
 
+  /**
+   * Executes HTTP GET
+   * @param url
+   * @returns {Observable<Response>}
+   */
   protected get(url: string) {
     return this.http.get(url, this.getHeaders());
   }
 
+
+  /**
+   * Executes HTTP POST
+   * @param url
+   * @param body
+   * @returns {Observable<Response>}
+   */
   protected post(url: string, body: any) {
-    return this.http.post(url, this.stringify(body), this.getJsonHeaders());
+    return this.http.post(url, CommonRestService.stringify(body), this.getJsonHeaders());
   }
 
+
+  /**
+   * Executes HTTP PUT
+   * @param url
+   * @param body
+   * @returns {Observable<Response>}
+   */
   protected put(url: string, body: any) {
-    return this.http.put(url, this.stringify(body), this.getJsonHeaders());
+    return this.http.put(url, CommonRestService.stringify(body), this.getJsonHeaders());
   }
 
+
+  /**
+   * Executes HTTP DELETE
+   * @param url
+   * @returns {Observable<Response>}
+   */
   protected delete(url: string) {
     return this.http.delete(url, this.getJsonHeaders());
   }
 
 
   /**
-   *
+   * Validates credentials at the server side. On success returned JWT token is saved and reapplied on further calls.
    * @param email
    * @param password
    * @returns {any}
@@ -105,7 +144,7 @@ export class CommonRestService {
   }
 
 
-  private stringify(body: any): string {
+  private static stringify(body: any): string {
     if (typeof body === 'string') {
       return body;
     }

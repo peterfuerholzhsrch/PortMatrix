@@ -10,10 +10,10 @@ import {UserManagementService} from "./user-management.service";
 
 
 /**
+ * AbstractNetworkSwitchingComponent is the base class for handling NetworkSwitchings. Thus we reduce code duplication.
+ *
  * Created by pfu on 25/03/17.
  */
-
-
 export abstract class AbstractNetworkSwitchingComponent {
 
   private aLog = Log.create('abstract-network-switching');

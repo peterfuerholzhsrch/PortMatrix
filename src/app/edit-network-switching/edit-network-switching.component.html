@@ -4,6 +4,7 @@
 </div>
 
 <div *ngIf="nwsw">
+  <!-- novalidate added to allow special behaviour that only IP address or server name needed -->
   <form #editForm="ngForm" novalidate>
     <div class="panel-group" id="accordion">
       <div class="panel panel-default">
@@ -120,6 +121,9 @@
                        placeholder="Host"
                        pattern="{{HOST_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="sourceHost.valid || !sourceHost.value">
+                  Invalid! Allowed characters: 0-9A-Za-z.- (Example: <code>www.a-z.ch</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-group">Group:</label>
@@ -139,6 +143,9 @@
                        placeholder="IP Address"
                        pattern="{{IP_RANGE_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="sourceIpAddr.valid || !sourceIpAddr.value">
+                  Invalid! Allowed characters: 0-9.- (Example: <code>127.202.12.1-128</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-zone">Zone:</label>
@@ -148,7 +155,7 @@
                   </option>
                 </select>
               </div>
-              <div class="alert alert-danger" [hidden]="(sourceIpAddr.valid || sourceHost.valid)">
+              <div class="alert alert-danger" [hidden]="sourceHost.valid || sourceHost.value || sourceIpAddr.valid || sourceIpAddr.value">
                 The <strong>Host</strong> or the<strong> IP address</strong> needs to be filled out!
               </div>
             </div>
@@ -164,6 +171,9 @@
                        placeholder="Host"
                        pattern="{{HOST_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="destinationHost.valid || !destinationHost.value">
+                  Invalid! Allowed characters: 0-9A-Za-z.- (Example: <code>www.a-z.ch</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-group">Group:</label>
@@ -183,6 +193,9 @@
                        placeholder="IP Address"
                        pattern="{{IP_RANGE_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="destinationIpAddr.valid || !destinationIpAddr.value">
+                  Invalid! Allowed characters: 0-9.- (Example: <code>127.202.12.1-128</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">Zone:</label>
@@ -200,7 +213,7 @@
                        id="destination-port"
                        placeholder="Port" />
               </div>
-              <div class="alert alert-danger" [hidden]="(destinationHost.valid || destinationIpAddr.valid)">
+              <div class="alert alert-danger" [hidden]="destinationHost.valid || destinationHost.value || destinationIpAddr.valid || destinationIpAddr.value">
                 The <strong>Host</strong> or the<strong> IP address</strong> needs to be filled out!
               </div>
             </div>
@@ -208,12 +221,16 @@
         </div>
       </div>
     </div>
-
-    <button class="btn btn-default" type="button" (click)="goBack()">Back</button>
-    <button class="btn btn-success" type="submit"
+    <button class="btn btn-default"
+            type="button"
+            (click)="goBack()">Back</button>
+    <button class="btn btn-success"
+            type="submit"
             [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"
             (click)="save(true)">Save</button>
-    <button class="btn btn-danger" type="button" (click)="delete()">Delete...</button>
+    <button class="btn btn-danger"
+            type="button"
+            (click)="delete()">Delete...</button>
   </form>
 </div>
 

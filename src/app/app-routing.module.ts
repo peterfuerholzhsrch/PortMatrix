@@ -1,6 +1,3 @@
-/**
- * Created by pfu on 17/11/16.
- */
 import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NetworkswitchingsBrowserComponent}   from './network-switchings-browser/network-switchings-browser.component';
@@ -10,6 +7,9 @@ import {CreateNetworkSwitchingComponent} from "./create-network-switching/create
 import {AuthGuardService} from "./auth-guard.service";
 import {CanDeactivateGuard} from "./shared/can-deactivate-guard.service";
 
+/**
+ * Definition of the PortMatrix's (UI) routes.
+ */
 const routes: Routes = [
   {path: '', redirectTo: '/user', pathMatch: 'full'},
   {path: 'user', component: UserManagementComponent},

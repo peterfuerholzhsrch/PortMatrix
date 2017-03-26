@@ -28,13 +28,21 @@ export class UserManagementComponent implements OnInit {
   private static errormessage: string;
 
 
+  /**
+   * @param userManagementService injected service
+   * @param authService injected service
+   * @param projectService injected service
+   * @param route injected current route
+   * @param router injected router
+   */
   constructor(
     private userManagementService: UserManagementService,
     private authService: CommonRestService,
     private projectService: ProjectService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private router: Router) {
+  }
+
 
   private setUser(user: User) {
     this.user = user;
@@ -51,6 +59,9 @@ export class UserManagementComponent implements OnInit {
   }
 
 
+  /**
+   * NG2 lifecycle hook
+   */
   ngOnInit() {
     // from https://angular.io/docs/ts/latest/guide/router.html#!#query-parameters:
     this.route.queryParams
@@ -70,11 +81,17 @@ export class UserManagementComponent implements OnInit {
   }
 
 
+  /**
+   * @returns {boolean} true if currently logged in
+   */
   isLoggedIn(): boolean {
     return this.userManagementService.isLoggedIn();
   }
 
 
+  /**
+   * Registers a new user.
+   */
   registerUser(): void {
     if (this.assignedProjectId) {
       this.userManagementService.addUserToProject(this.user.email, this.user.password, this.assignedProjectId)
@@ -94,6 +111,9 @@ export class UserManagementComponent implements OnInit {
   }
 
 
+  /**
+   * Logs the user in if email and password are correct.
+   */
   login(): void {
     this.userManagementService.validateUser(this.user.email, this.user.password)
       .then((jsonUser) => {
@@ -121,6 +141,9 @@ export class UserManagementComponent implements OnInit {
   }
 
 
+  /**
+   * This method is currently unused but shall be used in the future.
+   */
   updateUser(): void {
     this.userManagementService.updateUser(this.user)
       .then((user) => {

@@ -1,7 +1,7 @@
-/**
- * Created by pfu on 18/12/16.
- */
 
+/**
+ * Model class for sorting network switchings.
+ */
 export class Sorting {
 
   constructor(public text: String, public dbColumn: String, public ascending: boolean) {

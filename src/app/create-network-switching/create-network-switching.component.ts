@@ -13,6 +13,9 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
 
 
+/**
+ * This component handles creating a network switching.
+ */
 @Component({
   selector: 'create-network-switching',
   templateUrl: './create-network-switching.component.html',
@@ -25,6 +28,13 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
   @ViewChild('createForm') editForm: NgForm;
 
 
+  /**
+   * @param networkswitchingService injected service
+   * @param userManagementService injected service
+   * @param dialogService injected service
+   * @param route injected current route
+   * @param router injected router
+   */
   constructor(networkswitchingService: NetworkswitchingService,
               userManagementService: UserManagementService,
               dialogService: DialogService,
@@ -34,6 +44,9 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
   }
 
 
+  /**
+   * lifecycle hook
+   */
   ngOnInit(): void {
     this.nwsw = new Networkswitching();
     this.nwsw.source = new Endpoint();
@@ -49,6 +62,22 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
   }
 
 
+  /**
+   * NG2 router hook
+   * @returns {any}
+   */
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    // if nwsw could not be shown 'this.editForm' is <undefined>:
+    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
+      return true;
+    }
+    return this.showConfirm();
+  }
+
+
+  /**
+   * Saves network switching.
+   */
   save(): void {
     this.nwsw.creationDate = new Date();
     const user: User = this.userManagementService.getUser();
@@ -57,14 +86,6 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
     this.networkswitchingService.insertNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
       .then(() => this.goBack())
       .catch(error => this.setErrormessage(error));
-  }
-
-
-  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.editForm || this.editForm.pristine || this.editForm.submitted) {
-      return true;
-    }
-    return this.showConfirm();
   }
 
 

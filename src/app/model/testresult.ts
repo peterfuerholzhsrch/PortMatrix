@@ -1,7 +1,6 @@
 /**
- * Created by pfu on 15/11/16.
+ * Model for a network switching's test result.
  */
-
 export class Testresult {
 
   constructor(public result?: boolean, public timestamp?: Date) {

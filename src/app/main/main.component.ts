@@ -4,6 +4,10 @@ import {UserManagementService} from "../user-management.service";
 import {Router} from "@angular/router";
 import {User} from '../model/user';
 
+
+/**
+ * The main component is responsible for the main menu and an error message at this level.
+ */
 @Component({
   selector: 'app-root',
   templateUrl: 'main.component.html',
@@ -18,18 +22,26 @@ export class MainComponent implements OnInit {
   private multiEmailFormValid: boolean;
 
 
+  /**
+   * @param userManagementService injected service
+   * @param router injected router
+   */
   constructor(
     private userManagementService: UserManagementService,
     private router: Router) {
   }
 
 
+  /**
+   * NG2 lifecycle hook
+   */
   ngOnInit() {
     this.errormessage = null;
   }
 
 
   /**
+   * NG2 lifecycle hook.
    * ngOnChanges() cannot be used here since method is called too infrequently.
    * @returns {any}
    */
@@ -61,6 +73,10 @@ export class MainComponent implements OnInit {
   }
 
 
+  /**
+   * @returns {any} 'Admin' if user is admin (creator) of current project, 'User' if associated to current project or
+   * '' is not logged in.
+   */
   getRoleString(): String {
     const projectAdmin: Boolean = this.userManagementService.isProjectAdmin();
     if (this.isLoggedIn() && projectAdmin) {
@@ -70,16 +86,25 @@ export class MainComponent implements OnInit {
   }
 
 
+  /**
+   * @returns {boolean} true if logged in
+   */
   isLoggedIn(): boolean {
     return this.userManagementService.isLoggedIn();
   }
 
 
+  /**
+   * @returns {Boolean} true if user is project admin (creator)
+   */
   isProjectAdmin(): Boolean {
     return this.userManagementService.isProjectAdmin();
   }
 
 
+  /**
+   * Logs out current user and navigates to main page (unauthenticated area)
+   */
   logout(): void {
     this.userManagementService.logout().then(() => {
         this.userManagementService.setUser(null);
@@ -90,6 +115,9 @@ export class MainComponent implements OnInit {
   }
 
 
+  /**
+   * Deletes the current user (including his project and contained network switchings)
+   */
   deleteUser(): void {
     this.userManagementService.removeUser(this.userManagementService.getUser().getId())
       .then(() => {
@@ -100,13 +128,20 @@ export class MainComponent implements OnInit {
   }
 
 
+  /**
+   * Sends an email invitation to each email address contained in emailAddresses.
+   * @param emailAddresses
+   */
   inviteColleagues(emailAddresses: Array<string>) {
     this.log.i("inviteColleagues: ", emailAddresses);
     this.userManagementService.inviteColleagues(emailAddresses)
-      .subscribe(ok =>{}, err => this.handleError(err));
+      .subscribe(() => {}, err => this.handleError(err));
   }
 
 
+  /**
+   * Navigates to the network switching browser component.
+   */
   gotoNwswBrowsing() {
     if (this.userManagementService.getProjectId()) {
       this.router.navigate(['/nwsw', this.userManagementService.getProjectId()]);

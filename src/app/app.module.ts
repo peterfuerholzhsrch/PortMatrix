@@ -35,6 +35,9 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 // Log.setProductionMode();
 
 
+/**
+ * The PortMatrix application consists of one module only. Here is where it is defined.
+ */
 @NgModule({
   declarations: [
     MainComponent,

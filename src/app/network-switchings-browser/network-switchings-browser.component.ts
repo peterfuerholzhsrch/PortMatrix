@@ -13,6 +13,14 @@ import {DialogService} from "ng2-bootstrap-modal";
 import {AlertDialogComponent} from "../alert-dialog/alert-dialog.component";
 import {SessionStorageService} from "../session-storage.service";
 
+
+/**
+ * This component implements the network switchings overview:
+ * - seek for nwsws
+ * - sort on nwsws
+ * - edit nwsw
+ * - create nwsw
+ */
 @Component({
   selector: 'network-switchings-browser',
   templateUrl: "network-switchings-browser.component.html",
@@ -26,7 +34,7 @@ export class NetworkswitchingsBrowserComponent implements OnInit {
 
   private sortingList: Array<Sorting> = [];
 
-  offset: number = 0;
+  private offset: number = 0;
   private lastRequestedOffset = null;
 
   // AngularJS2's HTML templates can access component class instance only. So we have to provide the Sorting's constants
@@ -63,11 +71,12 @@ timestamp), e.g <code>2017-03-12</code></li>
 
 
   /**
-   * @param networkswitchingService
-   * @param userManagementService
-   * @param sessionStorageService
-   * @param route
-   * @param router
+   * @param networkswitchingService injected service
+   * @param userManagementService injected service
+   * @param dialogService injected service
+   * @param sessionStorageService injected service
+   * @param route injected current route
+   * @param router injected router
    */
   constructor(private networkswitchingService: NetworkswitchingService,
               private userManagementService: UserManagementService,
@@ -78,7 +87,9 @@ timestamp), e.g <code>2017-03-12</code></li>
     window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
-
+  /**
+   * NG2 lifecycle hook
+   */
   ngOnInit(): void {
     this.searchTerm = this.sessionStorageService.getSearchTerm();
     this.route.params
@@ -102,6 +113,10 @@ timestamp), e.g <code>2017-03-12</code></li>
       });
   }
 
+
+  /**
+   * NG2 lifecycle hook
+   */
   ngAfterViewInit() {
     this.sortingList = this.sessionStorageService.getSortingList();
     return true;
@@ -133,7 +148,7 @@ timestamp), e.g <code>2017-03-12</code></li>
   }
 
   sortingChanged() {
-    this.sessionStorageService.setSortingList(this.sortingList)
+    this.sessionStorageService.setSortingList(this.sortingList);
     this.reloadNwsw();
   }
 
@@ -148,6 +163,9 @@ timestamp), e.g <code>2017-03-12</code></li>
     this.loadNwsw();
   }
 
+  /**
+   * Navigates to the page to create a new network switching.
+   */
   insert() {
     this.router.navigate(['./create', this.userManagementService.getProjectId()]);
   }
@@ -157,13 +175,15 @@ timestamp), e.g <code>2017-03-12</code></li>
     window.innerWidth < this.viewBreakpoint ? this.setNetworkswitchView(true) : this.setNetworkswitchView(false);
   }
 
-  search(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    this.searchTermObservable.next(this.searchTerm);
-  }
 
   setNetworkswitchView (mobileViewEnabled: boolean) {
     this.mobileView = mobileViewEnabled;
+  }
+
+
+  search(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.searchTermObservable.next(this.searchTerm);
   }
 
 
@@ -179,7 +199,6 @@ timestamp), e.g <code>2017-03-12</code></li>
     const message = `You can sort on multiple columns by pressing the column names shown next here. Click the 
 column with first precedence first then with second precedence second (and so on). If you a column a second time 
 it is changing from ascending to descending (and vice versa). To start over click the 'Reset Sorting' button.`;
-
     this.dialogService.addDialog(AlertDialogComponent,
                                 { title: "Sorting",
                                   message: message },
@@ -199,7 +218,14 @@ it is changing from ascending to descending (and vice versa). To start over clic
     this.loadNwsw();
   }
 
-  // TODO move to Service class ???
+  /**
+   * Loads network switchings according current parameters:
+   * - sorting settings
+   * - filter settings
+   * - already loaded data
+   *
+   * @returns {any}
+   */
   private loadNwsw(): Promise<Array<Networkswitching>> {
     this.isLoading = true;
     this.offset = this.networkswitchings.length;

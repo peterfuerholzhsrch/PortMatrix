@@ -1,11 +1,9 @@
-/**
- * Created by pfu on 25/01/17.
- */
-
 import {User} from './user';
 import {Project} from './project';
 
-
+/**
+ * Model class for a User and his Project.
+ */
 export class UserAndProject {
   user: User;
   project: Project;

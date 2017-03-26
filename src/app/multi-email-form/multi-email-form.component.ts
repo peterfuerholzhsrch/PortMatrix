@@ -4,6 +4,10 @@ import {NgForm} from '@angular/forms';
 import {MultiEmailDirective} from "../multi-email.directive";
 
 
+/**
+ * This component realizes a widget where the user can enter multiple email addresses in a HTML textarea. The email
+ * addresses get checked via Regex (MultiEmailDirective) and must be white space separated.
+ */
 @Component({
   selector: 'multi-email-form',
   templateUrl: './multi-email-form.component.html',

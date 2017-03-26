@@ -8,6 +8,7 @@ export interface ConfirmModel {
 }
 
 /**
+ * Implements a modal confirm dialog (= confirm and cancel button).
  * See https://www.npmjs.com/package/ng2-bootstrap-modal
  */
 @Component({

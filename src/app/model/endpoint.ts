@@ -1,12 +1,14 @@
-/**
- * Created by pfu on 15/11/16.
- */
+import {Networkswitching} from "./networkswitching";
 
+
+/**
+ * Model for a NetworkSwitching's endpoint. This class is used for destination and source.
+ */
 export class Endpoint {
   group: string;
   host: string;
   ipAddr: string;
-  zone: string;
+  zone: string = Networkswitching.ZONES[0];
   port: string; // only needed on Destination!
 
 

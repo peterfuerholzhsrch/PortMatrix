@@ -1,5 +1,5 @@
 /**
- * Created by pfu on 15/11/16.
+ * Model for System environments.
  */
 enum SystemEnvironment {
   DEVELOPMENT_SYSTEM,

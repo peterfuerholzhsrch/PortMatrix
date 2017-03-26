@@ -4,8 +4,9 @@
 </div>
 
 <div *ngIf="nwsw">
-  <form #createForm="ngForm">
-    <div class="panel-group" id="accordion" novalidate>
+  <!-- novalidate added to allow special behaviour that only IP address or server name needed -->
+  <form #createForm="ngForm" novalidate>
+    <div class="panel-group" id="accordion">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
@@ -46,6 +47,8 @@
                   </option>
                 </select>
               </div>
+            </div>
+            <div class="networkswitch-part">
               <div class="form-group">
                 <label class="networkswitch-label" for="state">State:</label>
                 <select class="form-control" [(ngModel)]="nwsw.state"  id="state" name="state">
@@ -74,7 +77,7 @@
             </a>
           </h4>
         </div>
-        <div id="collapse2" class="panel-collapse collapse">
+        <div id="collapse2" class="panel-collapse collapse in">
           <div class="panel-body">
             <div class="networkswitch-part">
               <h2>Source Settings</h2>
@@ -88,6 +91,9 @@
                        placeholder="Host"
                        pattern="{{HOST_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="sourceHost.valid || !sourceHost.value">
+                  Invalid! Allowed characters: 0-9A-Za-z.- (Example: <code>www.a-z.ch</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-group">Group:</label>
@@ -107,6 +113,9 @@
                        placeholder="IP Address"
                        pattern="{{IP_RANGE_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="sourceIpAddr.valid || !sourceIpAddr.value">
+                  Invalid! Allowed characters: 0-9.- (Example: <code>127.202.12.1-128</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="source-zone">Zone:</label>
@@ -116,8 +125,8 @@
                   </option>
                 </select>
               </div>
-              <div class="alert alert-danger" [hidden]="(sourceIpAddr.valid || sourceHost.valid)">
-                The <strong>Host</strong> or the<strong> IP Address</strong> needs to be filled out!
+              <div class="alert alert-danger" [hidden]="sourceHost.valid || sourceHost.value || sourceIpAddr.valid || sourceIpAddr.value">
+                The <strong>Host</strong> or the<strong> IP address</strong> needs to be filled out!
               </div>
             </div>
             <div class="networkswitch-part">
@@ -132,6 +141,9 @@
                        placeholder="Host"
                        pattern="{{HOST_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="destinationHost.valid || !destinationHost.value">
+                  Invalid! Allowed characters: 0-9A-Za-z.- (Example: <code>www.a-z.ch</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-group">Group:</label>
@@ -151,16 +163,17 @@
                        placeholder="IP Address"
                        pattern="{{IP_RANGE_REGEX}}"
                        required />
+                <div class="alert alert-danger" [hidden]="destinationIpAddr.valid || !destinationIpAddr.value">
+                  Invalid! Allowed characters: 0-9.- (Example: <code>127.202.12.1-128</code>)
+                </div>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-zone">Zone:</label>
-                <div class="form-group">
-                  <select class="form-control" [(ngModel)]="nwsw.destination.zone" name="destination-zone" id="destination-zone">
-                    <option *ngFor="let zone of ZONES">
-                      {{zone}}
-                    </option>
-                  </select>
-                </div>
+                <select class="form-control" [(ngModel)]="nwsw.destination.zone"  id="destination-zone" name="destination-zone">
+                  <option *ngFor="let zone of ZONES">
+                    {{zone}}
+                  </option>
+                </select>
               </div>
               <div class="form-group">
                 <label class="networkswitch-label" for="destination-port">Port:</label>
@@ -170,8 +183,8 @@
                        id="destination-port"
                        placeholder="Port" />
               </div>
-              <div class="alert alert-danger" [hidden]="(destinationHost.valid || destinationIpAddr.valid)">
-                The <strong>Host</strong> or the<strong> Ip address</strong> needs to be filled out!
+              <div class="alert alert-danger" [hidden]="destinationHost.valid || destinationHost.value || destinationIpAddr.valid || destinationIpAddr.value">
+                The <strong>Host</strong> or the<strong> IP address</strong> needs to be filled out!
               </div>
             </div>
           </div>

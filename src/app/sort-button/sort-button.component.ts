@@ -2,12 +2,16 @@ import {Log} from 'ng2-logger/ng2-logger'
 import { Component, EventEmitter } from '@angular/core';
 import { Sorting } from '../model/sorting';
 
+/**
+ * A component consisting of a button and the sort-indicator. This combination allows to set sorting of a specific
+ * column (type Sorting) and show current sorting state of this column.
+ */
 @Component({
   selector: 'sort-button',
   template: `<button class="sort-btn btn btn-default" (click)="sortingButtonClicked(sorting.dbColumn)">{{sorting.text}}
-              </button>
-                <sort-indicator ascending="{{isAscending(sorting.dbColumn)}}" order="{{getOrder(sorting.dbColumn)}}">
-                </sort-indicator>`,
+             </button>
+             <sort-indicator ascending="{{isAscending(sorting.dbColumn)}}" order="{{getOrder(sorting.dbColumn)}}">
+             </sort-indicator>`,
   styleUrls: ['./sort-button.component.scss'],
   inputs: ['sorting', 'sortingList' ],
   outputs: ['sortingChanged']

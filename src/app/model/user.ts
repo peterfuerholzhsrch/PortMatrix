@@ -2,7 +2,6 @@ import {IdBasedModel} from "./idBasedModel";
 
 /**
  * Model class for users.
- * Created by pfu on 12/01/17.
  */
 export class User extends IdBasedModel {
   email: string;

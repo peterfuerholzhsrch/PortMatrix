@@ -3,6 +3,11 @@ import { User } from './model/user';
 import {Sorting} from  './model/sorting';
 
 
+/**
+ * Different settings get saved in the browser's session storage. With this we gain:
+ * - user can reload page without getting logged out
+ * - filter and sorting settings are saved over one user session (TODO save in local storage)
+ */
 @Injectable()
 export class SessionStorageService {
   private static USER = "CREATION_BY";

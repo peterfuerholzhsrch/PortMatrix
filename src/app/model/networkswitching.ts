@@ -10,9 +10,6 @@ import {IdBasedModel} from "./idBasedModel";
  * If you add/remove attributes or change the data type you probably have to update following server code as well:
  * - controller/networkswitchingsController.js (query- / sortings parameter)
  * - test/fillExampleData.js
- *
- *
- * Created by pfu on 15/11/16.
  */
 export class Networkswitching extends IdBasedModel {
 
