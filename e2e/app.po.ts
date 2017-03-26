@@ -43,10 +43,14 @@ export class PortMatrixPage {
   }
 
   getFirstNetworkswitch() {
-    return element(by.css('.networkswitch:first-child'));
+    return element(by.css('.networkswitch:first-of-type'));
   }
 
   getSaveButton() {
     return element(by.css('.btn-success'));
+  }
+
+  getMobileViewButton() {
+    return element(by.css('.mobile-view-button'));
   }
 }

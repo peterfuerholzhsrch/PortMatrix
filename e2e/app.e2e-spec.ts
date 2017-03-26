@@ -29,14 +29,17 @@ describe('App actions', function() {
     page.getEmailField().sendKeys(email);
     page.getPasswordField().sendKeys('a');
     page.pressSubmitButton();
+    if(!page.getFirstNetworkswitch().isPresent()) {
+      page.getMobileViewButton().click();
+    }
   });
 
-  it('has networkswitchings', () => {
-    expect(page.getFirstNetworkswitch().isPresent()).toBeTruthy();
-  });
-
-  it('can open networkswitching', () => {
+  it('has a save button', () => {
     page.getFirstNetworkswitch().click();
     expect(page.getSaveButton().isPresent()).toBeTruthy();
+  });
+
+  it('has a a networkswitch', () => {
+    expect(page.getFirstNetworkswitch().isPresent).toBeTruthy();
   });
 });
