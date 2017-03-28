@@ -12,8 +12,11 @@ User tests have been made at different stages:
 
 
 ## Findings from Marco's company:
-* ???
-
+* The users had some problems to install the application correctly on their notebook with the readme. They were confused,
+because a lot of the installation of the PortMatrixServer is described in the PortMatrix.
+* The validation of the IP-address / Hostname is confusing, because it shows a red sign, but at the same time is correct
+because you only need 1 value.
+* The reload-event isn't catched on the form.
 
 ## Swisscom's site
 PortMatrix is thought to be used within different Swisscom departments.
