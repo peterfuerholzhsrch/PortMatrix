@@ -16,6 +16,7 @@ export class Testresult {
       throw new Error('There is no object to build a Testresult from!');
     }
     const testresult = Object.assign(new Testresult(), jsonObj);
+    testresult.timestamp = new Date(jsonObj['timestamp']);
     return testresult;
   }
 

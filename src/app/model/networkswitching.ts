@@ -13,14 +13,14 @@ import {IdBasedModel} from "./idBasedModel";
  */
 export class Networkswitching extends IdBasedModel {
 
-  id: number;
+  id: string;
   systemEnvironment: string = SystemEnvironment[SystemEnvironment.INTEGRATION_SYSTEM];
   source: Endpoint;
   destination: Endpoint;
   protocol: Array<string> = [];
   state: string = Networkswitching.STATES[0];
   remark: string;
-  testresultList: Array<Testresult>;
+  testresultList: Array<Testresult> = [];
   creationDate: Date;
   creationBy: string;
   lastchangeDate: Date;
@@ -58,6 +58,12 @@ export class Networkswitching extends IdBasedModel {
     else {
       // protocol just a string:
       protocolList.push(jsonObj['protocol']);
+    }
+    if (jsonObj['creationDate']) {
+      networkswitching.creationDate = new Date(jsonObj['creationDate']);
+    }
+    if (jsonObj['lastchangeDate']) {
+      networkswitching.lastchangeDate = new Date(jsonObj['lastchangeDate']);
     }
     return networkswitching;
   }

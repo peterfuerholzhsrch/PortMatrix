@@ -89,7 +89,11 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
     this.nwsw.lastchangeDate = new Date();
     this.nwsw.lastchangeBy = this.userManagementService.getUser().email;
     this.networkswitchingService.updateNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
-      .then(() => this.goBack())
+      .then(() => {
+        if (goBack) {
+          this.goBack();
+        }
+      })
       .catch(error => this.setErrormessage(error));
   }
 
