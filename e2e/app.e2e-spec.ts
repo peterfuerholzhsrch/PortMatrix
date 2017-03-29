@@ -30,7 +30,7 @@ describe('App actions', function() {
     page.getPasswordField().sendKeys('a');
     page.pressSubmitButton();
 
-    // TODO Current implementation works without moving to mobile as well:
+    // Current implementation would work without moving to mobile as well:
     if (!page.getFirstNetworkswitch().isPresent()) {
       page.getMobileViewButton().click();
     }

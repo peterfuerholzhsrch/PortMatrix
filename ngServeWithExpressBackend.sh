@@ -3,7 +3,7 @@
 # !!! for Linux and OS X !!!
 #
 # Run this script for developing client with real Express server:
-# 1. start server in PortMatrixServer-project (npm start)
+# 1. start server in PortMatrixServer-project (npm run start)
 # 2. run this script
 #
 # Now the web resources are loaded from lite-server while REST-calls get forwarded to the Express server in

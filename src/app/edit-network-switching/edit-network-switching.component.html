@@ -62,14 +62,14 @@
               </div>
             </div>
             <div class="networkswitch-part">
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="lastTestResult">Last Testresult:</label>
                 <div id="lastTestResult">
                   <test-status [result]="nwsw.getLastTeststateResult()"></test-status>
                   {{nwsw.getLastTeststateTimestamp() | date:DATE_FORMAT | prePostfix:'(':')' }}
                 </div>
               </div>
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="addTestresultBtn">Enter Testresult:</label>
                 <button type="button"
                         class="btn"
@@ -79,8 +79,7 @@
                   Add latest test result...
                 </button>
               </div>
-
-              <div>
+              <div class="form-group">
                 <label class="networkswitch-label" for="addTestresultBtn">Historic Data:</label>
                 <button type="button"
                         class="btn"
@@ -221,16 +220,18 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-default"
-            type="button"
-            (click)="goBack()">Back</button>
-    <button class="btn btn-success"
-            type="submit"
-            [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"
-            (click)="save(true)">Save</button>
-    <button class="btn btn-danger"
-            type="button"
-            (click)="delete()">Delete...</button>
+    <div class="form-group">
+      <button class="btn btn-default"
+              type="button"
+              (click)="goBack()">Back</button>
+      <button class="btn btn-success"
+              type="submit"
+              [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"
+              (click)="save(true)">Save</button>
+      <button class="btn btn-danger"
+              type="button"
+              (click)="delete()">Delete...</button>
+    </div>
   </form>
 </div>
 

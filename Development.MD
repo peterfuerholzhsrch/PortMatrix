@@ -26,13 +26,17 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
   Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
   Before running the tests make sure you are serving the app via `npm run start`.
 
-* TODO OK???
+* Unit tests:
   Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ### Backend:
 * Check REST-services:
-  `$(npm bin)/jasmine-node .`
-   To run only specific test, e.g.: `$(npm bin)/jasmine-node ./test/twoUsers-spec.js
+   `./runTest1-users.sh` (or `$(npm bin)/jasmine-node ./test/users-spec.js`)
+   `runTest2-twoUsers.sameProject.sh`
+   `runTest3-twoUsers.inheritAdmin.sh`
+   `runTest4-loginLogout.sh`
+   `runTest5-nwsws.sh`
+   Do not try to run all tests together (`$(npm bin)/jasmine-node ./test) they have side effects!
    For these tests the server must be started before.
 
 
@@ -71,10 +75,8 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
   <a href="https://github.com/vlucas/frisby/issues/64">see comment by codeHatcher</a>)</dd>
   <dt>npm install --save jsonwebtoken</dt>
   <dd>Needed for authenticate (session-less) REST-calls.</dd>
-
   <dt>npm install --save promise</dt>
-  <dd>Needed????</dd>
-
+  <dd>For promises at server side</dd>
   <dt>npm install nodemailer --save</dt>
   <dd>for sending emails</dd>
   <dt>npm install winston --save</dt>

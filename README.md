@@ -10,22 +10,24 @@ course by Marco Endres and Peter Fuerholz.
 
 ## Installation / Setup
 1. Download the two project PortMatrix and [PortMatrixServer](https://github.com/peterfuerholzhsrch/PortMatrixServer) into the same base directory
-2. Install all dependencies: <br>
-   Do `$ cd PortMatrix`, `$ npm install` <br>
+2. Install all dependencies:
+   Do `$ cd PortMatrix`, `$ npm install`
    Do `$ cd PortMatrixServer`, `$ npm install`
-2. Create dist of the PortMatrix: `$ $(npm bin)/ng build`
 3. Before starting the server set environment variable:
-  `PORTMATRIX_SMTP_CONFIG=smtps://portmatrix@neshendra.ch:<password>@asmtp.mail.hostpoint.ch`
-  Ask peter.fuerholz@neshendra.ch for the password to use!
-  Alternatively you can set another SMTP server using the scheme above.
-4. Start the server: `$ npm run server`
+   `PORTMATRIX_SMTP_CONFIG=smtps://portmatrix@neshendra.ch:<password>@asmtp.mail.hostpoint.ch`
+   Ask peter.fuerholz@neshendra.ch for the password to use!
+   Alternatively you can set another SMTP server using the scheme above.
+4. Start the server: `$ npm run server` (or ./runServer.sh on Mac / *nix)
 5. _Optional:_ Load initial user, project and network switches: 
-  Execute `runFillExampleData.sh`
-  This script creates:
-  one user: a@a.a, password: a
-  the user has one project and around 60 network switchings
-6. Open browser on: http://localhost:4200
-7. If you have run `runFillExampleData.sh` you can log in with following credentials: username: a@a.a, password: a
+   Execute `runFillExampleData.sh` on the server side (server must be running).
+   This script creates:
+   one user: a@a.a, password: a
+   the user has one project and around 60 network switchings
+6. Start the client with `npm run start` (or ./ngServeWithExpressBackend.sh on Mac / *nix)
+   (Only needed for deployment: Create /dist of the PortMatrix: `$ $(npm bin)/ng build`)
+7. Open browser on: http://localhost:4200
+8. If you have run `runFillExampleData.sh` you can log in with following credentials: username: a@a.a, password: a
+   Otherwise sign in with an email and preferred password.
 
 
 ## Notable *Cool* Features

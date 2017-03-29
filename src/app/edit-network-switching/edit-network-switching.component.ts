@@ -1,6 +1,6 @@
 import {Log} from "ng2-logger/ng2-logger";
 import {Component, OnInit, ViewChild} from "@angular/core";
-import {Params, ActivatedRoute, Router} from "@angular/router";
+import {Params, ActivatedRoute, Router, CanDeactivate} from "@angular/router";
 import {NetworkswitchingService} from "../networkswitching.service";
 import {UserManagementService} from "../user-management.service";
 import {Observable} from "rxjs";
@@ -18,7 +18,7 @@ import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.c
   templateUrl: 'edit-network-switching.component.html',
   styleUrls: ['edit-network-switching.component.scss']
 })
-export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit {
+export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit, CanDeactivate<boolean> {
 
   private log = Log.create('edit-network-switching');
 
