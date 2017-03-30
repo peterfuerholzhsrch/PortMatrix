@@ -63,6 +63,14 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
 
 
   /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    // unsubscribing from router not needed: https://angular.io/docs/ts/latest/tutorial/toh-pt5.html
+  }
+
+
+  /**
    * NG2 router hook
    * @returns {any}
    */

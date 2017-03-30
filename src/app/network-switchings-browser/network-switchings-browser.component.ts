@@ -6,7 +6,7 @@ import {Router, Params, ActivatedRoute} from "@angular/router";
 import {Networkswitching} from '../model/networkswitching';
 import {NetworkswitchingService} from '../networkswitching.service';
 import {Sorting} from '../model/sorting';
-import {Subject, Observable} from "rxjs";
+import {Subject, Observable, Subscription} from "rxjs";
 import {CommonRestService} from "../common-rest.service";
 import {UserManagementService} from "../user-management.service";
 import {DialogService} from "ng2-bootstrap-modal";
@@ -69,6 +69,8 @@ all words are returned. Following rules apply: <br>
 timestamp), e.g <code>2017-03-12</code></li>
 </ul>`;
 
+  private searchTermSubscription: Subscription;
+
 
   /**
    * @param networkswitchingService injected service
@@ -103,7 +105,7 @@ timestamp), e.g <code>2017-03-12</code></li>
                  err => this.setErrormessage(err));
 
     // execute search when user entered a new value and after last keyup of 500ms:
-    this.searchTermObservable
+    this.searchTermSubscription = this.searchTermObservable
       .debounceTime(500)
       .distinctUntilChanged()
       .subscribe(searchTerm => {
@@ -120,6 +122,17 @@ timestamp), e.g <code>2017-03-12</code></li>
   ngAfterViewInit() {
     this.sortingList = this.sessionStorageService.getSortingList();
     return true;
+  }
+
+
+  /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    // unsubscription on router not needed
+    if (this.searchTermSubscription) {
+      this.searchTermSubscription.unsubscribe();
+    }
   }
 
 

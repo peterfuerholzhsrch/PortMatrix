@@ -3,6 +3,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {UserManagementService} from "../user-management.service";
 import {Router} from "@angular/router";
 import {User} from '../model/user';
+import {Subscription} from "rxjs";
 
 
 /**
@@ -20,6 +21,8 @@ export class MainComponent implements OnInit {
   private errormessage: String = '';
   private lastErrormessage: number;
   private multiEmailFormValid: boolean;
+
+  private inviteColleaguesSubscription: Subscription;
 
 
   /**
@@ -57,6 +60,16 @@ export class MainComponent implements OnInit {
         this.errormessage = null;
         this.lastErrormessage = null;
       }
+    }
+  }
+
+
+  /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    if (this.inviteColleaguesSubscription) {
+      this.inviteColleaguesSubscription.unsubscribe();
     }
   }
 
@@ -134,7 +147,7 @@ export class MainComponent implements OnInit {
    */
   inviteColleagues(emailAddresses: Array<string>) {
     this.log.i("inviteColleagues: ", emailAddresses);
-    this.userManagementService.inviteColleagues(emailAddresses)
+    this.inviteColleaguesSubscription = this.userManagementService.inviteColleagues(emailAddresses)
       .subscribe(() => {}, err => this.handleError(err));
   }
 

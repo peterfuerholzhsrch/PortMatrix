@@ -2,6 +2,7 @@ import {Log} from 'ng2-logger/ng2-logger'
 import {Component, OnInit, ViewChild, EventEmitter} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {MultiEmailDirective} from "../multi-email.directive";
+import {Subscription} from "rxjs";
 
 
 /**
@@ -22,24 +23,41 @@ export class MultiEmailFormComponent implements OnInit {
   @ViewChild('multiEmailForm') currentForm: NgForm;
 
   private multiEmailValid: boolean;
+  private multiemailSubscription: Subscription;
 
   private inputValid: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   constructor() { }
 
+  /**
+   * lifecycle hook
+   */
   ngOnInit() {
     // nothing
   }
 
 
+  /**
+   * lifecycle hook
+   */
   ngAfterViewChecked() {
     if (this.currentForm === this.multiEmailForm) {
       return;
     }
     this.multiEmailForm = this.currentForm;
     if (this.multiEmailForm) {
-      this.multiEmailForm.valueChanges.subscribe(data => this.onValueChanged(data))
+      this.multiemailSubscription = this.multiEmailForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    }
+  }
+
+
+  /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    if (this.multiemailSubscription) {
+      this.multiemailSubscription.unsubscribe();
     }
   }
 

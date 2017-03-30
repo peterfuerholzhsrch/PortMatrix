@@ -3,7 +3,7 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {Params, ActivatedRoute, Router, CanDeactivate} from "@angular/router";
 import {NetworkswitchingService} from "../networkswitching.service";
 import {UserManagementService} from "../user-management.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {DialogService} from "ng2-bootstrap-modal";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
@@ -24,6 +24,8 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
 
   testresultTimestampStr: string;
   @ViewChild('editForm') editForm: NgForm;
+
+  private confirmSubscription: Subscription;
 
   static PROTOCOL_SETTINGS_HELP_MESSAGE = "You can select multiple protocols by pressing the Control key."
 
@@ -59,8 +61,24 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
         return this.networkswitchingService.getNetworkswitching(projectId, params['id'])
       })
       .subscribe(nwsw => this.nwsw = nwsw,
-                 err => this.setErrormessage(err));
+        err => this.setErrormessage(err));
 
+    this.initTestresultTimestamp();
+  }
+
+
+  /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    // unsubscribing from router not needed: https://angular.io/docs/ts/latest/tutorial/toh-pt5.html
+    if (this.confirmSubscription) {
+      this.confirmSubscription.unsubscribe();
+    }
+  }
+
+
+  private initTestresultTimestamp() {
     let date = new Date();
     date.setSeconds(0, 0);
     this.testresultTimestampStr = date.toJSON(); // format: (example) '2014-01-02T11:42:13.510';
@@ -102,7 +120,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
    * Deletes current network switching
    */
   delete(): void {
-    this.showConfirm('Confirm dialog', 'Are you sure to delete this network switching?')
+    this.confirmSubscription = this.showConfirm('Confirm dialog', 'Are you sure to delete this network switching?')
       .subscribe(ok => {
         if (ok) {
           this.networkswitchingService.deleteNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
@@ -113,13 +131,39 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
   }
 
 
-  addTestresult(success: boolean) {
-    if (this.testresultTimestampStr) {
-      const testresultTimestamp = new Date(Date.parse(this.testresultTimestampStr));
-      this.log.i("addTestresult success=", success, " timestamp=", testresultTimestamp);
+  /**
+   * @param presumableDateString
+   * @return valid Date or null
+   */
+  private static evaluateDate(presumableDateString: string): Date {
+    if (!presumableDateString) {
+      return null; // otherwise 1.1.1970 is returned
+    }
+    // try to convert to date (see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript):
+    const presumableDate = new Date(presumableDateString);
+    if (Object.prototype.toString.call(presumableDate) === "[object Date]") {
+      // it is a date
+      if (!isNaN(presumableDate.getTime())) {
+        return presumableDate;
+      }
+    }
+    return null;
+  }
 
-      this.nwsw.addTestresult(success, testresultTimestamp);
+
+  addTestresult(success: boolean) {
+    this.errormessage = null;
+
+    const timestamp: Date = EditNetworkSwitchingComponent.evaluateDate(this.testresultTimestampStr);
+    if (timestamp) {
+      this.log.i("addTestresult success=", success, " timestamp=", timestamp);
+
+      this.nwsw.addTestresult(success, timestamp);
       this.save(false);
+    }
+    else {
+      this.errormessage = "Adding test result failed: The entered date string is invalid!";
+      this.initTestresultTimestamp();
     }
   }
 

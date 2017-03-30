@@ -75,6 +75,14 @@ export class UserManagementComponent implements OnInit {
   }
 
 
+  /**
+   * lifecycle hook
+   */
+  ngOnDestroy() {
+    // unsubscribing from router not needed: https://angular.io/docs/ts/latest/tutorial/toh-pt5.html
+  }
+
+
   initUser(): void {
     this.user = new User();
     UserManagementComponent.errormessage = null;
