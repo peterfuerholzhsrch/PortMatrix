@@ -20,7 +20,7 @@ export class SortIndicator {
 
   getArrowClass(): string {
     if (this.ascending) {
-      return this.ascending == "true" ? "glyphicon-menu-down" : "glyphicon-menu-up";
+      return this.ascending == "true" ?  "glyphicon-menu-up" : "glyphicon-menu-down";
     }
     return "";
   }
