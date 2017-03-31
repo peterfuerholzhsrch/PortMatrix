@@ -1,11 +1,11 @@
 import {Log} from 'ng2-logger/ng2-logger'
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, Params} from "@angular/router";
-import {User} from "../model/user";
-import {Project} from "../model/project";
-import {UserManagementService} from "../user-management.service";
-import {ProjectService} from "../project.service";
-import {CommonRestService} from "../common-rest.service";
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {User} from '../model/user';
+import {Project} from '../model/project';
+import {UserManagementService} from '../user-management.service';
+import {ProjectService} from '../project.service';
+import {CommonRestService} from '../common-rest.service';
 
 
 /**
@@ -19,7 +19,7 @@ import {CommonRestService} from "../common-rest.service";
   styleUrls: ['./user-management.component.scss'],
   exportAs: 'ngModel'
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit, OnDestroy {
   private static log = Log.create('user-management');
 
   private user: User; // used for form only
@@ -67,7 +67,7 @@ export class UserManagementComponent implements OnInit {
     this.route.queryParams
       .switchMap((params: Params) => {
           this.assignedProjectId = params['assignedProject'];
-          return this.assignedProjectId || "assignedProjectId_not_set";  // don't return null / undefined!
+          return this.assignedProjectId || 'assignedProjectId_not_set';  // don't return null / undefined!
         })
       .subscribe();
 
@@ -125,7 +125,7 @@ export class UserManagementComponent implements OnInit {
   login(): void {
     this.userManagementService.validateUser(this.user.email, this.user.password)
       .then((jsonUser) => {
-          UserManagementComponent.log.i("Login OK=" + jsonUser);
+          UserManagementComponent.log.i('Login OK=' + jsonUser);
           UserManagementComponent.errormessage = null;
           this.updateUserInternal(jsonUser); // save _id
         })
@@ -162,7 +162,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProject(project: Project): void {
-    UserManagementComponent.log.i("openProject project=", JSON.stringify(project));
+    UserManagementComponent.log.i('openProject project=', JSON.stringify(project));
     if (project) {
       this.userManagementService.setProject(project);
       this.router.navigate(['/nwsw', project.getId()]);
@@ -171,7 +171,7 @@ export class UserManagementComponent implements OnInit {
 
 
   private openProjects(projects: Array<Project>): void {
-    UserManagementComponent.log.i("openProjects projects=", projects);
+    UserManagementComponent.log.i('openProjects projects=', projects);
     // TODO It is possible that a user belongs to more than one project. Currently we support only one!
     this.openProject(projects.length ? projects[0] : null);
   }
@@ -182,7 +182,7 @@ export class UserManagementComponent implements OnInit {
    * @param err
    */
   private static handleError(err) {
-    UserManagementComponent.log.er("Error=", err);
+    UserManagementComponent.log.er('Error=', err);
     UserManagementComponent.errormessage = err.text() ? err.text() : err.statusText;
   }
 }

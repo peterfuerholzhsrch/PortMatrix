@@ -2,7 +2,7 @@ import {Log} from 'ng2-logger/ng2-logger'
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import {User} from './model/user';
-import {SessionStorageService} from "./session-storage.service";
+import {SessionStorageService} from './session-storage.service';
 
 
 /**
@@ -133,7 +133,7 @@ export class CommonRestService {
     let headerObj = {headers: headers};
     const jwtToken = this.sessionStorageService.getJwtToken();
     if (jwtToken) {
-      headers.set('authorization', "Bearer " + jwtToken);
+      headers.set('authorization', 'Bearer ' + jwtToken);
     }
     return headerObj;
   }

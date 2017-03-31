@@ -9,25 +9,25 @@ export class Sorting {
 
 
   toRestQuery(): string {
-    return (this.ascending ? "+" : "-") + this.dbColumn;
+    return (this.ascending ? '+' : '-') + this.dbColumn;
   }
 
 
-  static ID = new Sorting("ID", "id", true);
-  static STATE = new Sorting("State", "state", true);
-  static CREATION_BY = new Sorting("Creator", "creationBy", true);
-  static TEST_STATE = new Sorting("Test State", "testresultList.result", true);
-  static SOURCE_GROUP = new Sorting("Source Group", "source.group", true);
-  static SOURCE_HOST = new Sorting("Source Host", "source.host", true);
-  static SOURCE_IP = new Sorting("Source IP", "source.ipAddr", true);
-  static SOURCE_ZONE = new Sorting("Source Zone", "source.zone", true);
-  static DESTINATION_GROUP = new Sorting("Destination Group", "destination.group", true);
-  static DESTINATION_HOST = new Sorting("Destination Host", "destination.host", true);
-  static DESTINATION_IP = new Sorting("Destination IP", "destination.ipAddr", true);
-  static DESTINATION_ZONE = new Sorting("Destination Zone", "destination.zone", true);
-  static DESTINATION_PORT = new Sorting("Destination Port(s)", "destination.port", true);
-  static PROTOCOL = new Sorting("Protocol", "protocol", true);
-  static REMARK = new Sorting("Remark", "remark", true);
+  static ID = new Sorting('ID', 'id', true);
+  static STATE = new Sorting('State', 'state', true);
+  static CREATION_BY = new Sorting('Creator', 'creationBy', true);
+  static TEST_STATE = new Sorting('Test State', 'testresultList.result', true);
+  static SOURCE_GROUP = new Sorting('Source Group', 'source.group', true);
+  static SOURCE_HOST = new Sorting('Source Host', 'source.host', true);
+  static SOURCE_IP = new Sorting('Source IP', 'source.ipAddr', true);
+  static SOURCE_ZONE = new Sorting('Source Zone', 'source.zone', true);
+  static DESTINATION_GROUP = new Sorting('Destination Group', 'destination.group', true);
+  static DESTINATION_HOST = new Sorting('Destination Host', 'destination.host', true);
+  static DESTINATION_IP = new Sorting('Destination IP', 'destination.ipAddr', true);
+  static DESTINATION_ZONE = new Sorting('Destination Zone', 'destination.zone', true);
+  static DESTINATION_PORT = new Sorting('Destination Port(s)', 'destination.port', true);
+  static PROTOCOL = new Sorting('Protocol', 'protocol', true);
+  static REMARK = new Sorting('Remark', 'remark', true);
 
   static ALL_SORTINGS: Array<Sorting> = [];
   static init() {

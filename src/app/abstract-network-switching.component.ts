@@ -1,12 +1,12 @@
 import {Log} from 'ng2-logger/ng2-logger';
-import {Networkswitching} from "./model/networkswitching";
+import {Networkswitching} from './model/networkswitching';
 import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from './model/systemEnvironment';
-import {EditNetworkSwitchingComponent} from "./edit-network-switching/edit-network-switching.component";
-import {Router, ActivatedRoute} from "@angular/router";
-import {AlertDialogComponent} from "./alert-dialog/alert-dialog.component";
-import {DialogService} from "ng2-bootstrap-modal";
-import {NetworkswitchingService} from "./networkswitching.service";
-import {UserManagementService} from "./user-management.service";
+import {EditNetworkSwitchingComponent} from './edit-network-switching/edit-network-switching.component';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AlertDialogComponent} from './alert-dialog/alert-dialog.component';
+import {DialogService} from 'ng2-bootstrap-modal';
+import {NetworkswitchingService} from './networkswitching.service';
+import {UserManagementService} from './user-management.service';
 
 
 /**
@@ -62,14 +62,14 @@ export abstract class AbstractNetworkSwitchingComponent {
     }
     const selectedProtocolList = selectedOptionList.map(option => option.text);
 
-    this.aLog.d("selected protocol options: ", selectedProtocolList);
+    this.aLog.d('selected protocol options: ', selectedProtocolList);
     this.nwsw.protocol = selectedProtocolList;
   }
 
 
   showInfoOnProtocolSelect() {
     this.dialogService.addDialog(AlertDialogComponent,
-      { title: "Protocol Settings",
+      { title: 'Protocol Settings',
         message: EditNetworkSwitchingComponent.PROTOCOL_SETTINGS_HELP_MESSAGE },
       { closeByClickingOutside: true });
   }

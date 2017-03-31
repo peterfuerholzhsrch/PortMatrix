@@ -1,9 +1,9 @@
 import {Log} from 'ng2-logger/ng2-logger'
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {UserManagementService} from "../user-management.service";
-import {Router} from "@angular/router";
+import {Component, OnInit, ViewEncapsulation, OnDestroy, DoCheck} from '@angular/core';
+import {UserManagementService} from '../user-management.service';
+import {Router} from '@angular/router';
 import {User} from '../model/user';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 
 /**
@@ -15,7 +15,7 @@ import {Subscription} from "rxjs";
   styleUrls: ['main.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy, DoCheck {
   private log = Log.create('main-component');
 
   private errormessage: String = '';
@@ -75,7 +75,7 @@ export class MainComponent implements OnInit {
 
 
   setInviteColleaguesFormValid(valid: boolean) {
-    this.log.i("setInviteColleaguesFormValid " + valid);
+    this.log.i('setInviteColleaguesFormValid ' + valid);
     this.multiEmailFormValid = valid;
   }
 
@@ -146,7 +146,7 @@ export class MainComponent implements OnInit {
    * @param emailAddresses
    */
   inviteColleagues(emailAddresses: Array<string>) {
-    this.log.i("inviteColleagues: ", emailAddresses);
+    this.log.i('inviteColleagues: ', emailAddresses);
     this.inviteColleaguesSubscription = this.userManagementService.inviteColleagues(emailAddresses)
       .subscribe(() => {}, err => this.handleError(err));
   }
@@ -167,7 +167,7 @@ export class MainComponent implements OnInit {
    * @param err
    */
   private handleError = (err) => {
-    this.log.er("Error=" + err);
+    this.log.er('Error=' + err);
     this.errormessage = (err.text && err.text()) || err.statusText || err;
   }
 }

@@ -8,8 +8,8 @@ import 'rxjs/add/operator/toPromise';
 
 import {Networkswitching} from './model/networkswitching';
 import {Sorting} from './model/sorting';
-import {CommonRestService} from "./common-rest.service";
-import {SessionStorageService} from "./session-storage.service";
+import {CommonRestService} from './common-rest.service';
+import {SessionStorageService} from './session-storage.service';
 
 
 /**

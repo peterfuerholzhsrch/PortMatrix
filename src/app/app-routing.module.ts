@@ -1,11 +1,11 @@
 import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {NetworkswitchingsBrowserComponent}   from './network-switchings-browser/network-switchings-browser.component';
-import {EditNetworkSwitchingComponent} from "./edit-network-switching/edit-network-switching.component";
-import {UserManagementComponent} from "./user-management/user-management.component";
-import {CreateNetworkSwitchingComponent} from "./create-network-switching/create-network-switching.component";
-import {AuthGuardService} from "./auth-guard.service";
-import {CanDeactivateGuard} from "./shared/can-deactivate-guard.service";
+import {EditNetworkSwitchingComponent} from './edit-network-switching/edit-network-switching.component';
+import {UserManagementComponent} from './user-management/user-management.component';
+import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
+import {AuthGuardService} from './auth-guard.service';
+import {CanDeactivateGuard} from './shared/can-deactivate-guard.service';
 
 /**
  * Definition of the PortMatrix's (UI) routes.

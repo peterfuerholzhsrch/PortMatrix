@@ -3,11 +3,11 @@ import {Http} from '@angular/http';
 import {Injectable, AfterViewInit} from '@angular/core';
 import {UserAndProject} from './model/userAndProject';
 import {User} from './model/user';
-import {Project} from "./model/project";
-import {CommonRestService} from "./common-rest.service";
-import {SessionStorageService} from "./session-storage.service";
-import {ProjectService} from "./project.service";
-import {Observable} from "rxjs";
+import {Project} from './model/project';
+import {CommonRestService} from './common-rest.service';
+import {SessionStorageService} from './session-storage.service';
+import {ProjectService} from './project.service';
+import {Observable} from 'rxjs';
 
 
 /**
@@ -164,8 +164,8 @@ export class UserManagementService extends CommonRestService {
    */
   inviteColleagues(recipients: Array<string>): Observable<any> {
     if (!this.project) {
-      CommonRestService.handleError("no project set!");
-      return Observable.throw("no project set!");
+      CommonRestService.handleError('no project set!');
+      return Observable.throw('no project set!');
     }
     const params = {
       recipients: recipients,
@@ -174,7 +174,7 @@ export class UserManagementService extends CommonRestService {
     };
 
     return this.post(UserManagementService.USERSMAIL_URL, params)
-      .do(() => { CommonRestService.log.i("emails to=", recipients, " OK!") },
+      .do(() => { CommonRestService.log.i('emails to=', recipients, ' OK!') },
           err => CommonRestService.handleError(err));
   }
 }

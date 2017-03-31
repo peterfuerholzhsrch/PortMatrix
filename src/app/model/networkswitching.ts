@@ -1,7 +1,8 @@
-import {Endpoint} from "./endpoint";
-import {Testresult} from "./testresult";
-import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from "./systemEnvironment";
-import {IdBasedModel} from "./idBasedModel";
+import {Endpoint} from './endpoint';
+import {Testresult} from './testresult';
+import {SystemEnvironment, SYSTEM_ENVIRONMENTS} from './systemEnvironment';
+import {IdBasedModel} from './idBasedModel';
+
 
 /**
  * Model class for Network Switchings.
@@ -30,9 +31,9 @@ export class Networkswitching extends IdBasedModel {
   static STATES: Array<string> = ['To be implemented', 'Implemented', 'To be deleted', 'Deleted'];
   static PROTOCOLS: Array<string> = ['oracle-jdbc', 'http', 'https', 'sftp', 'db2-jdbc', 'ssh'];
   // from http://stackoverflow.com/questions/106179/regular-expression-to-match-dns-hostname-or-ip-address:
-  static HOST_REGEX: string = "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$";
+  static HOST_REGEX: string = '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';
   // we allow to IP addresses with ranges, e.g. 127.202.12.1-128
-  static IP_RANGE_REGEX: string = "^[0-9.-]+$";
+  static IP_RANGE_REGEX: string = '^[0-9.-]+$';
 
   /**
    * Helper method for packing JSON object.
@@ -91,12 +92,14 @@ export class Networkswitching extends IdBasedModel {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].result : null;
   }
 
+
   /**
    * @returns {Date} null if not available
    */
   getLastTeststateTimestamp() : Date {
     return (this.testresultList && this.testresultList.length > 0) ? this.testresultList[this.testresultList.length-1].timestamp : null;
   }
+
 
   addTestresult(success: boolean, timestamp: Date) {
     this.testresultList.push(new Testresult(success, timestamp));

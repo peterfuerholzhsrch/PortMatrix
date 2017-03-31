@@ -36,7 +36,7 @@ export class SortButtonComponent {
     else {
       const addSorting = Sorting.getSortingByDbColumn(sortButton);
       if (!addSorting) {
-        this.log.w("Unknown sorting! sortButton=", sortButton);
+        this.log.w('Unknown sorting! sortButton=', sortButton);
         return;
       }
       this.sortingList.push(addSorting);

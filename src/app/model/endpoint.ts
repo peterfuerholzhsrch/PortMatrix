@@ -1,4 +1,4 @@
-import {Networkswitching} from "./networkswitching";
+import {Networkswitching} from './networkswitching';
 
 
 /**

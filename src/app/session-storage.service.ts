@@ -10,11 +10,11 @@ import {Sorting} from  './model/sorting';
  */
 @Injectable()
 export class SessionStorageService {
-  private static USER = "CREATION_BY";
-  private static PROJECT_ID = "PROJECT_ID";
-  private static JWT_TOKEN = "TOKEN";
-  private static SEARCH_TERM = "SEARCH_TERM";
-  private static SORTING = "SORTING";
+  private static USER = 'CREATION_BY';
+  private static PROJECT_ID = 'PROJECT_ID';
+  private static JWT_TOKEN = 'TOKEN';
+  private static SEARCH_TERM = 'SEARCH_TERM';
+  private static SORTING = 'SORTING';
 
   constructor() { }
 

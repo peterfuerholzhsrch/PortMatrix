@@ -227,10 +227,10 @@
       <button class="btn btn-success"
               type="submit"
               [disabled]="(!sourceIpAddr.valid && !sourceHost.valid) || (!destinationHost.valid && !destinationIpAddr.valid)"
-              (click)="save(true)">Save</button>
+              (click)="saveNwsw(true)">Save</button>
       <button class="btn btn-danger"
               type="button"
-              (click)="delete()">Delete...</button>
+              (click)="deleteNwsw()">Delete...</button>
     </div>
   </form>
 </div>

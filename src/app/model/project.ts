@@ -1,4 +1,4 @@
-import {IdBasedModel} from "./idBasedModel";
+import {IdBasedModel} from './idBasedModel';
 
 
 /**

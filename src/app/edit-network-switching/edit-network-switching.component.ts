@@ -1,13 +1,13 @@
-import {Log} from "ng2-logger/ng2-logger";
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {Params, ActivatedRoute, Router, CanDeactivate} from "@angular/router";
-import {NetworkswitchingService} from "../networkswitching.service";
-import {UserManagementService} from "../user-management.service";
-import {Observable, Subscription} from "rxjs";
-import {NgForm} from "@angular/forms";
-import {DialogService} from "ng2-bootstrap-modal";
-import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
-import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
+import {Log} from 'ng2-logger/ng2-logger';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {Params, ActivatedRoute, Router, CanDeactivate} from '@angular/router';
+import {NetworkswitchingService} from '../networkswitching.service';
+import {UserManagementService} from '../user-management.service';
+import {Observable, Subscription} from 'rxjs';
+import {NgForm} from '@angular/forms';
+import {DialogService} from 'ng2-bootstrap-modal';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {AbstractNetworkSwitchingComponent} from '../abstract-network-switching.component';
 
 
 /**
@@ -18,7 +18,7 @@ import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.c
   templateUrl: 'edit-network-switching.component.html',
   styleUrls: ['edit-network-switching.component.scss']
 })
-export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit, CanDeactivate<boolean> {
+export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit, CanDeactivate<boolean>, OnDestroy {
 
   private log = Log.create('edit-network-switching');
 
@@ -27,7 +27,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
 
   private confirmSubscription: Subscription;
 
-  static PROTOCOL_SETTINGS_HELP_MESSAGE = "You can select multiple protocols by pressing the Control key."
+  static PROTOCOL_SETTINGS_HELP_MESSAGE = 'You can select multiple protocols by pressing the Control key.'
 
   // Used by template:
   DATE_FORMAT = 'dd. MMMM yyyy, HH:mm:ss';
@@ -57,7 +57,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
-        this.log.i("edit-nwsw project-id=", projectId);
+        this.log.i('edit-nwsw project-id=', projectId);
         return this.networkswitchingService.getNetworkswitching(projectId, params['id'])
       })
       .subscribe(nwsw => this.nwsw = nwsw,
@@ -103,7 +103,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
    * Saves network switching
    * @param goBack true: goes back in browsing history
    */
-  save(goBack: boolean): void {
+  saveNwsw(goBack: boolean): void {
     this.nwsw.lastchangeDate = new Date();
     this.nwsw.lastchangeBy = this.userManagementService.getUser().email;
     this.networkswitchingService.updateNetworkswitching(this.userManagementService.getProjectId(), this.nwsw)
@@ -119,7 +119,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
   /**
    * Deletes current network switching
    */
-  delete(): void {
+  deleteNwsw(): void {
     this.confirmSubscription = this.showConfirm('Confirm dialog', 'Are you sure to delete this network switching?')
       .subscribe(ok => {
         if (ok) {
@@ -141,7 +141,7 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
     }
     // try to convert to date (see http://stackoverflow.com/questions/1353684/detecting-an-invalid-date-date-instance-in-javascript):
     const presumableDate = new Date(presumableDateString);
-    if (Object.prototype.toString.call(presumableDate) === "[object Date]") {
+    if (Object.prototype.toString.call(presumableDate) === '[object Date]') {
       // it is a date
       if (!isNaN(presumableDate.getTime())) {
         return presumableDate;
@@ -156,13 +156,13 @@ export class EditNetworkSwitchingComponent extends AbstractNetworkSwitchingCompo
 
     const timestamp: Date = EditNetworkSwitchingComponent.evaluateDate(this.testresultTimestampStr);
     if (timestamp) {
-      this.log.i("addTestresult success=", success, " timestamp=", timestamp);
+      this.log.i('addTestresult success=', success, ' timestamp=', timestamp);
 
       this.nwsw.addTestresult(success, timestamp);
-      this.save(false);
+      this.saveNwsw(false);
     }
     else {
-      this.errormessage = "Adding test result failed: The entered date string is invalid!";
+      this.errormessage = 'Adding test result failed: The entered date string is invalid!';
       this.initTestresultTimestamp();
     }
   }

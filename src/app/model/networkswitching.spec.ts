@@ -12,24 +12,24 @@ import {Endpoint} from './endpoint';
 const ID = 'A1';
 const SYSTEM_ENVIRONMENT = SystemEnvironment[SystemEnvironment.DEVELOPMENT_SYSTEM];
 
-const SOURCE_GROUP = "srcGroup";
-const SOURCE_HOST = "srcHost";
-const SOURCE_IPADDR = "123.12.11.1";
+const SOURCE_GROUP = 'srcGroup';
+const SOURCE_HOST = 'srcHost';
+const SOURCE_IPADDR = '123.12.11.1';
 const SOURCE_ZONE = Networkswitching.ZONES[1];
 
-const DESTINATION_GROUP = "srcGroup";
-const DESTINATION_HOST = "srcHost";
-const DESTINATION_IPADDR = "123.12.11.1";
+const DESTINATION_GROUP = 'srcGroup';
+const DESTINATION_HOST = 'srcHost';
+const DESTINATION_IPADDR = '123.12.11.1';
 const DESTINATION_ZONE = Networkswitching.ZONES[1];
-const DESTINATION_PORT = "122-124";
+const DESTINATION_PORT = '122-124';
 
 const PROTOCOLS = [ Networkswitching.PROTOCOLS[1], Networkswitching.PROTOCOLS[3] ];
 const STATE = Networkswitching.STATES[2];
 const REMARK = 'Just a remark!';
 const CREATION_DATE = new Date(2016, 12, 31, 23, 58, 59);
 const LAST_CHANGE_DATE = new Date(2017, 3, 30, 12, 30, 59);
-const CREATION_BY = "user1";
-const LAST_CHANGE_BY = "userX";
+const CREATION_BY = 'user1';
+const LAST_CHANGE_BY = 'userX';
 
 const TESTRESULT1_DATE = new Date(2017, 2, 21, 2, 57, 59);
 const TESTRESULT2_DATE = new Date(2017, 3, 30, 1, 1, 3);
@@ -135,7 +135,7 @@ describe('Networkswitching', () => {
     const nwswArr = [ nwsw1, nwsw2 ];
 
     const json = JSON.stringify(nwswArr);
-    console.log("jsonArr", json);
+    console.log('jsonArr', json);
 
     const unstringified: Networkswitching[] = Networkswitching.jsonArrToObjArr(JSON.parse(json));
 

@@ -9,25 +9,25 @@ import {AlertModule} from 'ng2-bootstrap';
 import {BootstrapModalModule} from 'ng2-bootstrap-modal';
 
 import {MainComponent} from './main/main.component';
-import {NetworkswitchingsBrowserComponent} from "./network-switchings-browser/network-switchings-browser.component";
-import {NetworkswitchingService} from "./networkswitching.service";
+import {NetworkswitchingsBrowserComponent} from './network-switchings-browser/network-switchings-browser.component';
+import {NetworkswitchingService} from './networkswitching.service';
 import {EditNetworkSwitchingComponent} from './edit-network-switching/edit-network-switching.component';
 
-import {InfiniteScrollModule} from "angular2-infinite-scroll";
+import {InfiniteScrollModule} from 'angular2-infinite-scroll';
 import {SortIndicator} from './sort-indicator/sort-indicator.component';
 import {SortButtonComponent} from './sort-button/sort-button.component';
 import {UserManagementComponent} from './user-management/user-management.component';
-import {UserManagementService} from "./user-management.service";
-import {ProjectService} from "./project.service";
-import {CommonRestService} from "./common-rest.service";
+import {UserManagementService} from './user-management.service';
+import {ProjectService} from './project.service';
+import {CommonRestService} from './common-rest.service';
 import {CreateNetworkSwitchingComponent} from './create-network-switching/create-network-switching.component';
-import {AuthGuardService} from "./auth-guard.service";
-import {SessionStorageService} from "./session-storage.service";
+import {AuthGuardService} from './auth-guard.service';
+import {SessionStorageService} from './session-storage.service';
 import {MultiEmailDirective} from './multi-email.directive';
 import {MultiEmailFormComponent} from './multi-email-form/multi-email-form.component';
-import {SharedModule} from "./shared/shared.module";
+import {SharedModule} from './shared/shared.module';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import {TestStatusComponent} from "./test-status/test-status.component";
+import {TestStatusComponent} from './test-status/test-status.component';
 import { PrePostfixPipe } from './pre-postfix.pipe';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 

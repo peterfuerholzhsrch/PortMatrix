@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Project} from './model/project';
-import {CommonRestService} from "./common-rest.service";
-import {SessionStorageService} from "./session-storage.service";
+import {CommonRestService} from './common-rest.service';
+import {SessionStorageService} from './session-storage.service';
 
 
 /**

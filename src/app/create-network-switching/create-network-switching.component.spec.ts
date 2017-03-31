@@ -1,4 +1,4 @@
-import {Networkswitching} from "../model/networkswitching";
+import {Networkswitching} from '../model/networkswitching';
 
 describe('editNetworkSwitching', () => {
   it('should accept one hostaddress', () => {

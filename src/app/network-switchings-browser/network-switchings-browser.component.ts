@@ -1,17 +1,17 @@
 import {Log} from 'ng2-logger/ng2-logger'
-import {Component} from '@angular/core';
+import {Component, AfterViewInit, OnDestroy} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Router, Params, ActivatedRoute} from "@angular/router";
+import {Router, Params, ActivatedRoute} from '@angular/router';
 
 import {Networkswitching} from '../model/networkswitching';
 import {NetworkswitchingService} from '../networkswitching.service';
 import {Sorting} from '../model/sorting';
-import {Subject, Observable, Subscription} from "rxjs";
-import {CommonRestService} from "../common-rest.service";
-import {UserManagementService} from "../user-management.service";
-import {DialogService} from "ng2-bootstrap-modal";
-import {AlertDialogComponent} from "../alert-dialog/alert-dialog.component";
-import {SessionStorageService} from "../session-storage.service";
+import {Subject, Subscription} from 'rxjs';
+import {CommonRestService} from '../common-rest.service';
+import {UserManagementService} from '../user-management.service';
+import {DialogService} from 'ng2-bootstrap-modal';
+import {AlertDialogComponent} from '../alert-dialog/alert-dialog.component';
+import {SessionStorageService} from '../session-storage.service';
 
 
 /**
@@ -23,14 +23,14 @@ import {SessionStorageService} from "../session-storage.service";
  */
 @Component({
   selector: 'network-switchings-browser',
-  templateUrl: "network-switchings-browser.component.html",
+  templateUrl: 'network-switchings-browser.component.html',
   styleUrls: ['./network-switchings-browser.component.scss'],
 })
-export class NetworkswitchingsBrowserComponent implements OnInit {
+export class NetworkswitchingsBrowserComponent implements OnInit, AfterViewInit, OnDestroy {
   private log = Log.create('network-switching-browser');
 
   private searchTermObservable = new Subject<string>();
-  private searchTerm: string = "";
+  private searchTerm: string = '';
 
   private sortingList: Array<Sorting> = [];
 
@@ -98,7 +98,7 @@ timestamp), e.g <code>2017-03-12</code></li>
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
-        this.log.i("project-id=", projectId);
+        this.log.i('project-id=', projectId);
         return this.loadNwsw()
       })
       .subscribe(nwsws => this.networkswitchings = nwsws,
@@ -167,12 +167,12 @@ timestamp), e.g <code>2017-03-12</code></li>
 
 
   onScrollDown() {
-    this.log.d("scrolled down");
+    this.log.d('scrolled down');
     this.loadNwsw();
   }
 
   onScrollUp() {
-    this.log.d("scrolled up");
+    this.log.d('scrolled up');
     this.loadNwsw();
   }
 
@@ -202,7 +202,7 @@ timestamp), e.g <code>2017-03-12</code></li>
 
   showInfoOnFilter() {
     this.dialogService.addDialog(AlertDialogComponent,
-      { title: "Filtering",
+      { title: 'Filtering',
         message: this.SEARCH_FILTER_HELP_MESSAGE },
       { closeByClickingOutside: true });
   }
@@ -213,7 +213,7 @@ timestamp), e.g <code>2017-03-12</code></li>
 column with first precedence first then with second precedence second (and so on). If you a column a second time 
 it is changing from ascending to descending (and vice versa). To start over click the 'Reset Sorting' button.`;
     this.dialogService.addDialog(AlertDialogComponent,
-                                { title: "Sorting",
+                                { title: 'Sorting',
                                   message: message },
                                 { closeByClickingOutside: true });
   }

@@ -20,15 +20,15 @@ export class SortIndicator {
 
   getArrowClass(): string {
     if (this.ascending) {
-      return this.ascending == "true" ?  "glyphicon-menu-up" : "glyphicon-menu-down";
+      return this.ascending == 'true' ?  'glyphicon-menu-up' : 'glyphicon-menu-down';
     }
-    return "";
+    return '';
   }
 
   getSortOrder(): string {
     if (this.order && Number(this.order) >= 0) {
       return String((Number(this.order) + 1));
     }
-    return "";
+    return '';
   }
 }

@@ -1,16 +1,16 @@
-import {Log} from "ng2-logger/ng2-logger";
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {Networkswitching} from "../model/networkswitching";
-import {Params, ActivatedRoute, Router, CanDeactivate} from "@angular/router";
-import {NetworkswitchingService} from "../networkswitching.service";
-import {Endpoint} from "../model/endpoint";
-import {User} from "../model/user";
-import {UserManagementService} from "../user-management.service";
-import {NgForm} from "@angular/forms";
-import {Observable} from "rxjs";
-import {DialogService} from "ng2-bootstrap-modal";
-import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
-import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.component";
+import {Log} from 'ng2-logger/ng2-logger';
+import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import {Networkswitching} from '../model/networkswitching';
+import {Params, ActivatedRoute, Router, CanDeactivate} from '@angular/router';
+import {NetworkswitchingService} from '../networkswitching.service';
+import {Endpoint} from '../model/endpoint';
+import {User} from '../model/user';
+import {UserManagementService} from '../user-management.service';
+import {NgForm} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {DialogService} from 'ng2-bootstrap-modal';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {AbstractNetworkSwitchingComponent} from '../abstract-network-switching.component';
 
 
 /**
@@ -21,7 +21,7 @@ import {AbstractNetworkSwitchingComponent} from "../abstract-network-switching.c
   templateUrl: './create-network-switching.component.html',
   styleUrls: ['./create-network-switching.component.scss']
 })
-export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit, CanDeactivate<boolean> {
+export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingComponent implements OnInit, CanDeactivate<boolean>, OnDestroy {
 
   private log = Log.create('create-network-switching');
 
@@ -55,7 +55,7 @@ export class CreateNetworkSwitchingComponent extends AbstractNetworkSwitchingCom
       .switchMap((params: Params) => {
         const projectId = params['projectId'];
         this.userManagementService.setProjectId(projectId).catch(err => this.setErrormessage(err));
-        this.log.i("create-nwsw project-id=", projectId);
+        this.log.i('create-nwsw project-id=', projectId);
         return [];
       })
       .subscribe(ok => {}, err => this.setErrormessage(err) );

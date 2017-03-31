@@ -1,8 +1,8 @@
 import {Log} from 'ng2-logger/ng2-logger'
-import {Component, OnInit, ViewChild, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewChild, EventEmitter, OnDestroy, AfterViewChecked} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {MultiEmailDirective} from "../multi-email.directive";
-import {Subscription} from "rxjs";
+import {MultiEmailDirective} from '../multi-email.directive';
+import {Subscription} from 'rxjs';
 
 
 /**
@@ -15,7 +15,7 @@ import {Subscription} from "rxjs";
   exportAs: 'ngModel',
   outputs: ['inputValid']
 })
-export class MultiEmailFormComponent implements OnInit {
+export class MultiEmailFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   private log = Log.create('multi-email-form');
 
   private multiEmailForm: NgForm;
@@ -66,7 +66,7 @@ export class MultiEmailFormComponent implements OnInit {
     if (!this.multiEmailForm) {
       return;
     }
-    this.log.d('onValueChanged: ', JSON.stringify(data), "  valid=", this.multiEmailForm.valid);
+    this.log.d('onValueChanged: ', JSON.stringify(data), '  valid=', this.multiEmailForm.valid);
 
     if (this.multiEmailValid !== this.multiEmailForm.valid) {
       // valid flag has changed:

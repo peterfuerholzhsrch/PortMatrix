@@ -1,5 +1,4 @@
-import { PortMatrixPage } from './app.po';
-import {browser} from "protractor";
+import {PortMatrixPage} from './app.po';
 
 describe('port-matrix App', function() {
   let page: PortMatrixPage;
@@ -12,11 +11,6 @@ describe('port-matrix App', function() {
     page.navigateTo();
     expect(page.getTitle()).toEqual('PortMatrix');
   });
-
-  /*  it('should display search', () => {
-   page.navigateTo();
-   expect(page.getFilter().isPresent()).toBeTruthy();
-   });*/
 });
 
 describe('App actions', function() {
