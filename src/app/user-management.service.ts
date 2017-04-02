@@ -169,8 +169,7 @@ export class UserManagementService extends CommonRestService {
     }
     const params = {
       recipients: recipients,
-      projectId: this.sessionStorageService.getProjectId(),
-      adminId: this.sessionStorageService.getUser().getId()
+      projectId: this.sessionStorageService.getProjectId()
     };
 
     return this.post(UserManagementService.USERSMAIL_URL, params)

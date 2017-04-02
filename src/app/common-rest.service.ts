@@ -121,11 +121,15 @@ export class CommonRestService {
   }
 
 
-  static handleError(error: any): Promise<any> {
+  /**
+   * @param error
+   * @returns Promise<string>
+   */
+  static handleError(error: any): Promise<string> {
     CommonRestService.log.er('An error occurred', error);
     CommonRestService.redirectUrl = undefined; // don't try more than once (it may have got invalid)
     const text = error.text && error.text();
-    return Promise.reject(error.message || text || error);
+    return Promise.reject(error.message || text || '' + error);
   }
 
 

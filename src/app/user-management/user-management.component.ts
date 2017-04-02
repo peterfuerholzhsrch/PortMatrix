@@ -181,8 +181,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
    * handleError is a closure so it is already bound to this!
    * @param err
    */
-  private static handleError(err) {
+  private static handleError(err: string) {
     UserManagementComponent.log.er('Error=', err);
-    UserManagementComponent.errormessage = err.text() ? err.text() : err.statusText;
+    UserManagementComponent.errormessage = err;
   }
 }

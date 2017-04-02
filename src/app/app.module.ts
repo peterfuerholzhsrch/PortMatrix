@@ -1,10 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, enableProdMode} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {AppRoutingModule}     from './app-routing.module';
 import './rxjs-extensions';
-import {Log, Level} from 'ng2-logger/ng2-logger'
 import {AlertModule} from 'ng2-bootstrap';
 import {BootstrapModalModule} from 'ng2-bootstrap-modal';
 
@@ -31,9 +30,6 @@ import {TestStatusComponent} from './test-status/test-status.component';
 import { PrePostfixPipe } from './pre-postfix.pipe';
 import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 
-// TODO Comment out for development!
-Log.setProductionMode();
-enableProdMode();
 
 /**
  * The PortMatrix application consists of one module only. Here is where it is defined.

@@ -14,6 +14,9 @@ const SYSTEM_ENVIRONMENTS = [
   SystemEnvironment.INTEGRATION_SYSTEM,
   SystemEnvironment.PRODUCTION_SYSTEM];
 
+/**
+ * Add some (static) functions to the SystemEnvironment namespace (= name of the enum).
+ */
 namespace SystemEnvironment {
 
   export function getCssClass(system: SystemEnvironment) {
