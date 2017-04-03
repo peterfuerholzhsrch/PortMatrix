@@ -1,7 +1,7 @@
 # PortMatrix []()
 
-This web application is a tool for managing network switching. It got created as 'Project 2' within the HSR CASFEE
-course by Marco Endres and Peter Fuerholz.
+This web application is a tool for managing network switching. It got created as 'Project 2' within the HSR CASFEE course by Marco Endres and Peter Fuerholz.
+A short presentation about the project can be found [here](https://docs.google.com/presentation/d/1apz2Q9Dheh4vbxBXXWGfgO7p8EfKa0dpfItsgC_0K4M/pub?start=true&loop=true&delayms=3000).
 
 ## Table Of Contents
 * [Specification](Specification.MD)
@@ -27,14 +27,14 @@ course by Marco Endres and Peter Fuerholz.
    (Only needed for deployment: Create /dist of the PortMatrix: `$ $(npm bin)/ng build`)
 7. Open browser on: http://localhost:4200
 8. If you have run `runFillExampleData.sh` you can log in with following credentials: username: a@a.a, password: a
-   Otherwise sign in with an email and preferred password.
+   Otherwise sign up with your email and preferred password.
 
 
 ## Notable *Cool* Features
 
 * UI is generally responsive 
 * Infinite scrolling of the network switchings / lazy loading
-* Sorting (by multiple columns) and searching network switchings
+* Sorting (by multiple columns) and filtering network switchings
 * Allows to invite more users into same project (by email)
 * Stylelinting for SCSS
 * e2e tests with protractor run with: "npm run e2e"
@@ -49,11 +49,12 @@ _Frontend:_
 
 * TypeScript: YES 
 * AngularJS 2: YES, (including CLI)
-* Bootstrap: Where needed.
+* Bootstrap: Where appropriate.
 
 _Backend:_
 
 * NodeJS / Express: YES
+* ES5: YES
 * NeDB: YES
 * MongoDB and Mongoose: NO
 

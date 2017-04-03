@@ -1,14 +1,9 @@
-# Usage
+# Development
 
 The original setup was generated using IntelliJ's AngularJS-CLI template.
 See more under [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.21.
 After the first project creation angular-cli got installed locally and
-removed globally. (Angular-CLI is currently under heavy development with breaking changes.)
-
-## Development server
-
-Run `$(npm bin)/ng serve` or `npm start` for a dev server. Navigate to `http://localhost:4200/`.
-The app will automatically reload if you change any of the source files.
+removed globally.
 
 ## Code scaffolding
 
@@ -30,12 +25,12 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
   Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ### Backend:
-* Check REST-services:
-   `./runTest1-users.sh` (or `$(npm bin)/jasmine-node ./test/users-spec.js`)
-   `runTest2-twoUsers.sameProject.sh`
-   `runTest3-twoUsers.inheritAdmin.sh`
-   `runTest4-loginLogout.sh`
-   `runTest5-nwsws.sh`
+* Check REST-services: <br/>
+   `./runTest1-users.sh` (or `$(npm bin)/jasmine-node ./test/users-spec.js`) <br/>
+   `runTest2-twoUsers.sameProject.sh` <br/>
+   `runTest3-twoUsers.inheritAdmin.sh` <br/>
+   `runTest4-loginLogout.sh` <br/>
+   `runTest5-nwsws.sh` <br/>
    Do not try to run all tests together (`$(npm bin)/jasmine-node ./test) they have side effects!
    For these tests the server must be started before.
 
@@ -82,3 +77,10 @@ To get more help on the `angular-cli` use `ng --help` or go check out the [Angul
   <dt>npm install winston --save</dt>
   <dd>A logger implementation, see https://blog.risingstack.com/node-js-logging-tutorial/</dd>
 </dl>
+
+## Deployment on Heroku
+The application got deployed on Heroku: https://rocky-caverns-30136.herokuapp.com
+Some information about this deployment:
+* data has been populated by means of `runFillExampleData.sh` (thus one user a@a.a...)
+* free account -> application gets hibernated and needs some time before getting ready
+* user changes get lost every 24 hours
